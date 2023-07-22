@@ -68,10 +68,24 @@ target_compile_features("${PROJECT_NAME}" PRIVATE cxx_std_20)
 
 # Manually list all .h and .cpp files for the plugin
 set(SourceFiles
-    Source/PluginEditor.h
-    Source/PluginProcessor.h
-    Source/PluginEditor.cpp
-    Source/PluginProcessor.cpp)
+    ./Source/InfoPanel.h
+    ./Source/PluginProcessor.cpp
+    ./Source/TuxPaint.cpp
+    ./Source/OptionsPanel.h
+    ./Source/PluginEditor.h
+    ./Source/OptionsPanel.cpp
+    ./Source/InfoPanel.cpp
+    ./Source/PluginEditor.cpp
+    ./Source/CanvasPanel.h
+    ./Source/ToolsPanel.h
+    ./Source/CanvasPanel.cpp
+    ./Source/ToolsPanel.cpp
+    ./Source/ColorsPanel.h
+    ./Source/ColorsPanel.cpp
+    ./Source/TuxPaint.h
+    ./Source/PluginProcessor.h
+    ./Source/TuxConstants.h
+)
 target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 
 # No, we don't want our source buried in extra nested folders

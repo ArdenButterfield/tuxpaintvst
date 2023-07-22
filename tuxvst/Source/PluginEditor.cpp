@@ -1,5 +1,6 @@
 #include "PluginEditor.h"
 #include "PluginProcessor.h"
+#include "TuxConstants.h"
 
 //==============================================================================
 PluginEditor::PluginEditor (PluginProcessor& p)
@@ -9,7 +10,8 @@ PluginEditor::PluginEditor (PluginProcessor& p)
 
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (TuxConstants::WINDOW_WIDTH, TuxConstants::WINDOW_HEIGHT);
+    addAndMakeVisible(tuxPaint);
 }
 
 PluginEditor::~PluginEditor()
@@ -31,4 +33,5 @@ void PluginEditor::paint (juce::Graphics& g)
 void PluginEditor::resized()
 {
     // lay out the positions of your components
+    tuxPaint.setBounds(getLocalBounds());
 }

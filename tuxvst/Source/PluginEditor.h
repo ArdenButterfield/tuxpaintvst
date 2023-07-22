@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PluginProcessor.h"
+#include "TuxPaint.h"
 
 //==============================================================================
 class PluginEditor : public juce::AudioProcessorEditor
@@ -17,6 +18,8 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     PluginProcessor& processorRef;
+
+    TuxPaint tuxPaint;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginEditor)
 };
