@@ -85,6 +85,8 @@ set(SourceFiles
     ./Source/TuxPaint.h
     ./Source/PluginProcessor.h
     ./Source/TuxConstants.h
+    ./Source/TitlePanel.cpp
+        ./Source/TitlePanel.h
 )
 target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 

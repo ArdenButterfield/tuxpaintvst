@@ -6,6 +6,7 @@
 #include "InfoPanel.h"
 #include "OptionsPanel.h"
 #include "ToolsPanel.h"
+#include "TitlePanel.h"
 
 #include "TuxConstants.h"
 
@@ -23,40 +24,22 @@ public:
     OptionsPanel optionsPanel;
     ColorsPanel colorsPanel;
     InfoPanel infoPanel;
+    TitlePanel toolsTitlePanel;
+    TitlePanel optionsTitlePanel;
+    TitlePanel colorsTitlePanel;
+
+    const int button_w = 48;
+    const int button_h = 48;
+    const int color_button_w = 32;
+    const int color_button_h = 48;
+
 
     TuxPaint();
     ~TuxPaint();
     void paint (juce::Graphics& g) override;
     void resized() override;
 private:
-    void setScreenLayout();
 
-    int button_w;            /* was 48 */
-    int button_h;            /* was 48 */
-    int button_size_auto = 0;        /* if the size of buttons should be autocalculated */
-    float button_scale = 1.0;      /* scale factor to be applied to the size of buttons */
-    int color_button_w;      /* was 32 */
-    int color_button_h;      /* was 48 */
-
-    int buttons_tall;        /* promoted to a global variable from setup_normal_screen_layout() */
-
-    /* These are the maximum slots -- some may be unused. */
-    grid_dims gd_sfx;
-
-    /* *INDENT-OFF* */
-    /* static grid_dims gd_open; *//* was 4x4 */
-    /* *INDENT-ON* */
-
-    juce::Rectangle<int> r_ttools;
-    juce::Rectangle<int> r_ttoolopt;
-    juce::Rectangle<int> r_colors;
-    juce::Rectangle<int> r_tcolors;
-    juce::Rectangle<int> r_canvas;
-    juce::Rectangle<int> r_label;
-    juce::Rectangle<int> r_tuxarea;
-    juce::Rectangle<int> r_sfx;
-    juce::Rectangle<int>  r_tools;
-    juce::Rectangle<int>  r_toolopt;
 
 };
 

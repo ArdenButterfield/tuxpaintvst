@@ -10,7 +10,7 @@ PluginEditor::PluginEditor (PluginProcessor& p)
 
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (TuxConstants::WINDOW_WIDTH, TuxConstants::WINDOW_HEIGHT);
+    setSize (640, 460);
     addAndMakeVisible(tuxPaint);
 }
 
