@@ -173,9 +173,9 @@ jobs:
         mv "${{ env.ARTIFACTS_PATH }}/VST3/${{ env.PROJECT_NAME }}.vst3" packaging/plugins
         mv "${{ env.ARTIFACTS_PATH }}/AU/${{ env.PROJECT_NAME }}.component" packaging/plugins
         npm install -g appdmg
-        packagesbuild packaging/Maim.pkgproj
-        productsign --sign "${{ secrets.DEVELOPER_ID_INSTALLER}}" packaging/build/Maim.pkg packaging/build/MaimSigned.pkg
-        mv packaging/build/MaimSigned.pkg packaging/build/Maim.pkg
+        packagesbuild packaging/{{ env.PROJECT_NAME }}.pkgproj
+        productsign --sign "${{ secrets.DEVELOPER_ID_INSTALLER}}" packaging/build/{{ env.PROJECT_NAME }}.pkg packaging/build/{{ env.PROJECT_NAME }}Signed.pkg
+        mv packaging/build/{{ env.PROJECT_NAME }}Signed.pkg packaging/build/{{ env.PROJECT_NAME }}.pkg
         
         appdmg packaging/dmg.json packaging/${{ env.PRODUCT_NAME}}.dmg
     - name: Import dmg Certificates (macOS)
