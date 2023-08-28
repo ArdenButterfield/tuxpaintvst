@@ -51,7 +51,7 @@ juce_add_plugin("${PROJECT_NAME}"
     # ICON_BIG ...                              # ICON_* arguments specify a path to an image file to use as an icon for the Standalone
     # ICON_SMALL ...
     COMPANY_NAME Wildergarden
-    BUNDLE_ID com.wildergarden.wildergarden
+    BUNDLE_ID com.wildergarden.tuxpaintVST
     # IS_SYNTH TRUE/FALSE                       # Is this a synth or an effect?
     # NEEDS_MIDI_INPUT TRUE/FALSE               # Does the plugin need midi input?
     # NEEDS_MIDI_OUTPUT TRUE/FALSE              # Does the plugin need midi output?
@@ -86,7 +86,10 @@ set(SourceFiles
     ./Source/PluginProcessor.h
     ./Source/TuxConstants.h
     ./Source/TitlePanel.cpp
-        ./Source/TitlePanel.h
+
+    ./Source/TitlePanel.h
+    ./Source/ToolButton.cpp
+    ./Source/ToolButton.h
 )
 target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 
@@ -96,12 +99,147 @@ set_target_properties("${PROJECT_NAME}" PROPERTIES FOLDER "")
 # The Xcode source tree should uhhh, still look like the source tree, yo
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Source PREFIX "" FILES ${SourceFiles})
 
-# Setup our binary data as a target
-juce_add_binary_data(Assets SOURCES pamplejuce.png)
+juce_add_binary_data(Brushes SOURCES
+        ./Source/data/brushes/flower_6_small.dat
+        ./Source/data/brushes/heart.png
+        ./Source/data/brushes/flower_6_small.png
+        ./Source/data/brushes/slash_10_lt.png
+        ./Source/data/brushes/aa_round_fuzz.png
+        ./Source/data/brushes/rotating_dash.dat
+        ./Source/data/brushes/squirrel.dat
+        ./Source/data/brushes/slash_20_lt.png
+        ./Source/data/brushes/spiral.dat
+        ./Source/data/brushes/rotating_dash.png
+        ./Source/data/brushes/kuroneko.png
+        ./Source/data/brushes/hexagon.png
+        ./Source/data/brushes/lines-angled.png
+        ./Source/data/brushes/spray.png
+        ./Source/data/brushes/inksplat.dat
+        ./Source/data/brushes/sparkles.dat
+        ./Source/data/brushes/aa_round_seethru_10.png
+        ./Source/data/brushes/slash_20_rt.png
+        ./Source/data/brushes/spiral.png
+        ./Source/data/brushes/square_fuzz.png
+        ./Source/data/brushes/aa_round_03.png
+        ./Source/data/brushes/footprints-human-shoes.dat
+        ./Source/data/brushes/aa_round_36.png
+        ./Source/data/brushes/star.dat
+        ./Source/data/brushes/lines-angled.dat
+        ./Source/data/brushes/square_12.png
+        ./Source/data/brushes/tiny.png
+        ./Source/data/brushes/flower_7.png
+        ./Source/data/brushes/diamond.png
+        ./Source/data/brushes/flower_6.png
+        ./Source/data/brushes/slash_10_rt.png
+        ./Source/data/brushes/heart.dat
+        ./Source/data/brushes/arrow_triangles.dat
+        ./Source/data/brushes/footprints-human.dat
+        ./Source/data/brushes/aa_round_24.png
+        ./Source/data/brushes/footprints-paws.dat
+        ./Source/data/brushes/slash_16_rt.png
+        ./Source/data/brushes/aa_round_seethru_05.png
+        ./Source/data/brushes/square_seethru.png
+        ./Source/data/brushes/flower_5_small.dat
+        ./Source/data/brushes/square_06.png
+        ./Source/data/brushes/splat.png
+        ./Source/data/brushes/cutout_square_diamond.png
+        ./Source/data/brushes/aa_round_06.png
+        ./Source/data/brushes/triangle_up.png
+        ./Source/data/brushes/squirrel.png
+        ./Source/data/brushes/vine.png
+        ./Source/data/brushes/vine.dat
+        ./Source/data/brushes/pentagon.png
+        ./Source/data/brushes/triangle_down.png
+        ./Source/data/brushes/arrow.dat
+        ./Source/data/brushes/footprints-paws.png
+        ./Source/data/brushes/flower_7.dat
+        ./Source/data/brushes/arrow.png
+        ./Source/data/brushes/sphere.png
+        ./Source/data/brushes/kuroneko.dat
+        ./Source/data/brushes/footprints-human-shoes.png
+        ./Source/data/brushes/arrow_triangles.png
+        ./Source/data/brushes/lozenge.png
+        ./Source/data/brushes/aa_round_12.png
+        ./Source/data/brushes/flower_5_small.png
+        ./Source/data/brushes/footprints-human.png
+        ./Source/data/brushes/slash_16_lt.png
+        ./Source/data/brushes/chisle.png
+        ./Source/data/brushes/blob.png
+        ./Source/data/brushes/x.png
+        ./Source/data/brushes/spray.dat
+        ./Source/data/brushes/flower_6.dat
+        ./Source/data/brushes/flower_5.dat
+        ./Source/data/brushes/sparkles.png
+        ./Source/data/brushes/sphere.dat
+        ./Source/data/brushes/cutout_star_circle.png
+        ./Source/data/brushes/dog.dat
+        ./Source/data/brushes/dog.png
+        ./Source/data/brushes/oval.png
+        ./Source/data/brushes/flower_5.png
+        ./Source/data/brushes/square_36.png
+        ./Source/data/brushes/inksplat.png
+        ./Source/data/brushes/aa_round_seethru.png
+        ./Source/data/brushes/square_24.png
+        ./Source/data/brushes/star.png
+        )
+juce_add_binary_data(Fonts SOURCES
+        ./Source/data/fonts/FreeSerif.ttf
+        ./Source/data/fonts/FreeSerifBold.ttf
+        ./Source/data/fonts/FreeMono.ttf
+        ./Source/data/fonts/FreeSerifItalic.ttf
+        ./Source/data/fonts/FreeMonoBoldOblique.ttf
+        ./Source/data/fonts/FreeSansBoldOblique.ttf
+        ./Source/data/fonts/FreeMonoBold.ttf
+        ./Source/data/fonts/FreeMonoOblique.ttf
+        ./Source/data/fonts/FreeSansBold.ttf
+        ./Source/data/fonts/FreeSans.ttf
+        ./Source/data/fonts/default_font.ttf
+        ./Source/data/fonts/FreeSerifBoldItalic.ttf
+        ./Source/data/fonts/FreeSansOblique.ttf
+        )
+juce_add_binary_data(Fills SOURCES
+        ./Source/data/images/fills/gradient_linear.png
+        ./Source/data/images/fills/solid.png
+        ./Source/data/images/fills/gradient_shaped.png
+        ./Source/data/images/fills/gradient_radial.png
+        ./Source/data/images/fills/brush.png
+        )
+
+juce_add_binary_data(Shapes SOURCES
+        ./Source/data/images/shapes/circle.png
+        ./Source/data/images/shapes/heptagon.png
+        ./Source/data/images/shapes/star4p_f.png
+        ./Source/data/images/shapes/hexagon.png
+        ./Source/data/images/shapes/square_f.png
+        ./Source/data/images/shapes/star4p.png
+        ./Source/data/images/shapes/heptagon_f.png
+        ./Source/data/images/shapes/square.png
+        ./Source/data/images/shapes/diamond.png
+        ./Source/data/images/shapes/rectangle.png
+        ./Source/data/images/shapes/oval_f.png
+        ./Source/data/images/shapes/star5p_f.png
+        ./Source/data/images/shapes/rectangle_f.png
+        ./Source/data/images/shapes/pentagon.png
+        ./Source/data/images/shapes/star3p.png
+        ./Source/data/images/shapes/circle_f.png
+        ./Source/data/images/shapes/triangle.png
+        ./Source/data/images/shapes/star5p.png
+        ./Source/data/images/shapes/hexagon_f.png
+        ./Source/data/images/shapes/diamond_f.png
+        ./Source/data/images/shapes/octagon_f.png
+        ./Source/data/images/shapes/triangle_f.png
+        ./Source/data/images/shapes/oval.png
+        ./Source/data/images/shapes/star3p_f.png
+        ./Source/data/images/shapes/pentagon_f.png
+        ./Source/data/images/shapes/octagon.png
+        )
+
 
 # Required for Linux happiness:
 # See https://forum.juce.com/t/loading-pytorch-model-using-binarydata/39997/2
-set_target_properties(Assets PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+set_target_properties(Brushes PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+set_target_properties(Fonts PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+set_target_properties(Fills PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 
 # Clean up folder organization on Xcode.
 # It tucks the Plugin varieties into a "Targets" folder and generate an Xcode Scheme manually
@@ -123,7 +261,9 @@ foreach (target ${FORMATS} "All")
             XCODE_GENERATE_SCHEME ON)
     endif ()
 endforeach ()
-set_target_properties(Assets PROPERTIES FOLDER "Targets")
+set_target_properties(Brushes PROPERTIES FOLDER "Targets")
+set_target_properties(Fonts PROPERTIES FOLDER "Targets")
+set_target_properties(Fills PROPERTIES FOLDER "Targets")
 
 
 target_compile_definitions("${PROJECT_NAME}"
@@ -134,14 +274,25 @@ target_compile_definitions("${PROJECT_NAME}"
     JUCE_VST3_CAN_REPLACE_VST2=0)
 
 target_link_libraries("${PROJECT_NAME}"
-    PRIVATE
-    Assets
-    juce::juce_audio_utils
-    juce::juce_audio_processors
     PUBLIC
-    juce::juce_recommended_config_flags
-    juce::juce_recommended_lto_flags
-    juce::juce_recommended_warning_flags)
+    Brushes
+    Fonts
+    Fills)
+target_link_libraries("${PROJECT_NAME}"
+    PRIVATE
+    juce::juce_audio_basics
+    juce::juce_audio_devices
+    juce::juce_audio_formats
+    juce::juce_audio_plugin_client
+    juce::juce_audio_processors
+    juce::juce_audio_utils
+    juce::juce_core
+    juce::juce_data_structures
+    juce::juce_events
+    juce::juce_graphics
+    juce::juce_gui_basics
+    juce::juce_gui_extra
+    juce::juce_dsp)
 
 # When present, use Intel IPP for performance on Windows
 if (WIN32) # Can't use MSVC here, as it won't catch Clang on Windows
@@ -154,54 +305,6 @@ if (WIN32) # Can't use MSVC here, as it won't catch Clang on Windows
         message("IPP LIBRARIES *NOT* FOUND")
     endif ()
 endif ()
-
-# Required for ctest (which is just easier for cross-platform CI)
-# include(CTest) does this too, but adds tons of targets we don't want
-# See: https://github.com/catchorg/Catch2/issues/2026
-# You also could forgo ctest and call ./Tests directly from the build dir
-enable_testing()
-
-# "GLOBS ARE BAD" is brittle and silly dev UX, sorry CMake!
-# CONFIGURE_DEPENDS / Clion's CMake integration makes globbing absolutely fine
-file(GLOB_RECURSE TestFiles CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Tests/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/Tests/*.h")
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Tests PREFIX "" FILES ${TestFiles})
-
-# Use Catch2 v3 on the devel branch
-Include(FetchContent)
-FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_PROGRESS TRUE
-    GIT_SHALLOW TRUE
-    GIT_TAG v3.3.2)
-FetchContent_MakeAvailable(Catch2) # find_package equivalent
-
-# Setup the test executable, again C++ 20 please
-add_executable(Tests ${TestFiles})
-target_compile_features(Tests PRIVATE cxx_std_20)
-
-# Our test executable also wants to know about our plugin code...
-target_include_directories(Tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source)
-target_link_libraries(Tests PRIVATE Catch2::Catch2WithMain "${PROJECT_NAME}")
-
-# We can't link again to the shared juce target without ODL violations
-# However, we can steal its include dirs and compile definitions to use in tests!
-# https://forum.juce.com/t/windows-linker-issue-on-develop/55524/2
-target_compile_definitions(Tests PRIVATE $<TARGET_PROPERTY:${PROJECT_NAME},COMPILE_DEFINITIONS>)
-target_include_directories(Tests PRIVATE $<TARGET_PROPERTY:${PROJECT_NAME},INCLUDE_DIRECTORIES>)
-
-
-# Make an Xcode Scheme for the test executable so we can run tests in the IDE
-set_target_properties(Tests PROPERTIES XCODE_GENERATE_SCHEME ON)
-
-# Organize the test source in the Tests/ folder in the IDE
-source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Tests PREFIX "" FILES ${TestFiles})
-
-# Load and use the .cmake file provided by Catch2
-# https://github.com/catchorg/Catch2/blob/devel/docs/cmake-integration.md
-# We have to manually provide the source directory here for now
-include(${Catch2_SOURCE_DIR}/extras/Catch.cmake)
-catch_discover_tests(Tests)
 
 # Color our warnings and errors
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")

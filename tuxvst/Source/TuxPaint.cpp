@@ -38,6 +38,7 @@ void TuxPaint::resized() {
     static float render_scale;      *//* Scale factor for the render *//*
     */
 
+    toolsPanel.setBounds(0, 40, 96, 336);
     canvasPanel.setBounds(96,0,448,376);
     optionsPanel.setBounds(544,40,96,336);
     colorsPanel.setBounds(96,376,544,48);

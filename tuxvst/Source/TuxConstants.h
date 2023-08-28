@@ -10,6 +10,18 @@ typedef struct
     int rows, cols;
 } grid_dims;
 
+static int grid_hit_gd(const juce::Rectangle<int>& r, unsigned x, unsigned y, grid_dims& gd)
+{
+    unsigned item_w = r.getWidth() / gd.cols;
+    unsigned item_h = r.getHeight() / gd.rows;
+    unsigned col = (x - r.getX()) / item_w;
+    unsigned row = (y - r.getY()) / item_h;
+
+    if (col >= gd.cols || row >= gd.rows)
+        return -1;
+    return col + row * gd.cols;
+}
+
 
 class TuxConstants
 {
