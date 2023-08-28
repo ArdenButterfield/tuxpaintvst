@@ -86,7 +86,6 @@ set(SourceFiles
     ./Source/PluginProcessor.h
     ./Source/TuxConstants.h
     ./Source/TitlePanel.cpp
-
     ./Source/TitlePanel.h
     ./Source/ToolButton.cpp
     ./Source/ToolButton.h
