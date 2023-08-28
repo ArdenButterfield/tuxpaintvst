@@ -20,7 +20,6 @@
   ==============================================================================
 */
 
-#include "../../../../Source/ToolButton.h"
 namespace juce
 {
 
@@ -291,7 +290,7 @@ public:
         @returns            the new object that was added
         @see set, insert, addSorted
     */
-    ObjectClass* add (ToolButton newObject)
+    ObjectClass* add (ObjectClass* newObject)
     {
         const ScopedLockType lock (getLock());
         values.add (newObject);
