@@ -27,6 +27,8 @@ public:
     TitlePanel toolsTitlePanel;
     TitlePanel optionsTitlePanel;
     TitlePanel colorsTitlePanel;
+    juce::ImageComponent toolTitleBackground;
+    juce::ImageComponent colorTitleBackground;
 
     const int button_w = 48;
     const int button_h = 48;
@@ -40,6 +42,7 @@ public:
     void resized() override;
 private:
     juce::AudioProcessorValueTreeState& parameters;
+
 };
 
 #endif //TUXPAINTVST_TUXPAINT_H

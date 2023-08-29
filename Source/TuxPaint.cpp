@@ -9,8 +9,12 @@
 TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p)
     : parameters(p),
       toolsPanel(p),
-      colorsPanel(p)
+      colorsPanel(p),
+      colorsTitlePanel("Colors"),
+      toolsTitlePanel("Tools"),
+      optionsTitlePanel("Brushes")
 {
+
     addAndMakeVisible(toolsPanel);
     addAndMakeVisible(canvasPanel);
     addAndMakeVisible(optionsPanel);

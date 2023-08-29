@@ -9,6 +9,7 @@
 #include <juce_graphics/juce_graphics.h>
 
 #include "TuxConstants.h"
+#include "BinaryDataHeaders/BinaryDataUI.h"
 
 
 class CanvasPanel : public juce::Component

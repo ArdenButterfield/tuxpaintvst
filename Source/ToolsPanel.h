@@ -36,6 +36,7 @@ public:
     juce::Rectangle<int> real_tools;
 
 private:
+
     int cur_tool, old_tool;
     juce::OwnedArray<ToolButton> toolButtons;
     enum

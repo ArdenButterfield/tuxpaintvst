@@ -27,7 +27,7 @@ ColorsPanel::~ColorsPanel() {
 
 }
 void ColorsPanel::paint (juce::Graphics& g) {
-    g.setColour(juce::Colours::cyan);
+    g.setColour(juce::Colours::white);
     g.fillAll();
 }
 

@@ -25,7 +25,7 @@ ToolsPanel::~ToolsPanel() {
 }
 
 void ToolsPanel::paint (juce::Graphics& g) {
-    g.setColour(juce::Colours::magenta);
+    g.setColour(juce::Colours::white);
     g.fillAll();
 }
 
