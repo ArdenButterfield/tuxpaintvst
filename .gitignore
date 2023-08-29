@@ -28,3 +28,7 @@ cmake-build-debug
 cmake-build-release
 cmake-build-relwithdebinfo
 packaging/Output/*
+
+# tux paint source, for reference.
+# downloaded from here: https://sourceforge.net/projects/tuxpaint/files/tuxpaint/0.9.31/tuxpaint-0.9.31.tar.gz/download
+tuxpaint-0.9.31

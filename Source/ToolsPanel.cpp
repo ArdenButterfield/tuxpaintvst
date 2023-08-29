@@ -7,9 +7,10 @@
 ToolsPanel::ToolsPanel() {
     gd_tools = {7,2};
     cur_tool = TOOL_BRUSH;
+    old_tool = TOOL_BRUSH;
     for (int i = 0; i < NUM_TOOLS; ++i) {
         tool_avail[i] = 1;
-        auto button = new ToolButton(juce::String(tool_names[i]), i);
+        auto button = new ToolButton(juce::String(tool_names[i]), i, buttonIcons[i]);
         toolButtons.add(button);
         addAndMakeVisible(button);
         button->addListener(this);
@@ -39,11 +40,11 @@ void ToolsPanel::mouseDown (const juce::MouseEvent& event) {
 void ToolsPanel::buttonClicked (juce::Button* b)
 {
     ToolButton* button = dynamic_cast<ToolButton*>(b);
-    for (auto& childButton : toolButtons) {
+    if (button->toolID == cur_tool || !button->isOn()) {
+        return;
     }
-    std::cout << button->toolID << "\n";
-}
-void ToolsPanel::buttonStateChanged (juce::Button*)
-{
-
+    toolButtons[cur_tool]->setDown(false);
+    old_tool = cur_tool;
+    cur_tool = button->toolID;
+    button->setDown(true);
 }

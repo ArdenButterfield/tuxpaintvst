@@ -10,6 +10,8 @@
 #include <juce_graphics/juce_graphics.h>
 #include <juce_gui_basics/juce_gui_basics.h>
 
+#include "BinaryDataHeaders/BinaryDataTools.h"
+
 #include "TuxConstants.h"
 #include "ToolButton.h"
 
@@ -23,15 +25,14 @@ public:
     void mouseDown (const juce::MouseEvent& event) override;
 
     void buttonClicked (juce::Button *) override;
-    void buttonStateChanged (juce::Button *) override;
+    void buttonStateChanged (juce::Button *) override {}
 
     grid_dims gd_tools;      /* was 2x7 */
 
     juce::Rectangle<int> real_tools;
 
-    int cur_tool, old_tool;
-
 private:
+    int cur_tool, old_tool;
     enum
     {
         TOOL_BRUSH,
@@ -51,6 +52,23 @@ private:
         NUM_TOOLS
     };
     int tool_avail[NUM_TOOLS];
+
+    const std::array<juce::Image, NUM_TOOLS> buttonIcons {
+        juce::ImageCache::getFromMemory(BinaryDataTools::brush_png, BinaryDataTools::brush_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::stamp_png, BinaryDataTools::stamp_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::lines_png, BinaryDataTools::lines_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::shapes_png, BinaryDataTools::shapes_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::text_png, BinaryDataTools::text_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::label_png, BinaryDataTools::label_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::fill_png, BinaryDataTools::fill_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::magic_png, BinaryDataTools::magic_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::undo_png, BinaryDataTools::undo_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::redo_png, BinaryDataTools::redo_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::eraser_png, BinaryDataTools::eraser_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::new_png, BinaryDataTools::new_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::open_png, BinaryDataTools::open_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataTools::save_png, BinaryDataTools::save_pngSize),
+    };
 
     const char *const tool_names[NUM_TOOLS] = {
         // Freehand painting tool
