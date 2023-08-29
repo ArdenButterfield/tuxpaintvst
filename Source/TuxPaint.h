@@ -34,13 +34,12 @@ public:
     const int color_button_h = 48;
 
 
-    TuxPaint();
+    TuxPaint(juce::AudioProcessorValueTreeState& p);
     ~TuxPaint();
     void paint (juce::Graphics& g) override;
     void resized() override;
 private:
-
-
+    juce::AudioProcessorValueTreeState& parameters;
 };
 
 #endif //TUXPAINTVST_TUXPAINT_H

@@ -2,6 +2,28 @@
 #include "PluginEditor.h"
 
 //==============================================================================
+
+juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
+{
+    std::vector<std::unique_ptr<juce::RangedAudioParameter>> parameters;
+    parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
+        juce::ParameterID {"tool", 1},
+        "Tool",
+        juce::StringArray {
+            "Paint",
+            "Stamp",
+            "Lines",
+            "Shapes",
+            "Text",
+            "Label",
+            "Fill",
+            "Magic",
+            "Eraser"
+        },
+        0));
+    return {parameters.begin(), parameters.end()};
+}
+
 PluginProcessor::PluginProcessor()
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -10,7 +32,9 @@ PluginProcessor::PluginProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+      parameters(*this, nullptr, juce::Identifier("TuxPaintVST"), makeParameters())
+
 {
 }
 
@@ -176,6 +200,14 @@ void PluginProcessor::setStateInformation (const void* data, int sizeInBytes)
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
     juce::ignoreUnused (data, sizeInBytes);
+}
+
+juce::AudioProcessorValueTreeState& PluginProcessor::getValueTreeState()
+{
+    return parameters;
+}
+void PluginProcessor::parameterChanged (const juce::String& parameterID, float newValue)
+{
 }
 
 //==============================================================================

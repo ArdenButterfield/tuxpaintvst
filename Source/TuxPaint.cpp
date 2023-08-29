@@ -6,7 +6,10 @@
 
 
 
-TuxPaint::TuxPaint() {
+TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p)
+    : parameters(p),
+      toolsPanel(p)
+{
     addAndMakeVisible(toolsPanel);
     addAndMakeVisible(canvasPanel);
     addAndMakeVisible(optionsPanel);

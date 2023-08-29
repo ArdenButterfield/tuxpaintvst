@@ -15,10 +15,15 @@
 #include "TuxConstants.h"
 #include "ToolButton.h"
 
-class ToolsPanel : public juce::Component, public juce::Button::Listener
+typedef juce::AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
+
+class ToolsPanel
+    : public juce::Component,
+      public juce::Button::Listener,
+      public juce::AudioProcessorValueTreeState::Listener
 {
 public:
-    ToolsPanel();
+    ToolsPanel(juce::AudioProcessorValueTreeState& p);
     ~ToolsPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;
@@ -163,6 +168,13 @@ private:
     };
 
     const int numColumns = 2;
+
+    juce::AudioProcessorValueTreeState& parameters;
+    void parameterChanged (const juce::String &parameterID, float newValue) override;
+    std::unique_ptr<juce::Slider> toolSlider;
+    std::unique_ptr<SliderAttachment> toolAttachment;
+
+
 };
 
 #endif //TUXPAINTVST_TOOLS_H

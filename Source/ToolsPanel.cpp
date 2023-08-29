@@ -4,7 +4,11 @@
 
 #include "ToolsPanel.h"
 
-ToolsPanel::ToolsPanel() {
+ToolsPanel::ToolsPanel(juce::AudioProcessorValueTreeState& p)
+    : parameters(p)
+{
+    toolSlider = std::make_unique<juce::Slider>();
+    toolAttachment = std::make_unique<SliderAttachment>(parameters, "tool", *toolSlider);
     gd_tools = {7,2};
     cur_tool = TOOL_BRUSH;
     old_tool = TOOL_BRUSH;
@@ -47,4 +51,7 @@ void ToolsPanel::buttonClicked (juce::Button* b)
     old_tool = cur_tool;
     cur_tool = button->toolID;
     button->setDown(true);
+}
+void ToolsPanel::parameterChanged (const juce::String& parameterID, float newValue)
+{
 }
