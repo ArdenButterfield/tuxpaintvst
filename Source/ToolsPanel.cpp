@@ -10,11 +10,11 @@ ToolsPanel::ToolsPanel() {
     for (int i = 0; i < NUM_TOOLS; ++i) {
         tool_avail[i] = 1;
         auto button = new ToolButton(juce::String(tool_names[i]));
-        //toolButtons.add(button);
+        toolButtons.add(button);
     }
 }
 ToolsPanel::~ToolsPanel() {
-
+    toolButtons.clear(true);
 }
 void ToolsPanel::paint (juce::Graphics& g) {
     g.setColour(juce::Colours::magenta);
