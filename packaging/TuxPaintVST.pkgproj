@@ -1414,7 +1414,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>Maim</string>
+			<string>TuxPaintVST</string>
 			<key>PAYLOAD_ONLY</key>
 			<false/>
 			<key>TREAT_MISSING_PRESENTATION_DOCUMENTS_AS_WARNING</key>
