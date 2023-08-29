@@ -89,6 +89,10 @@ set(SourceFiles
     ./Source/TitlePanel.h
     ./Source/ToolButton.cpp
     ./Source/ToolButton.h
+    ./Source/BinaryDataHeaders/BinaryDataBrushes.h
+    ./Source/BinaryDataHeaders/BinaryDataFills.h
+    ./Source/BinaryDataHeaders/BinaryDataFonts.h
+    ./Source/BinaryDataHeaders/BinaryDataUI.h
 )
 target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 
@@ -98,7 +102,10 @@ set_target_properties("${PROJECT_NAME}" PROPERTIES FOLDER "")
 # The Xcode source tree should uhhh, still look like the source tree, yo
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Source PREFIX "" FILES ${SourceFiles})
 
-juce_add_binary_data(Brushes SOURCES
+juce_add_binary_data(Brushes
+        HEADER_NAME BinaryDataBrushes.h
+        NAMESPACE BinaryDataBrushes
+        SOURCES
         ./Source/data/brushes/flower_6_small.dat
         ./Source/data/brushes/heart.png
         ./Source/data/brushes/flower_6_small.png
@@ -181,7 +188,10 @@ juce_add_binary_data(Brushes SOURCES
         ./Source/data/brushes/square_24.png
         ./Source/data/brushes/star.png
         )
-juce_add_binary_data(Fonts SOURCES
+juce_add_binary_data(Fonts
+        HEADER_NAME BinaryDataFonts.h
+        NAMESPACE BinaryDataFonts
+        SOURCES
         ./Source/data/fonts/FreeSerif.ttf
         ./Source/data/fonts/FreeSerifBold.ttf
         ./Source/data/fonts/FreeMono.ttf
@@ -196,7 +206,10 @@ juce_add_binary_data(Fonts SOURCES
         ./Source/data/fonts/FreeSerifBoldItalic.ttf
         ./Source/data/fonts/FreeSansOblique.ttf
         )
-juce_add_binary_data(Fills SOURCES
+juce_add_binary_data(Fills
+        HEADER_NAME BinaryDataFills.h
+        NAMESPACE BinaryDataFills
+        SOURCES
         ./Source/data/images/fills/gradient_linear.png
         ./Source/data/images/fills/solid.png
         ./Source/data/images/fills/gradient_shaped.png
@@ -204,7 +217,10 @@ juce_add_binary_data(Fills SOURCES
         ./Source/data/images/fills/brush.png
         )
 
-juce_add_binary_data(Shapes SOURCES
+juce_add_binary_data(Shapes
+        HEADER_NAME BinaryDataShapes.h
+        NAMESPACE BinaryDataShapes
+        SOURCES
         ./Source/data/images/shapes/circle.png
         ./Source/data/images/shapes/heptagon.png
         ./Source/data/images/shapes/star4p_f.png
@@ -233,12 +249,92 @@ juce_add_binary_data(Shapes SOURCES
         ./Source/data/images/shapes/octagon.png
         )
 
-
+juce_add_binary_data(ui
+        HEADER_NAME BinaryDataUI.h
+        NAMESPACE BinaryDataUI
+        SOURCES
+        ./Source/data/images/ui/printer.png
+        ./Source/data/images/ui/cmix.png
+        ./Source/data/images/ui/rotate.png
+        ./Source/data/images/ui/paintcan.png
+        ./Source/data/images/ui/color_btn_up.png
+        ./Source/data/images/ui/cursor_up.png
+        ./Source/data/images/ui/magic_fullscreen.png
+        ./Source/data/images/ui/btn_off.png
+        ./Source/data/images/ui/shapes_corner.png
+        ./Source/data/images/ui/btnsm_hold.png
+        ./Source/data/images/ui/slideshow.png
+        ./Source/data/images/ui/trash.png
+        ./Source/data/images/ui/play.png
+        ./Source/data/images/ui/scroll_down_off.png
+        ./Source/data/images/ui/btnsm_off.png
+        ./Source/data/images/ui/erase.png
+        ./Source/data/images/ui/select_digits.png
+        ./Source/data/images/ui/prev.png
+        ./Source/data/images/ui/color_picker_val.png
+        ./Source/data/images/ui/progress.png
+        ./Source/data/images/ui/no_title_large.png
+        ./Source/data/images/ui/btnsm_up.png
+        ./Source/data/images/ui/open.png
+        ./Source/data/images/ui/save_over.png
+        ./Source/data/images/ui/no.png
+        ./Source/data/images/ui/osk_enter.png
+        ./Source/data/images/ui/btnsm_down.png
+        ./Source/data/images/ui/color_btn_down.png
+        ./Source/data/images/ui/grow.png
+        ./Source/data/images/ui/btn_down.png
+        ./Source/data/images/ui/cursor_starter_up.png
+        ./Source/data/images/ui/brush_anim.png
+        ./Source/data/images/ui/dead40x40.png
+        ./Source/data/images/ui/color_grab.png
+        ./Source/data/images/ui/cursor_down_large.png
+        ./Source/data/images/ui/title_large.png
+        ./Source/data/images/ui/osk_capslock.png
+        ./Source/data/images/ui/csel.png
+        ./Source/data/images/ui/btn_nav.png
+        ./Source/data/images/ui/back.png
+        ./Source/data/images/ui/magic_paint.png
+        ./Source/data/images/ui/paintwell.png
+        ./Source/data/images/ui/next.png
+        ./Source/data/images/ui/italic.png
+        ./Source/data/images/ui/btnsm_nav.png
+        ./Source/data/images/ui/yes.png
+        ./Source/data/images/ui/color_picker.png
+        ./Source/data/images/ui/cursor_up_large.png
+        ./Source/data/images/ui/mouse_click.png
+        ./Source/data/images/ui/mirror.png
+        ./Source/data/images/ui/cursor_down.png
+        ./Source/data/images/ui/cursor_starter_down.png
+        ./Source/data/images/ui/brush_dir.png
+        ./Source/data/images/ui/osk_tab.png
+        ./Source/data/images/ui/flip.png
+        ./Source/data/images/ui/bold.png
+        ./Source/data/images/ui/shapes_center.png
+        ./Source/data/images/ui/scroll_up_off.png
+        ./Source/data/images/ui/title.png
+        ./Source/data/images/ui/template.png
+        ./Source/data/images/ui/no_title.png
+        ./Source/data/images/ui/mouse.png
+        ./Source/data/images/ui/popup_arrow.png
+        ./Source/data/images/ui/gif_export.png
+        ./Source/data/images/ui/btn_hold.png
+        ./Source/data/images/ui/sparkles-old.png
+        ./Source/data/images/ui/color_picker_icon.png
+        ./Source/data/images/ui/btn_up.png
+        ./Source/data/images/ui/pict_export.png
+        ./Source/data/images/ui/osk_delete.png
+        ./Source/data/images/ui/printer_wait.png
+        ./Source/data/images/ui/osk_shift.png
+        ./Source/data/images/ui/scroll_down.png
+        ./Source/data/images/ui/scroll_up.png
+        ./Source/data/images/ui/shrink.png
+        )
 # Required for Linux happiness:
 # See https://forum.juce.com/t/loading-pytorch-model-using-binarydata/39997/2
 set_target_properties(Brushes PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Fonts PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Fills PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+set_target_properties(ui PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 
 # Clean up folder organization on Xcode.
 # It tucks the Plugin varieties into a "Targets" folder and generate an Xcode Scheme manually
@@ -263,7 +359,7 @@ endforeach ()
 set_target_properties(Brushes PROPERTIES FOLDER "Targets")
 set_target_properties(Fonts PROPERTIES FOLDER "Targets")
 set_target_properties(Fills PROPERTIES FOLDER "Targets")
-
+set_target_properties(ui PROPERTIES FOLDER "Targets")
 
 target_compile_definitions("${PROJECT_NAME}"
     PUBLIC
@@ -276,7 +372,8 @@ target_link_libraries("${PROJECT_NAME}"
     PUBLIC
     Brushes
     Fonts
-    Fills)
+    Fills
+    ui)
 target_link_libraries("${PROJECT_NAME}"
     PRIVATE
     juce::juce_audio_basics
