@@ -27,7 +27,6 @@ public:
     ~ToolsPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;
-    void mouseDown (const juce::MouseEvent& event) override;
 
     void buttonClicked (juce::Button *) override;
     void buttonStateChanged (juce::Button *) override {}
@@ -38,6 +37,7 @@ public:
 
 private:
     int cur_tool, old_tool;
+    juce::OwnedArray<ToolButton> toolButtons;
     enum
     {
         TOOL_BRUSH,
@@ -56,6 +56,7 @@ private:
         TOOL_SAVE,
         NUM_TOOLS
     };
+
     int tool_avail[NUM_TOOLS];
 
     const std::array<juce::Image, NUM_TOOLS> buttonIcons {
@@ -78,7 +79,7 @@ private:
     const char *const tool_names[NUM_TOOLS] = {
         // Freehand painting tool
         "Paint",
-        
+
         // Stamp tool (aka Rubber Stamps
         "Stamp",
 
@@ -118,8 +119,6 @@ private:
         // Save the current picture
         "Save"
     };
-
-    juce::OwnedArray<ToolButton> toolButtons;
 
     /* Some text to write when each tool is selected: */
 

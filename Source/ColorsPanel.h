@@ -12,96 +12,142 @@
 
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_graphics/juce_graphics.h>
+
 #include "TuxConstants.h"
+#include "ColorButton.h"
+
+typedef juce::AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
 
+class ColorsPanel
+    : public juce::Component,
+      public juce::Button::Listener,
+      public juce::AudioProcessorValueTreeState::Listener
 
-class ColorsPanel : public juce::Component
 {
 public:
     int NUM_COLORS = 17;
 
-    ColorsPanel();
+    ColorsPanel(juce::AudioProcessorValueTreeState& p);
     ~ColorsPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;
+
+    void buttonClicked (juce::Button *) override;
+    void buttonStateChanged (juce::Button *) override {}
+
     int colors_rows = 1;
     grid_dims gd_colors;     /* was 17x1 */
 private:
+    juce::AudioProcessorValueTreeState& parameters;
+    void parameterChanged (const juce::String &parameterID, float newValue) override;
+    std::unique_ptr<juce::Slider> colorSlider;
+    std::unique_ptr<SliderAttachment> colorAttachment;
 
+    juce::OwnedArray<ColorButton> colorButtons;
 
-    std::vector<std::array<int, 3>> color_hexes = {
-        {0, 0, 0},                    /* Black */
-        {128, 128, 128},              /* Dark grey */
-        {192, 192, 192},              /* Light grey */
-        {255, 255, 255},              /* White */
-        {255, 0, 0},                  /* Red */
-        {255, 128, 0},                /* Orange */
-        {255, 255, 0},                /* Yellow */
-        {160, 228, 128},              /* Light green */
-        {33, 148, 70},                /* Dark green */
-        {138, 168, 205},              /* Sky blue */
-        {50, 100, 255},               /* Blue */
-        {186, 157, 255},              /* Lavender */
-        {128, 0, 128},                /* Purple */
-        {255, 165, 211},              /* Pink */
-        {128, 80, 0},                 /* Brown */
-        {226, 189, 166},              /* Tan */
-        {247, 228, 219}               /* Beige */
+    int cur_color;
+    int old_color;
+
+    enum
+    {
+        COLOR_BLACK,
+        COLOR_DARKGREY,
+        COLOR_LIGHTGREY,
+        COLOR_WHITE,
+        COLOR_RED,
+        COLOR_ORANGE,
+        COLOR_YELLOW,
+        COLOR_LIGHTGREEN,
+        COLOR_DARKGREEN,
+        COLOR_SKYBLUE,
+        COLOR_BLUE,
+        COLOR_LAVENDER,
+        COLOR_PURPLE,
+        COLOR_PINK,
+        COLOR_BROWN,
+        COLOR_TAN,
+        COLOR_BEIGE,
+        NUM_DEFAULT_COLORS
     };
 
-    std::vector<std::string> color_names = {
+
+    /* Hex codes: */
+    const std::array<juce::Colour, NUM_DEFAULT_COLORS> default_color_hexes = {
+        juce::Colour{0, 0, 0},                    /* Black */
+        juce::Colour{128, 128, 128},              /* Dark grey */
+        juce::Colour{192, 192, 192},              /* Light grey */
+        juce::Colour{255, 255, 255},              /* White */
+        juce::Colour{255, 0, 0},                  /* Red */
+        juce::Colour{255, 128, 0},                /* Orange */
+        juce::Colour{255, 255, 0},                /* Yellow */
+        juce::Colour{160, 228, 128},              /* Light green */
+        juce::Colour{33, 148, 70},                /* Dark green */
+        juce::Colour{138, 168, 205},              /* Sky blue */
+        juce::Colour{50, 100, 255},               /* Blue */
+        juce::Colour{186, 157, 255},              /* Lavender */
+        juce::Colour{128, 0, 128},                /* Purple */
+        juce::Colour{255, 165, 211},              /* Pink */
+        juce::Colour{128, 80, 0},                 /* Brown */
+        juce::Colour{226, 189, 166},              /* Tan */
+        juce::Colour{247, 228, 219}               /* Beige */
+    };
+
+    /* Color names: */
+
+    const std::array<juce::String, NUM_DEFAULT_COLORS> default_color_names = {
         // Response to Black (0, 0, 0) color selected
-        gettext_noop("Black!"),
+        "Black!",
 
         // Response to Dark grey (128, 128, 128) color selected
-        gettext_noop("Dark grey! Some people spell it “dark gray”."),
+        "Dark grey! Some people spell it \"dark gray\".",
 
         // Response to Light grey (192, 192, 192) color selected
-        gettext_noop("Light grey! Some people spell it “light gray”."),
+        "Light grey! Some people spell it \"light gray\".",
 
         // Response to White (255, 255, 255) color selected
-        gettext_noop("White!"),
+        "White!",
 
         // Response to Red (255, 0, 0) color selected
-        gettext_noop("Red!"),
+        "Red!",
 
         // Response to Orange (255, 128, 0) color selected
-        gettext_noop("Orange!"),
+        "Orange!",
 
         // Response to Yellow (255, 255, 0) color selected
-        gettext_noop("Yellow!"),
+        "Yellow!",
 
         // Response to Light green (160, 228, 128) color selected
-        gettext_noop("Light green!"),
+        "Light green!",
 
         // Response to Dark green (33, 148, 70) color selected
-        gettext_noop("Dark green!"),
+        "Dark green!",
 
         // Response to "Sky" blue (138, 168, 205) color selected
-        gettext_noop("Sky blue!"),
+        "Sky blue!",
 
         // Response to Blue (50, 100, 255) color selected
-        gettext_noop("Blue!"),
+        "Blue!",
 
         // Response to Lavender (186, 157, 255) color selected
-        gettext_noop("Lavender!"),
+        "Lavender!",
 
         // Response to Purple (128, 0, 128) color selected
-        gettext_noop("Purple!"),
+        "Purple!",
 
         // Response to Pink (255, 165, 211) color selected
-        gettext_noop("Pink!"),
+        "Pink!",
 
         // Response to Brown (128, 80, 0) color selected
-        gettext_noop("Brown!"),
+        "Brown!",
 
         // Response to Tan (226, 189, 166) color selected
-        gettext_noop("Tan!"),
+        "Tan!",
 
         // Response to Beige (247, 228, 219) color selected
-        gettext_noop("Beige!")
+        "Beige!"
     };
+
 
 };
 #endif //TUXPAINTVST_COLORSPANEL_H

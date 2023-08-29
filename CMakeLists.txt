@@ -89,6 +89,8 @@ set(SourceFiles
     ./Source/TitlePanel.h
     ./Source/ToolButton.cpp
     ./Source/ToolButton.h
+    ./Source/ColorButton.cpp
+    ./Source/ColorButton.h
     ./Source/BinaryDataHeaders/BinaryDataBrushes.h
     ./Source/BinaryDataHeaders/BinaryDataFills.h
     ./Source/BinaryDataHeaders/BinaryDataFonts.h

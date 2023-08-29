@@ -38,13 +38,10 @@ void ToolsPanel::resized() {
     }
 }
 
-void ToolsPanel::mouseDown (const juce::MouseEvent& event) {
-
-}
 void ToolsPanel::buttonClicked (juce::Button* b)
 {
     ToolButton* button = dynamic_cast<ToolButton*>(b);
-    if (button->toolID == cur_tool || !button->isButtonOn()) {
+    if (button == nullptr || button->toolID == cur_tool || !button->isButtonOn()) {
         return;
     }
     toolButtons[cur_tool]->setDown(false);
@@ -52,6 +49,7 @@ void ToolsPanel::buttonClicked (juce::Button* b)
     cur_tool = button->toolID;
     button->setDown(true);
 }
+
 void ToolsPanel::parameterChanged (const juce::String& parameterID, float newValue)
 {
 }
