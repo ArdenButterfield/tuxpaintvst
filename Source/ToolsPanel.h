@@ -4,6 +4,8 @@
 #ifndef TUXPAINTVST_TOOLS_H
 #define TUXPAINTVST_TOOLS_H
 
+#include <iostream>
+
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_graphics/juce_graphics.h>
 #include <juce_gui_basics/juce_gui_basics.h>
@@ -11,7 +13,7 @@
 #include "TuxConstants.h"
 #include "ToolButton.h"
 
-class ToolsPanel : public juce::Component
+class ToolsPanel : public juce::Component, public juce::Button::Listener
 {
 public:
     ToolsPanel();
@@ -19,6 +21,10 @@ public:
     void paint (juce::Graphics& g) override;
     void resized() override;
     void mouseDown (const juce::MouseEvent& event) override;
+
+    void buttonClicked (juce::Button *) override;
+    void buttonStateChanged (juce::Button *) override;
+
     grid_dims gd_tools;      /* was 2x7 */
 
     juce::Rectangle<int> real_tools;
@@ -137,6 +143,8 @@ private:
         // Response to 'save' action
         "Your image has been saved!"
     };
+
+    const int numColumns = 2;
 };
 
 #endif //TUXPAINTVST_TOOLS_H

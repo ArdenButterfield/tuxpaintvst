@@ -4,9 +4,19 @@
 
 #include "ToolButton.h"
 
-ToolButton::ToolButton(juce::String name) : juce::Button(name) {}
+ToolButton::ToolButton(juce::String name, int _toolID) : juce::Button(name), toolID(_toolID)
+{
+    setInterceptsMouseClicks(true, false);
+    // setClickingTogglesState(true);
+    setToggleable(true);
+    setRadioGroupId(0,juce::NotificationType::dontSendNotification);
+}
 ToolButton::~ToolButton() {}
 void ToolButton::paintButton (juce::Graphics &g, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) {
-    g.setColour(juce::Colours::white);
-    g.drawRect(getLocalBounds());
+    auto& image = shouldDrawButtonAsDown ? buttonDownBackground : buttonUpBackground;
+    g.drawImage(image, juce::Rectangle<float>(0, 0,getWidth(),getHeight()));
+}
+
+void ToolButton::resized()
+{
 }

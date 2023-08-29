@@ -9,35 +9,41 @@ ToolsPanel::ToolsPanel() {
     cur_tool = TOOL_BRUSH;
     for (int i = 0; i < NUM_TOOLS; ++i) {
         tool_avail[i] = 1;
-        auto button = new ToolButton(juce::String(tool_names[i]));
+        auto button = new ToolButton(juce::String(tool_names[i]), i);
         toolButtons.add(button);
+        addAndMakeVisible(button);
+        button->addListener(this);
     }
 }
 ToolsPanel::~ToolsPanel() {
     toolButtons.clear(true);
 }
+
 void ToolsPanel::paint (juce::Graphics& g) {
     g.setColour(juce::Colours::magenta);
     g.fillAll();
 }
-void ToolsPanel::resized() {
-    gd_tools.cols = 2;
 
-    real_tools = getLocalBounds();
-}
-void ToolsPanel::mouseDown (const juce::MouseEvent& event) {
-    int whicht = grid_hit_gd(real_tools, (int)event.mouseDownPosition.x, (int)event.mouseDownPosition.y, gd_tools);
-    std::cout << whicht << "\n";
-    // TODO: block right click- not so easy in JUCE
-    if (whicht < NUM_TOOLS) {
-        if ((cur_tool == TOOL_TEXT && whicht != TOOL_TEXT &&
-                whicht != TOOL_NEW && whicht != TOOL_OPEN &&
-                whicht != TOOL_SAVE) ||
-            (cur_tool == TOOL_LABEL && whicht != TOOL_LABEL &&
-                whicht != TOOL_NEW && whicht != TOOL_OPEN &&
-                whicht != TOOL_SAVE))
-        {
-        }
+void ToolsPanel::resized() {
+    auto buttonWidth = getWidth() / numColumns;
+    for (int i = 0; i < NUM_TOOLS; ++i) {
+        auto col = i % numColumns;
+        auto row = i / numColumns;
+        toolButtons[i]->setBounds(col * buttonWidth, row * buttonWidth, buttonWidth, buttonWidth);
     }
+}
+
+void ToolsPanel::mouseDown (const juce::MouseEvent& event) {
+
+}
+void ToolsPanel::buttonClicked (juce::Button* b)
+{
+    ToolButton* button = dynamic_cast<ToolButton*>(b);
+    for (auto& childButton : toolButtons) {
+    }
+    std::cout << button->toolID << "\n";
+}
+void ToolsPanel::buttonStateChanged (juce::Button*)
+{
 
 }

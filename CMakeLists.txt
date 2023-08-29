@@ -102,6 +102,32 @@ set_target_properties("${PROJECT_NAME}" PROPERTIES FOLDER "")
 # The Xcode source tree should uhhh, still look like the source tree, yo
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Source PREFIX "" FILES ${SourceFiles})
 
+juce_add_binary_data(Tools
+    HEADER_NAME BinaryDataTools.h
+    NAMESPACE BinaryDataTools
+    SOURCES
+    ./Source/data/images/tools/label_apply.png
+    ./Source/data/images/tools/quit.png
+    ./Source/data/images/tools/new.png
+    ./Source/data/images/tools/undo.png
+    ./Source/data/images/tools/open.png
+    ./Source/data/images/tools/stamp.png
+    ./Source/data/images/tools/text.png
+    ./Source/data/images/tools/label_select.png
+    ./Source/data/images/tools/shapes.png
+    ./Source/data/images/tools/magic.png
+    ./Source/data/images/tools/redo.png
+    ./Source/data/images/tools/eraser.png
+    ./Source/data/images/tools/print.png
+    ./Source/data/images/tools/lines.png
+    ./Source/data/images/tools/fill.png
+    ./Source/data/images/tools/save.png
+    ./Source/data/images/tools/speak.png
+    ./Source/data/images/tools/sfx.png
+    ./Source/data/images/tools/brush.png
+    ./Source/data/images/tools/label.png
+    )
+
 juce_add_binary_data(Brushes
         HEADER_NAME BinaryDataBrushes.h
         NAMESPACE BinaryDataBrushes
@@ -335,6 +361,7 @@ set_target_properties(Brushes PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Fonts PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Fills PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(ui PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+set_target_properties(Tools PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 
 # Clean up folder organization on Xcode.
 # It tucks the Plugin varieties into a "Targets" folder and generate an Xcode Scheme manually
@@ -360,7 +387,7 @@ set_target_properties(Brushes PROPERTIES FOLDER "Targets")
 set_target_properties(Fonts PROPERTIES FOLDER "Targets")
 set_target_properties(Fills PROPERTIES FOLDER "Targets")
 set_target_properties(ui PROPERTIES FOLDER "Targets")
-
+set_target_properties(Tools PROPERTIES FOLDER "Targets")
 target_compile_definitions("${PROJECT_NAME}"
     PUBLIC
     # JUCE_WEB_BROWSER and JUCE_USE_CURL would be on by default, but you might not need them.
@@ -373,7 +400,8 @@ target_link_libraries("${PROJECT_NAME}"
     Brushes
     Fonts
     Fills
-    ui)
+    ui
+    Tools)
 target_link_libraries("${PROJECT_NAME}"
     PRIVATE
     juce::juce_audio_basics
