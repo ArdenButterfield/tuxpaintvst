@@ -74,7 +74,7 @@ public:
 
     /** Returns true if the mouse is currently over the button.
         This will be also be true if the button is being held down.
-        @see isDown
+        @see isButtonDown
     */
     bool isOver() const noexcept;
 
@@ -460,7 +460,7 @@ protected:
         Subclasses can override this if they need to do something special when the button
         goes up or down.
 
-        @see isDown, isOver
+        @see isButtonDown, isOver
     */
     virtual void buttonStateChanged();
 

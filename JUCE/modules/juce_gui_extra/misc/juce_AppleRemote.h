@@ -71,7 +71,7 @@ public:
         will be true and then false. Others only send a single event when the
         button is pressed.
     */
-    virtual void buttonPressed (ButtonType buttonId, bool isDown) = 0;
+    virtual void buttonPressed (ButtonType buttonId, bool isButtonDown) = 0;
 
     //==============================================================================
     /** Starts the device running and responding to events.

@@ -9,6 +9,7 @@
 // #include <juce_graphics/juce_graphics.h>
 #include <juce_gui_basics/juce_gui_basics.h>
 #include "BinaryDataHeaders/BinaryDataUI.h"
+#include "BinaryDataHeaders/BinaryDataFonts.h"
 
 class ToolButton : public juce::Button
 {
@@ -19,9 +20,11 @@ public:
     const int toolID;
     void setOn(bool on);
     void setDown(bool down);
-    bool isOn() const;
-    bool isDown() const;
+    bool isButtonOn() const;
+    bool isButtonDown() const;
 private:
+    juce::Typeface::Ptr defaultTypeface;
+    juce::Font nameFont;
     void paintButton (juce::Graphics &g, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) override;
     bool on;
     bool down;

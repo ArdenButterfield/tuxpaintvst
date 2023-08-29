@@ -43,7 +43,7 @@ public:
                                  : TRANS("Click to change this key-mapping"));
     }
 
-    void paintButton (Graphics& g, bool /*isOver*/, bool /*isDown*/) override
+    void paintButton (Graphics& g, bool /*isOver*/, bool /*isButtonDown*/) override
     {
         getLookAndFeel().drawKeymapChangeButton (g, getWidth(), getHeight(), *this,
                                                  keyNum >= 0 ? getName() : String());

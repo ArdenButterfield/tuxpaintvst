@@ -40,7 +40,7 @@ void ToolsPanel::mouseDown (const juce::MouseEvent& event) {
 void ToolsPanel::buttonClicked (juce::Button* b)
 {
     ToolButton* button = dynamic_cast<ToolButton*>(b);
-    if (button->toolID == cur_tool || !button->isOn()) {
+    if (button->toolID == cur_tool || !button->isButtonOn()) {
         return;
     }
     toolButtons[cur_tool]->setDown(false);
