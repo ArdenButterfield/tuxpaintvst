@@ -8,7 +8,7 @@ ToolButton::ToolButton (const juce::String name, const int _toolID, const juce::
                                                                                               toolID (_toolID),
                                                                                               on (true),
                                                                                               down (false),
-                                                                                              buttonIcon (&icon)
+                                                                                              buttonIcon (icon)
 {
     setInterceptsMouseClicks (true, false);
     setToggleable (true);
@@ -17,23 +17,18 @@ ToolButton::~ToolButton() {}
 
 void ToolButton::paintButton (juce::Graphics& g, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown)
 {
-    if (down)
-    {
+    if (down) {
         g.drawImage (buttonDownBackground, juce::Rectangle<float> (0, 0, getWidth(), getHeight()));
     }
-    else if (on)
-    {
+    else if (on) {
         g.drawImage (buttonUpBackground,
             juce::Rectangle<float> (0, 0, getWidth(), getHeight()));
     }
-    else
-    {
+    else {
         g.drawImage (buttonOffBackground,
             juce::Rectangle<float> (0, 0, getWidth(), getHeight()));
     }
-    if (buttonIcon) {
-        g.drawImage (*buttonIcon, juce::Rectangle<float> ((getWidth() - 40) / 2, 3, 40, 40));
-    }
+    g.drawImage (buttonIcon, juce::Rectangle<float> ((getWidth() - 40) / 2, 3, 40, 40));
 }
 
 void ToolButton::resized()
@@ -57,7 +52,7 @@ bool ToolButton::isButtonDown() const
 {
     return down;
 }
-void ToolButton::setIcon (const juce::Image* icon)
+void ToolButton::setIcon (const juce::Image icon)
 {
     buttonIcon = icon;
 }

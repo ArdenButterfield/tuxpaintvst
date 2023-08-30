@@ -5,53 +5,27 @@
 #include "ButtonSelector.h"
 
 ButtonSelector::ButtonSelector(juce::AudioProcessorValueTreeState& p, juce::String id, const std::vector<juce::Image>& icons)
-    : scrollUp("up", true),
-      scrollDown("down", false),
-      buttonIcons(icons),
+      : buttonIcons(icons),
       parameters(p),
       parameterID(id)
 {
     parameters.addParameterListener(parameterID, this);
     selectionIndex = static_cast<juce::AudioParameterChoice*>(parameters.getParameter(parameterID))->getIndex();
-    scrollUp.addListener(this);
-    scrollDown.addListener(this);
 }
 
 ButtonSelector::~ButtonSelector()
 {
     parameters.removeParameterListener(parameterID, this);
-    buttons.clear(true);
-}
-
-void ButtonSelector::updateDisplayAfterScroll()
-{
-    if (rows * cols < buttonIcons.size()) {
-        auto numVisibleButtons = (rows - 1) * cols;
-        for (int i = 0; i < numVisibleButtons; ++i) {
-            if (i + firstDisplayedIcon < buttonIcons.size()) {
-                buttons[i]->setIcon(&(buttonIcons[i + firstDisplayedIcon]));
-            } else {
-                buttons[i]->setIcon(nullptr);
-            }
-            buttons[i]->repaint();
-        }
-    }
 }
 
 void ButtonSelector::resized() {
     cols = getWidth() / buttonWidth;
     rows = getHeight() / buttonHeight;
-    removeAllChildren();
-    buttons.clear(true);
     if (rows == 0 || cols != 2) {
         return;
     }
     if (rows * cols < buttonIcons.size()) {
-        addAndMakeVisible(scrollUp);
-        addAndMakeVisible(scrollDown);
-        scrollUp.setBounds(getLocalBounds().withHeight(buttonHeight / 2));
-        scrollDown.setBounds(getLocalBounds().withHeight(buttonHeight / 2).withBottomY(getBottom()));
-        auto numVisibleButtons = (rows - 1) * cols;
+        numVisibleButtons = (rows - 1) * cols;
         if (selectionIndex < numVisibleButtons) {
             firstDisplayedIcon = 0;
         } else {
@@ -60,28 +34,86 @@ void ButtonSelector::resized() {
                 firstDisplayedIcon += 1;
             }
         }
-        for (int i = 0; i < numVisibleButtons; ++i) {
-            auto toolButton = new ToolButton("", i + firstDisplayedIcon, buttonIcons[i + firstDisplayedIcon]);
-            auto x = (i % cols) * buttonWidth;
-            auto y = (buttonHeight / 2) + (i / cols) * buttonHeight;
-            toolButton->setBounds(x, y, buttonWidth, buttonHeight);
-            addAndMakeVisible(toolButton);
-            buttons.add(toolButton);
-        }
+    } else {
+        numVisibleButtons = buttonIcons.size();
+        firstDisplayedIcon = 0;
     }
 }
 void ButtonSelector::paint (juce::Graphics& g)
 {
+    if (numVisibleButtons < buttonIcons.size()) {
+        if (firstDisplayedIcon > 0) {
+            g.drawImageAt(scrollUpOn, 0, 0);
+        } else {
+            g.drawImageAt(scrollUpOff, 0, 0);
+        }
+        if (firstDisplayedIcon + numVisibleButtons < buttonIcons.size()) {
+            g.drawImageAt(scrollDownOn, 0, getBottom() - (buttonHeight / 2));
+        } else {
+            g.drawImageAt(scrollDownOff, 0, getBottom() - (buttonHeight / 2));
+        }
 
+        for (int i = 0; i < numVisibleButtons; ++i) {
+            auto x = (i % cols) * buttonWidth;
+            auto y = (i / cols) * buttonHeight + buttonHeight / 2;
+            auto buttonIndex = i + firstDisplayedIcon;
+            if (buttonIndex == selectionIndex) {
+                g.drawImageAt(buttonDownBackground, x, y);
+            } else if (buttonIndex < buttonIcons.size()) {
+                g.drawImageAt(buttonUpBackground, x, y);
+            } else {
+                g.drawImageAt(buttonOffBackground, x, y);
+                continue;
+            }
+            g.drawImageAt(buttonIcons[buttonIndex], x, y);
+        }
+    } else {
+        for (int i = 0; i < numVisibleButtons; ++i) {
+            auto x = (i % cols) * buttonWidth;
+            auto y = (i / cols) * buttonHeight;
+            auto buttonIndex = i + firstDisplayedIcon;
+            if (buttonIndex == selectionIndex) {
+                g.drawImageAt(buttonDownBackground, x, y);
+            } else if (buttonIndex < buttonIcons.size()) {
+                g.drawImageAt(buttonUpBackground, x, y);
+            } else {
+                g.drawImageAt(buttonOffBackground, x, y);
+                continue;
+            }
+            g.drawImageAt(buttonIcons[buttonIndex], x, y);
+        }
+
+    }
 }
 void ButtonSelector::parameterChanged (const juce::String& parameterID, float newValue)
 {
 }
-void ButtonSelector::buttonClicked (juce::Button* b)
+
+void ButtonSelector::mouseDown (const juce::MouseEvent& event)
 {
-    if (b == &scrollUp && scrollUp.getIsOn()) {
-        firstDisplayedIcon -= 2;
-    } else if (b == &scrollDown && scrollDown.getIsOn()) {
-       firstDisplayedIcon += 2;
+    if (!event.mouseWasClicked ()) {
+        return;
     }
+    if (numVisibleButtons < buttonIcons.size()) {
+        if ((event.getPosition().getY() < (buttonHeight / 2)) && (firstDisplayedIcon >= 2)) {
+            // scroll up button
+            firstDisplayedIcon -= 2;
+        } else if ((event.position.getY() > (getHeight() - buttonHeight / 2)) && (firstDisplayedIcon + numVisibleButtons < buttonIcons.size())) {
+            firstDisplayedIcon += 2;
+        } else {
+            auto r = ((int)event.position.getY() - buttonHeight / 2) / buttonHeight;
+            auto c = (int)event.position.getX() / buttonWidth;
+            selectionIndex = r * cols + c + firstDisplayedIcon;
+        }
+    } else {
+        auto r = (int)event.position.getY() / buttonHeight;
+        auto c = (int)event.position.getX() / buttonWidth;
+        selectionIndex = r * cols + c;
+    }
+    repaint();
+}
+
+void ButtonSelector::mouseWheelMove (const juce::MouseEvent& event, const juce::MouseWheelDetails& wheel)
+{
+
 }

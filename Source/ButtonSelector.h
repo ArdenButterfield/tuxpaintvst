@@ -10,25 +10,23 @@
 #include <juce_gui_basics/juce_gui_basics.h>
 
 #include "BinaryDataHeaders/BinaryDataUI.h"
-#include "ToolButton.h"
 #include "ScrollButton.h"
+#include "ToolButton.h"
 
-class ButtonSelector : public juce::Component, public juce::AudioProcessorValueTreeState::Listener, public juce::Button::Listener
+class ButtonSelector : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
 {
 public:
-    ButtonSelector(juce::AudioProcessorValueTreeState& p, juce::String parameterID, const std::vector<juce::Image>& icons);
+    ButtonSelector (juce::AudioProcessorValueTreeState& p, juce::String parameterID, const std::vector<juce::Image>& icons);
     ~ButtonSelector();
     void resized() override;
-    void paint(juce::Graphics &g) override;
+    void paint (juce::Graphics& g) override;
+
 private:
-    void updateDisplayAfterScroll();
-    void buttonClicked (juce::Button *) override;
-    void buttonStateChanged (juce::Button *) override {}
+
+    void mouseDown (const juce::MouseEvent& event) override;
+    void mouseWheelMove (const juce::MouseEvent& event, const juce::MouseWheelDetails& wheel) override;
 
     const std::vector<juce::Image>& buttonIcons;
-    juce::OwnedArray<ToolButton> buttons;
-    ScrollButton scrollUp;
-    ScrollButton scrollDown;
     int selectionIndex;
     int firstDisplayedIcon;
     int rows;
@@ -36,10 +34,19 @@ private:
     const int buttonWidth = 48;
     const int buttonHeight = 48;
 
+    const juce::Image buttonUpBackground = juce::ImageCache::getFromMemory (BinaryDataUI::btn_up_png, BinaryDataUI::btn_up_pngSize);
+    const juce::Image buttonDownBackground = juce::ImageCache::getFromMemory (BinaryDataUI::btn_down_png, BinaryDataUI::btn_down_pngSize);
+    const juce::Image buttonOffBackground = juce::ImageCache::getFromMemory (BinaryDataUI::btn_off_png, BinaryDataUI::btn_off_pngSize);
+
+    const juce::Image scrollUpOn = juce::ImageCache::getFromMemory(BinaryDataUI::scroll_up_png, BinaryDataUI::scroll_up_pngSize);
+    const juce::Image scrollUpOff = juce::ImageCache::getFromMemory(BinaryDataUI::scroll_up_off_png, BinaryDataUI::scroll_up_off_pngSize);
+    const juce::Image scrollDownOn = juce::ImageCache::getFromMemory(BinaryDataUI::scroll_down_png, BinaryDataUI::scroll_down_pngSize);
+    const juce::Image scrollDownOff = juce::ImageCache::getFromMemory(BinaryDataUI::scroll_down_off_png, BinaryDataUI::scroll_down_off_pngSize);
+
     juce::AudioProcessorValueTreeState& parameters;
     juce::String parameterID;
-
-    void parameterChanged (const juce::String &parameterID, float newValue) override;
+    int numVisibleButtons;
+    void parameterChanged (const juce::String& parameterID, float newValue) override;
 };
 
 #endif //TUXPAINTVST_BUTTONSELECTOR_H
