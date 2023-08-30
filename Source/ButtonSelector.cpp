@@ -115,5 +115,10 @@ void ButtonSelector::mouseDown (const juce::MouseEvent& event)
 
 void ButtonSelector::mouseWheelMove (const juce::MouseEvent& event, const juce::MouseWheelDetails& wheel)
 {
-
+    if ((wheel.deltaY > 0) && (firstDisplayedIcon >= 2)) {
+        firstDisplayedIcon -= 2;
+    } else if ((wheel.deltaY < 0) && (firstDisplayedIcon + numVisibleButtons < buttonIcons.size())) {
+        firstDisplayedIcon += 2;
+    }
+    repaint();
 }
