@@ -9,16 +9,18 @@
 #include <juce_graphics/juce_graphics.h>
 
 #include "TuxConstants.h"
+#include "ScrollButton.h"
 
 class OptionsPanel : public juce::Component
 {
 public:
-    OptionsPanel();
+    OptionsPanel(juce::AudioProcessorValueTreeState& p);
     ~OptionsPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;
-    grid_dims gd_toolopt;
 private:
+    ScrollButton scrollUp;
+    ScrollButton scrollDown;
 };
 
 #endif //TUXPAINTVST_OPTIONS_H

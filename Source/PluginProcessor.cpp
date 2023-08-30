@@ -21,6 +21,64 @@ juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
             "Eraser"
         },
         0));
+    parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
+        juce::ParameterID{"shapes", 1},
+        "Shapes",
+        juce::StringArray {
+            // Square shape tool (4 equally-lengthed sides at right angles)
+            "Square",
+            "Square",
+
+            // Rectangle shape tool (4 sides at right angles)
+            "Rectangle",
+            "Rectangle",
+
+            // Circle shape tool (X radius and Y radius are the same)
+            "Circle",
+            "Circle",
+
+            // Ellipse shape tool (X radius and Y radius may differ)
+            "Ellipse",
+            "Ellipse",
+
+            // Triangle shape tool (3 sides)
+            "Triangle",
+            "Triangle",
+
+            // Pentagon shape tool (5 sides)
+            "Pentagon",
+            "Pentagon",
+
+            // Hexagon shape tool (6 sides)
+            "Hexagon",
+            "Hexagon",
+
+            // Heptagon (aka septagon) shape tool (7 sides)
+            "Heptagon",
+            "Heptagon",
+
+            // Octagon shape tool (8 sides)
+            "Octagon",
+            "Octagon",
+
+            // Rhombus shape tool (4 sides, not at right angles)
+            "Rhombus",
+            "Rhombus",
+
+            // Triangle star (3 points star)
+            "Star",
+            "Star",
+
+            // Rhombus star (4 points star)
+            "Star",
+            "Star",
+
+            // Pentagon star (5 points star)
+            "Star",
+            "Star"
+        },
+        0
+        ));
     return {parameters.begin(), parameters.end()};
 }
 

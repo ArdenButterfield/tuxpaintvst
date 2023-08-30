@@ -4,8 +4,8 @@
 
 #include "OptionsPanel.h"
 
-OptionsPanel::OptionsPanel() {
-    gd_toolopt = {2, 7};
+OptionsPanel::OptionsPanel(juce::AudioProcessorValueTreeState& p) : scrollUp("up", true), scrollDown("down", false) {
+
 }
 OptionsPanel::~OptionsPanel() {
 

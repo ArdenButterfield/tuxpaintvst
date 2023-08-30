@@ -14,7 +14,7 @@ ToolsPanel::ToolsPanel(juce::AudioProcessorValueTreeState& p)
     old_tool = TOOL_BRUSH;
     for (int i = 0; i < NUM_TOOLS; ++i) {
         tool_avail[i] = 1;
-        auto button = new ToolButton(juce::String(tool_names[i]), i, buttonIcons[i]);
+        auto button = new NamedToolButton(juce::String(tool_names[i]), i, buttonIcons[i]);
         toolButtons.add(button);
         addAndMakeVisible(button);
         button->addListener(this);

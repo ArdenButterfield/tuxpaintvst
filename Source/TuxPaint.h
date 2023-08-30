@@ -7,7 +7,7 @@
 #include "OptionsPanel.h"
 #include "ToolsPanel.h"
 #include "TitlePanel.h"
-
+#include "ShapesOptionsPanel.h"
 #include "TuxConstants.h"
 
 #include <juce_audio_processors/juce_audio_processors.h>
@@ -19,9 +19,14 @@
 class TuxPaint : public juce::Component
 {
 public:
+    TuxPaint(juce::AudioProcessorValueTreeState& p);
+    ~TuxPaint();
+    void paint (juce::Graphics& g) override;
+    void resized() override;
+
     ToolsPanel toolsPanel;
     CanvasPanel canvasPanel;
-    OptionsPanel optionsPanel;
+    ShapesOptionsPanel shapesOptionsPanel;
     ColorsPanel colorsPanel;
     InfoPanel infoPanel;
     TitlePanel toolsTitlePanel;
@@ -34,12 +39,6 @@ public:
     const int button_h = 48;
     const int color_button_w = 32;
     const int color_button_h = 48;
-
-
-    TuxPaint(juce::AudioProcessorValueTreeState& p);
-    ~TuxPaint();
-    void paint (juce::Graphics& g) override;
-    void resized() override;
 private:
     juce::AudioProcessorValueTreeState& parameters;
 

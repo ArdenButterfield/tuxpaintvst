@@ -9,30 +9,26 @@ ToolButton::ToolButton(const juce::String name, const int _toolID, const juce::I
         toolID(_toolID),
         on(true),
         down(false),
-        buttonIcon(icon),
-        defaultTypeface(juce::Typeface::createSystemTypefaceFor(BinaryDataFonts::FreeSans_ttf, BinaryDataFonts::FreeSans_ttfSize))
+        buttonIcon(icon)
 {
-    nameFont = juce::Font(defaultTypeface).withHeight(20);
     setInterceptsMouseClicks(true, false);
     setToggleable(true);
 }
 ToolButton::~ToolButton() {}
 
 void ToolButton::paintButton (juce::Graphics &g, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) {
-    juce::Image * image;
-    if (!on) {
-        g.drawImage(buttonOffBackground,
-            juce::Rectangle<float>(0, 0,getWidth(),getHeight()));
-    } else if (!down) {
-        g.drawImage(buttonUpBackground,
-            juce::Rectangle<float>(0, 0,getWidth(),getHeight()));
-    } else {
+    if (down) {
         g.drawImage(buttonDownBackground, juce::Rectangle<float>(0, 0,getWidth(),getHeight()));
+    } else if (on) {
+        g.drawImage(buttonUpBackground,
+                    juce::Rectangle<float>(0, 0,getWidth(),getHeight()));
+
+    } else {
+        g.drawImage(buttonOffBackground,
+                    juce::Rectangle<float>(0, 0,getWidth(),getHeight()));
+
     }
-    g.drawImage(buttonIcon, juce::Rectangle<float>((getWidth() - 40) / 2, 3,40, 30)); // tool images are 30 x 40
-    g.setFont(nameFont);
-    g.setColour(juce::Colours::black);
-    g.drawText(getName(), getLocalBounds().withTrimmedTop(getHeight() * 3/4 - 4), juce::Justification::centred);
+    g.drawImage(buttonIcon, juce::Rectangle<float>((getWidth() - 40) / 2, 3,40, 40));
 }
 
 void ToolButton::resized()
@@ -55,4 +51,8 @@ bool ToolButton::isButtonOn() const
 bool ToolButton::isButtonDown() const
 {
     return down;
+}
+void ToolButton::setIcon (juce::Image icon)
+{
+    buttonIcon = icon;
 }

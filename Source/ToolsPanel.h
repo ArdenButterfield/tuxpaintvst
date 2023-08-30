@@ -14,6 +14,7 @@
 
 #include "TuxConstants.h"
 #include "ToolButton.h"
+#include "NamedToolButton.h"
 
 typedef juce::AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
@@ -77,7 +78,7 @@ private:
         juce::ImageCache::getFromMemory(BinaryDataTools::save_png, BinaryDataTools::save_pngSize),
     };
 
-    const char *const tool_names[NUM_TOOLS] = {
+    const std::array<juce::String, NUM_TOOLS> tool_names = {
         // Freehand painting tool
         "Paint",
 

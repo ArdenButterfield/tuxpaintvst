@@ -91,6 +91,14 @@ set(SourceFiles
     ./Source/ToolButton.h
     ./Source/ColorButton.cpp
     ./Source/ColorButton.h
+    ./Source/NamedToolButton.cpp
+    ./Source/NamedToolButton.h
+    ./Source/ScrollButton.cpp
+    ./Source/ScrollButton.h
+    ./Source/ShapesOptionsPanel.cpp
+    ./Source/ShapesOptionsPanel.h
+    ./Source/ButtonSelector.cpp
+    ./Source/ButtonSelector.h
     ./Source/BinaryDataHeaders/BinaryDataBrushes.h
     ./Source/BinaryDataHeaders/BinaryDataFills.h
     ./Source/BinaryDataHeaders/BinaryDataFonts.h
@@ -364,6 +372,7 @@ set_target_properties(Fonts PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Fills PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(ui PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Tools PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
+set_target_properties(Shapes PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 
 # Clean up folder organization on Xcode.
 # It tucks the Plugin varieties into a "Targets" folder and generate an Xcode Scheme manually
@@ -390,6 +399,7 @@ set_target_properties(Fonts PROPERTIES FOLDER "Targets")
 set_target_properties(Fills PROPERTIES FOLDER "Targets")
 set_target_properties(ui PROPERTIES FOLDER "Targets")
 set_target_properties(Tools PROPERTIES FOLDER "Targets")
+set_target_properties(Shapes PROPERTIES FOLDR "Targets")
 target_compile_definitions("${PROJECT_NAME}"
     PUBLIC
     # JUCE_WEB_BROWSER and JUCE_USE_CURL would be on by default, but you might not need them.
@@ -403,7 +413,8 @@ target_link_libraries("${PROJECT_NAME}"
     Fonts
     Fills
     ui
-    Tools)
+    Tools
+    Shapes)
 target_link_libraries("${PROJECT_NAME}"
     PRIVATE
     juce::juce_audio_basics

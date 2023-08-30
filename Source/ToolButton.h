@@ -14,7 +14,7 @@
 class ToolButton : public juce::Button
 {
 public:
-    ToolButton(const juce::String name, const int _toolID, const juce::Image icon);
+    ToolButton(juce::String name, int _toolID, juce::Image icon);
     ~ToolButton();
     void resized() override;
     const int toolID;
@@ -22,16 +22,17 @@ public:
     void setDown(bool down);
     bool isButtonOn() const;
     bool isButtonDown() const;
-private:
-    juce::Typeface::Ptr defaultTypeface;
-    juce::Font nameFont;
+
+    void setIcon(juce::Image icon);
+
+protected:
     void paintButton (juce::Graphics &g, bool shouldDrawButtonAsHighlighted, bool shouldDrawButtonAsDown) override;
     bool on;
     bool down;
     const juce::Image buttonUpBackground = juce::ImageCache::getFromMemory(BinaryDataUI::btn_up_png, BinaryDataUI::btn_up_pngSize);
     const juce::Image buttonDownBackground = juce::ImageCache::getFromMemory(BinaryDataUI::btn_down_png, BinaryDataUI::btn_down_pngSize);
     const juce::Image buttonOffBackground = juce::ImageCache::getFromMemory(BinaryDataUI::btn_off_png, BinaryDataUI::btn_off_pngSize);
-    const juce::Image buttonIcon;
+    juce::Image buttonIcon;
     juce::ImageComponent background;
 };
 
