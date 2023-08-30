@@ -26,7 +26,7 @@ void NamedToolButton::paintButton (juce::Graphics &g, bool shouldDrawButtonAsHig
             juce::Rectangle<float>(0, 0,getWidth(),getHeight()));
 
     }
-    g.drawImage(buttonIcon, juce::Rectangle<float>((getWidth() - 40) / 2, 3,40, 30)); // tool images are 30 x 40
+    g.drawImage(*buttonIcon, juce::Rectangle<float>((getWidth() - 40) / 2, 3,40, 30)); // tool images are 30 x 40
     g.setFont(nameFont);
     g.setColour(juce::Colours::black);
     g.drawText(getName(), getLocalBounds().withTrimmedTop(getHeight() * 3/4 - 4), juce::Justification::centred);

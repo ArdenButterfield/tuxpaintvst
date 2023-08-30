@@ -13,7 +13,7 @@
 #include "ToolButton.h"
 #include "ScrollButton.h"
 
-class ButtonSelector : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
+class ButtonSelector : public juce::Component, public juce::AudioProcessorValueTreeState::Listener, public juce::Button::Listener
 {
 public:
     ButtonSelector(juce::AudioProcessorValueTreeState& p, juce::String parameterID, const std::vector<juce::Image>& icons);
@@ -21,6 +21,10 @@ public:
     void resized() override;
     void paint(juce::Graphics &g) override;
 private:
+    void updateDisplayAfterScroll();
+    void buttonClicked (juce::Button *) override;
+    void buttonStateChanged (juce::Button *) override {}
+
     const std::vector<juce::Image>& buttonIcons;
     juce::OwnedArray<ToolButton> buttons;
     ScrollButton scrollUp;

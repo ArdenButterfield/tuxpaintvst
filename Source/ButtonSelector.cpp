@@ -13,12 +13,29 @@ ButtonSelector::ButtonSelector(juce::AudioProcessorValueTreeState& p, juce::Stri
 {
     parameters.addParameterListener(parameterID, this);
     selectionIndex = static_cast<juce::AudioParameterChoice*>(parameters.getParameter(parameterID))->getIndex();
+    scrollUp.addListener(this);
+    scrollDown.addListener(this);
 }
 
 ButtonSelector::~ButtonSelector()
 {
     parameters.removeParameterListener(parameterID, this);
     buttons.clear(true);
+}
+
+void ButtonSelector::updateDisplayAfterScroll()
+{
+    if (rows * cols < buttonIcons.size()) {
+        auto numVisibleButtons = (rows - 1) * cols;
+        for (int i = 0; i < numVisibleButtons; ++i) {
+            if (i + firstDisplayedIcon < buttonIcons.size()) {
+                buttons[i]->setIcon(&(buttonIcons[i + firstDisplayedIcon]));
+            } else {
+                buttons[i]->setIcon(nullptr);
+            }
+            buttons[i]->repaint();
+        }
+    }
 }
 
 void ButtonSelector::resized() {
@@ -59,4 +76,12 @@ void ButtonSelector::paint (juce::Graphics& g)
 }
 void ButtonSelector::parameterChanged (const juce::String& parameterID, float newValue)
 {
+}
+void ButtonSelector::buttonClicked (juce::Button* b)
+{
+    if (b == &scrollUp && scrollUp.getIsOn()) {
+        firstDisplayedIcon -= 2;
+    } else if (b == &scrollDown && scrollDown.getIsOn()) {
+       firstDisplayedIcon += 2;
+    }
 }
