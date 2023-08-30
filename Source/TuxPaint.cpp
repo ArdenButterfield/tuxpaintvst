@@ -12,18 +12,17 @@ TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p)
       colorsPanel(p),
       colorsTitlePanel("Colors"),
       toolsTitlePanel("Tools"),
-      optionsTitlePanel("Brushes"),
-      shapesOptionsPanel(p)
+      shapesOptionsPanel(p),
+      fillOptionsPanel(p)
 {
 
     addAndMakeVisible(toolsPanel);
     addAndMakeVisible(canvasPanel);
-    addAndMakeVisible(shapesOptionsPanel);
+    addAndMakeVisible(fillOptionsPanel);
     addAndMakeVisible(colorsPanel);
     addAndMakeVisible(infoPanel);
     addAndMakeVisible(colorsTitlePanel);
     addAndMakeVisible(toolsTitlePanel);
-    addAndMakeVisible(optionsTitlePanel);
 }
 TuxPaint::~TuxPaint() {
 
@@ -49,9 +48,8 @@ void TuxPaint::resized() {
 
     toolsPanel.setBounds(0, 40, 96, 336);
     canvasPanel.setBounds(96,0,448,376);
-    shapesOptionsPanel.setBounds(544,40,96,336);
+    fillOptionsPanel.setBounds(544,0,96,376);
     colorsPanel.setBounds(96,376,544,48);
     toolsTitlePanel.setBounds(0,0,96,40);
     colorsTitlePanel.setBounds(0,376,96,48);
-    optionsTitlePanel.setBounds(544,0,96,40);
 }

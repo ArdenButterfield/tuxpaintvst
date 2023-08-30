@@ -10,17 +10,18 @@
 
 #include "TuxConstants.h"
 #include "ScrollButton.h"
+#include "TitlePanel.h"
 
 class OptionsPanel : public juce::Component
 {
 public:
-    OptionsPanel(juce::AudioProcessorValueTreeState& p);
+    OptionsPanel(juce::AudioProcessorValueTreeState& p, juce::String title);
     ~OptionsPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;
-private:
-    ScrollButton scrollUp;
-    ScrollButton scrollDown;
+
+protected:
+    TitlePanel titlePanel;
 };
 
 #endif //TUXPAINTVST_OPTIONS_H

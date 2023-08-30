@@ -22,6 +22,7 @@ public:
     void resized() override;
 private:
     ButtonSelector shapeSelector;
+    ButtonSelector originSelector;
     enum
     {
         SHAPE_SQUARE,
@@ -135,7 +136,10 @@ private:
         juce::ImageCache::getFromMemory(BinaryDataShapes::star5p_f_png, BinaryDataShapes::star5p_f_pngSize)
     };
 
-
+    const std::vector<juce::Image> originIcons {
+        juce::ImageCache::getFromMemory(BinaryDataUI::shapes_center_png, BinaryDataUI::shapes_center_pngSize),
+        juce::ImageCache::getFromMemory(BinaryDataUI::shapes_corner_png, BinaryDataUI::shapes_corner_pngSize),
+    };
 };
 
 #endif //TUXPAINTVST_SHAPESOPTIONSPANEL_H

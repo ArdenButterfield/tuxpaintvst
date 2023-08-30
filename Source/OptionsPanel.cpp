@@ -4,8 +4,8 @@
 
 #include "OptionsPanel.h"
 
-OptionsPanel::OptionsPanel(juce::AudioProcessorValueTreeState& p) : scrollUp("up", true), scrollDown("down", false) {
-
+OptionsPanel::OptionsPanel(juce::AudioProcessorValueTreeState& p, juce::String title) : titlePanel(title) {
+    addAndMakeVisible(titlePanel);
 }
 OptionsPanel::~OptionsPanel() {
 

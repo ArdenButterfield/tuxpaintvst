@@ -8,6 +8,7 @@
 #include "ToolsPanel.h"
 #include "TitlePanel.h"
 #include "ShapesOptionsPanel.h"
+#include "FillOptionsPanel.h"
 #include "TuxConstants.h"
 
 #include <juce_audio_processors/juce_audio_processors.h>
@@ -27,10 +28,10 @@ public:
     ToolsPanel toolsPanel;
     CanvasPanel canvasPanel;
     ShapesOptionsPanel shapesOptionsPanel;
+    FillOptionsPanel fillOptionsPanel;
     ColorsPanel colorsPanel;
     InfoPanel infoPanel;
     TitlePanel toolsTitlePanel;
-    TitlePanel optionsTitlePanel;
     TitlePanel colorsTitlePanel;
     juce::ImageComponent toolTitleBackground;
     juce::ImageComponent colorTitleBackground;

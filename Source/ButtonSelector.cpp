@@ -35,7 +35,7 @@ void ButtonSelector::resized() {
             }
         }
     } else {
-        numVisibleButtons = buttonIcons.size();
+        numVisibleButtons = rows * cols;
         firstDisplayedIcon = 0;
     }
 }
@@ -103,12 +103,18 @@ void ButtonSelector::mouseDown (const juce::MouseEvent& event)
         } else {
             auto r = ((int)event.position.getY() - buttonHeight / 2) / buttonHeight;
             auto c = (int)event.position.getX() / buttonWidth;
-            selectionIndex = r * cols + c + firstDisplayedIcon;
+            auto ind = r * cols + c + firstDisplayedIcon;
+            if (ind < buttonIcons.size()) {
+                selectionIndex = ind;
+            }
         }
     } else {
         auto r = (int)event.position.getY() / buttonHeight;
         auto c = (int)event.position.getX() / buttonWidth;
-        selectionIndex = r * cols + c;
+        auto ind = r * cols + c;
+        if (ind < buttonIcons.size()) {
+            selectionIndex = ind;
+        }
     }
     repaint();
 }

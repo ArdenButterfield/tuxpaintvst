@@ -99,6 +99,8 @@ set(SourceFiles
     ./Source/ShapesOptionsPanel.h
     ./Source/ButtonSelector.cpp
     ./Source/ButtonSelector.h
+    ./Source/FillOptionsPanel.cpp
+    ./Source/FillOptionsPanel.h
     ./Source/BinaryDataHeaders/BinaryDataBrushes.h
     ./Source/BinaryDataHeaders/BinaryDataFills.h
     ./Source/BinaryDataHeaders/BinaryDataFonts.h

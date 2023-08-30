@@ -6,9 +6,9 @@
 
 TitlePanel::TitlePanel(const juce::String _name)
     : name(_name),
-      defaultTypeface(juce::Typeface::createSystemTypefaceFor(BinaryDataFonts::FreeSans_ttf, BinaryDataFonts::FreeSans_ttfSize))
+      defaultTypeface(juce::Typeface::createSystemTypefaceFor(BinaryDataFonts::default_font_ttf, BinaryDataFonts::default_font_ttfSize))
 {
-    titleFont = juce::Font(defaultTypeface).withHeight(50);
+    titleFont = juce::Font(defaultTypeface).withHeight(33);
     titleLabel.setFont(titleFont);
     titleLabel.setText(name, juce::NotificationType::dontSendNotification);
     titleLabel.setColour(juce::Label::textColourId, juce::Colours::black);

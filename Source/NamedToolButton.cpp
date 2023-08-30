@@ -6,10 +6,10 @@
 
 NamedToolButton::NamedToolButton(const juce::String name, const int _toolID, const juce::Image icon)
     : ToolButton(name, _toolID, icon),
-      defaultTypeface(juce::Typeface::createSystemTypefaceFor(BinaryDataFonts::FreeSans_ttf, BinaryDataFonts::FreeSans_ttfSize))
+      defaultTypeface(juce::Typeface::createSystemTypefaceFor(BinaryDataFonts::default_font_ttf, BinaryDataFonts::default_font_ttfSize))
 
 {
-    nameFont = juce::Font(defaultTypeface).withHeight(20);
+    nameFont = juce::Font(defaultTypeface).withHeight(15);
 
 }
 

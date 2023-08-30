@@ -79,6 +79,27 @@ juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
         },
         0
         ));
+    parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
+        juce::ParameterID{"shapeOrigin", 1},
+        "Shape Origin",
+        juce::StringArray {
+            "center",
+            "corner"
+        },
+        0
+        ));
+    parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
+        juce::ParameterID{"fills", 1},
+        "Fills",
+        juce::StringArray {
+            "Solid",
+            "Brush",
+            "Linear",
+            "Radial",
+            "Shaped"
+        },
+        0
+        ));
     return {parameters.begin(), parameters.end()};
 }
 
