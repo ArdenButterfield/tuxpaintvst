@@ -12,6 +12,7 @@ ToolsPanel::ToolsPanel(juce::AudioProcessorValueTreeState& p)
     gd_tools = {7,2};
     cur_tool = TOOL_BRUSH;
     old_tool = TOOL_BRUSH;
+    parameters.addParameterListener("tool", this);
     for (int i = 0; i < NUM_TOOLS; ++i) {
         tool_avail[i] = 1;
         auto button = new NamedToolButton(juce::String(tool_names[i]), i, buttonIcons[i]);
@@ -22,6 +23,7 @@ ToolsPanel::ToolsPanel(juce::AudioProcessorValueTreeState& p)
 }
 ToolsPanel::~ToolsPanel() {
     toolButtons.clear(true);
+    parameters.removeParameterListener("tool", this);
 }
 
 void ToolsPanel::paint (juce::Graphics& g) {
@@ -48,8 +50,20 @@ void ToolsPanel::buttonClicked (juce::Button* b)
     old_tool = cur_tool;
     cur_tool = button->toolID;
     button->setDown(true);
+
+    auto param = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("tool"));
+    if (param != nullptr) {
+        *param = cur_tool;
+    }
 }
 
 void ToolsPanel::parameterChanged (const juce::String& parameterID, float newValue)
 {
+    auto param = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter(parameterID));
+    if (param != nullptr) {
+        toolButtons[cur_tool]->setDown(false);
+        old_tool = cur_tool;
+        cur_tool = param->getIndex();
+        toolButtons[cur_tool]->setDown(true);
+    }
 }

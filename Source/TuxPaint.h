@@ -17,7 +17,7 @@
 #ifndef TUXPAINTVST_TUXPAINT_H
 #define TUXPAINTVST_TUXPAINT_H
 
-class TuxPaint : public juce::Component
+class TuxPaint : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
 {
 public:
     TuxPaint(juce::AudioProcessorValueTreeState& p);
@@ -25,10 +25,17 @@ public:
     void paint (juce::Graphics& g) override;
     void resized() override;
 
+private:
+    void updateRightPanel(int toolIndex);
+
     ToolsPanel toolsPanel;
     CanvasPanel canvasPanel;
+
     ShapesOptionsPanel shapesOptionsPanel;
     FillOptionsPanel fillOptionsPanel;
+
+    OptionsPanel* currentOptionsPanel;
+
     ColorsPanel colorsPanel;
     InfoPanel infoPanel;
     TitlePanel toolsTitlePanel;
@@ -40,7 +47,8 @@ public:
     const int button_h = 48;
     const int color_button_w = 32;
     const int color_button_h = 48;
-private:
+    void parameterChanged (const juce::String &parameterID, float newValue) override;
+
     juce::AudioProcessorValueTreeState& parameters;
 
 };

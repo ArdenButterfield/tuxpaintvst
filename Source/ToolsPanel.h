@@ -36,10 +36,6 @@ public:
 
     juce::Rectangle<int> real_tools;
 
-private:
-
-    int cur_tool, old_tool;
-    juce::OwnedArray<ToolButton> toolButtons;
     enum
     {
         TOOL_BRUSH,
@@ -58,6 +54,10 @@ private:
         TOOL_SAVE,
         NUM_TOOLS
     };
+
+private:
+    int cur_tool, old_tool;
+    juce::OwnedArray<ToolButton> toolButtons;
 
     int tool_avail[NUM_TOOLS];
 
