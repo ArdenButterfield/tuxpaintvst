@@ -10,15 +10,47 @@ juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
         juce::ParameterID {"tool", 1},
         "Tool",
         juce::StringArray {
+            // Freehand painting tool
             "Paint",
+
+            // Stamp tool (aka Rubber Stamps
             "Stamp",
+
+            // Line drawing tool
             "Lines",
+
+            // Shape creation tool (square, circle, etc.
             "Shapes",
+
+            // Text tool
             "Text",
+
+            // Label tool
             "Label",
+
+            // Fill tool
             "Fill",
+
+            // "Magic" effects tools (blur, flip image, etc.
             "Magic",
-            "Eraser"
+
+            // Undo last action
+            "Undo",
+
+            // Redo undone action
+            "Redo",
+
+            // Eraser tool
+            "Eraser",
+
+            // Start a new picture
+            "New",
+
+            // Open a saved picture
+            "Open",
+
+            // Save the current picture
+            "Save"
         },
         0));
     parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
@@ -97,6 +129,29 @@ juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
             "Linear",
             "Radial",
             "Shaped"
+        },
+        0
+        ));
+    parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
+        juce::ParameterID{"erasers", 1},
+        "Erasers",
+        juce::StringArray {
+            "Square 0",
+            "Square 1",
+            "Square 2",
+            "Square 3",
+            "Square 4",
+            "Square 5",
+            "Square 6",
+            "Square 7",
+            "Circle 0",
+            "Circle 1",
+            "Circle 2",
+            "Circle 3",
+            "Circle 4",
+            "Circle 5",
+            "Circle 6",
+            "Circle 7"
         },
         0
         ));

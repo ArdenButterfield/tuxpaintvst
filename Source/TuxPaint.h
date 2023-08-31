@@ -4,11 +4,12 @@
 #include "CanvasPanel.h"
 #include "ColorsPanel.h"
 #include "InfoPanel.h"
-#include "OptionsPanel.h"
-#include "ToolsPanel.h"
+#include "OptionPanels/FillOptionsPanel.h"
+#include "OptionPanels/OptionsPanel.h"
+#include "OptionPanels/ShapesOptionsPanel.h"
+#include "OptionPanels/EraserOptionPanel.h"
 #include "TitlePanel.h"
-#include "ShapesOptionsPanel.h"
-#include "FillOptionsPanel.h"
+#include "ToolsPanel.h"
 #include "TuxConstants.h"
 
 #include <juce_audio_processors/juce_audio_processors.h>
@@ -33,6 +34,7 @@ private:
 
     ShapesOptionsPanel shapesOptionsPanel;
     FillOptionsPanel fillOptionsPanel;
+    EraserOptionPanel eraserOptionPanel;
 
     OptionsPanel* currentOptionsPanel;
 

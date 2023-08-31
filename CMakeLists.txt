@@ -71,9 +71,9 @@ set(SourceFiles
     ./Source/InfoPanel.h
     ./Source/PluginProcessor.cpp
     ./Source/TuxPaint.cpp
-    ./Source/OptionsPanel.h
+        Source/OptionPanels/OptionsPanel.h
     ./Source/PluginEditor.h
-    ./Source/OptionsPanel.cpp
+        Source/OptionPanels/OptionsPanel.cpp
     ./Source/InfoPanel.cpp
     ./Source/PluginEditor.cpp
     ./Source/CanvasPanel.h
@@ -95,12 +95,14 @@ set(SourceFiles
     ./Source/NamedToolButton.h
     ./Source/ScrollButton.cpp
     ./Source/ScrollButton.h
-    ./Source/ShapesOptionsPanel.cpp
-    ./Source/ShapesOptionsPanel.h
-    ./Source/ButtonSelector.cpp
-    ./Source/ButtonSelector.h
-    ./Source/FillOptionsPanel.cpp
-    ./Source/FillOptionsPanel.h
+    ./Source/OptionPanels/ShapesOptionsPanel.cpp
+    ./Source/OptionPanels/ShapesOptionsPanel.h
+    ./Source/OptionPanels/ButtonSelector.cpp
+    ./Source/OptionPanels/ButtonSelector.h
+    ./Source/OptionPanels/FillOptionsPanel.cpp
+    ./Source/OptionPanels/FillOptionsPanel.h
+    ./Source/OptionPanels/EraserOptionPanel.cpp
+    ./Source/OptionPanels/EraserOptionPanel.h
     ./Source/BinaryDataHeaders/BinaryDataBrushes.h
     ./Source/BinaryDataHeaders/BinaryDataFills.h
     ./Source/BinaryDataHeaders/BinaryDataFonts.h

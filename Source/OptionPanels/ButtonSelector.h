@@ -5,13 +5,13 @@
 #ifndef TUXPAINTVST_BUTTONSELECTOR_H
 #define TUXPAINTVST_BUTTONSELECTOR_H
 
-#include <juce_audio_processors/juce_audio_processors.h>
-#include <juce_graphics/juce_graphics.h>
-#include <juce_gui_basics/juce_gui_basics.h>
+#include "juce_audio_processors/juce_audio_processors.h"
+#include "juce_graphics/juce_graphics.h"
+#include "juce_gui_basics/juce_gui_basics.h"
 
-#include "BinaryDataHeaders/BinaryDataUI.h"
-#include "ScrollButton.h"
-#include "ToolButton.h"
+#include "../BinaryDataHeaders/BinaryDataUI.h"
+#include "../ScrollButton.h"
+#include "../ToolButton.h"
 
 class ButtonSelector : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
 {
