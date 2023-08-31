@@ -2,28 +2,26 @@
 // Created by arden on 8/30/23.
 //
 
-#ifndef TUXPAINTVST_FILLGRAPHICS_H
-#define TUXPAINTVST_FILLGRAPHICS_H
+#ifndef TUXPAINTVST_ERASERGRAPHICS_H
+#define TUXPAINTVST_ERASERGRAPHICS_H
 
 #include "GraphicsBase.h"
 #include "../TuxConstants.h"
 
-class FillGraphics : public GraphicsBase, public juce::AudioProcessorValueTreeState::Listener
+class EraserGraphics : GraphicsBase, juce::AudioProcessorValueTreeState::Listener
 {
 public:
-    FillGraphics(juce::AudioProcessorValueTreeState& p);
-    ~FillGraphics();
+    EraserGraphics(juce::AudioProcessorValueTreeState& p);
+    ~EraserGraphics();
     void parameterChanged(const juce::String &parameterID, float newValue) override;
 
     void doMouseDown(int x, int y) override;
     void doMouseDragged(int x, int y) override;
     void doMouseUp(int x, int y) override {}
-
 private:
-    juce::Colour color;
-
     juce::AudioProcessorValueTreeState& parameters;
-    void doFill(int x, int y, juce::Colour fillColor);
+    void doErase(int x, int y);
+
 };
 
-#endif //TUXPAINTVST_FILLGRAPHICS_H
+#endif //TUXPAINTVST_ERASERGRAPHICS_H
