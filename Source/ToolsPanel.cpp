@@ -7,14 +7,11 @@
 ToolsPanel::ToolsPanel(juce::AudioProcessorValueTreeState& p)
     : parameters(p)
 {
-    toolSlider = std::make_unique<juce::Slider>();
-    toolAttachment = std::make_unique<SliderAttachment>(parameters, "tool", *toolSlider);
-    cur_tool = TOOL_BRUSH;
-    old_tool = TOOL_BRUSH;
+    cur_tool = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("tool"))->getIndex();
     parameters.addParameterListener("tool", this);
-    for (int i = 0; i < NUM_TOOLS; ++i) {
+    for (int i = 0; i < TuxConstants::NUM_TOOLS; ++i) {
         tool_avail[i] = 1;
-        auto button = new NamedToolButton(juce::String(tool_names[i]), i, buttonIcons[i]);
+        auto button = new NamedToolButton(juce::String(TuxConstants::tool_names[i]), i, buttonIcons[i]);
         toolButtons.add(button);
         addAndMakeVisible(button);
         button->addListener(this);
@@ -32,7 +29,7 @@ void ToolsPanel::paint (juce::Graphics& g) {
 
 void ToolsPanel::resized() {
     auto buttonWidth = getWidth() / numColumns;
-    for (int i = 0; i < NUM_TOOLS; ++i) {
+    for (int i = 0; i < TuxConstants::NUM_TOOLS; ++i) {
         auto col = i % numColumns;
         auto row = i / numColumns;
         toolButtons[i]->setBounds(col * buttonWidth, row * buttonWidth, buttonWidth, buttonWidth);

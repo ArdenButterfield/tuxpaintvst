@@ -48,7 +48,7 @@ std::vector<juce::Image> makeIcons(const int numErasers)
 
 EraserOptionPanel::EraserOptionPanel (juce::AudioProcessorValueTreeState& p)
     : OptionsPanel(p, "Erasers"),
-      icons(makeIcons(NUM_ERASERS)),
+      icons(makeIcons(TuxConstants::NUM_ERASERS)),
       eraserSelector(p, "erasers", icons)
 {
     addAndMakeVisible(eraserSelector);

@@ -55,13 +55,13 @@ void TuxPaint::updateRightPanel(int toolIndex)
     OptionsPanel* newPanel;
     switch (toolIndex)
     {
-        case ToolsPanel::TOOL_FILL:
+        case TuxConstants::TOOL_FILL:
             newPanel = &fillOptionsPanel;
             break;
-        case ToolsPanel::TOOL_SHAPES:
+        case TuxConstants::TOOL_SHAPES:
             newPanel = &shapesOptionsPanel;
             break;
-        case ToolsPanel::TOOL_ERASER:
+        case TuxConstants::TOOL_ERASER:
             newPanel = &eraserOptionPanel;
             break;
         default:

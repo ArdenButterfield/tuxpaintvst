@@ -22,17 +22,6 @@ public:
     void paint (juce::Graphics& g) override;
     void resized() override;
 private:
-    const int NUM_ERASERS = 16;          /* How many sizes of erasers
-
-                                   (from ERASER_MIN to _MAX as squares, then again
-                                   from ERASER_MIN to _MAX as circles;
-                                   must be a multiple of 2;
-                                   best if a multiple of 4, since selector is 2 buttons across) */
-
-    const int NUM_ERASER_SIZES = (NUM_ERASERS / 2);
-    const int ERASER_MIN = 5;            /* Smaller than 5 will not render as a circle! */
-
-    const int ERASER_MAX = 128;
 
     const std::vector<juce::Image> icons;
     ButtonSelector eraserSelector;

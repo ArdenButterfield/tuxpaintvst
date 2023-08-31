@@ -12,6 +12,7 @@
 #include "../TuxConstants.h"
 
 #include "FillGraphics.h"
+#include "EraserGraphics.h"
 #include "GraphicsBase.h"
 
 class CanvasPanel : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
@@ -22,6 +23,7 @@ public:
     void paint (juce::Graphics& g) override;
     void resized() override;
     juce::Image& getCanvasImage() {return canvas;}
+    const juce::Colour backgroundColour = juce::Colour(255,255,255);
 private:
     void mouseDown(const juce::MouseEvent &event) override;
     void mouseDrag(const juce::MouseEvent &event) override;
@@ -29,6 +31,10 @@ private:
     juce::Image canvas;
     juce::AudioProcessorValueTreeState& parameters;
     FillGraphics fillGraphics;
+    EraserGraphics eraserGraphics;
+
+    std::array<GraphicsBase*, TuxConstants::NUM_TOOLS> graphicsTools;
+
     GraphicsBase* currentGraphics;
 };
 

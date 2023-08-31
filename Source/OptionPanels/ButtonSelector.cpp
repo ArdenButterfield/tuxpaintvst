@@ -87,6 +87,7 @@ void ButtonSelector::paint (juce::Graphics& g)
 }
 void ButtonSelector::parameterChanged (const juce::String& parameterID, float newValue)
 {
+    selectionIndex = static_cast<juce::AudioParameterChoice*>(parameters.getParameter(parameterID))->getIndex();
 }
 
 void ButtonSelector::mouseDown (const juce::MouseEvent& event)
@@ -116,6 +117,9 @@ void ButtonSelector::mouseDown (const juce::MouseEvent& event)
             selectionIndex = ind;
         }
     }
+    auto param = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter(parameterID));
+    *param = selectionIndex;
+
     repaint();
 }
 

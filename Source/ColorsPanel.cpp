@@ -6,7 +6,7 @@
 
 ColorsPanel::ColorsPanel(juce::AudioProcessorValueTreeState& p)
 : parameters(p) {
-
+    parameters.addParameterListener("colors", this);
     cur_color = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("colors"))->getIndex();
     old_color = cur_color;
     for (int i = 0; i < NUM_COLORS; ++i) {
@@ -19,6 +19,7 @@ ColorsPanel::ColorsPanel(juce::AudioProcessorValueTreeState& p)
 }
 
 ColorsPanel::~ColorsPanel() {
+    parameters.removeParameterListener("colors", this);
     colorButtons.clear(true);
 
 }
