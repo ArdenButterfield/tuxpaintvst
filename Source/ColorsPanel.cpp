@@ -6,15 +6,11 @@
 
 ColorsPanel::ColorsPanel(juce::AudioProcessorValueTreeState& p)
 : parameters(p) {
-    gd_colors.rows = colors_rows;
-    gd_colors.cols = (NUM_COLORS + gd_colors.rows - 1) / gd_colors.rows;
 
-    colorSlider = std::make_unique<juce::Slider>();
-    colorAttachment = std::make_unique<SliderAttachment>(parameters, "tool", *colorSlider);
-    cur_color = COLOR_BLACK;
-    old_color = COLOR_BLACK;
+    cur_color = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("colors"))->getIndex();
+    old_color = cur_color;
     for (int i = 0; i < NUM_COLORS; ++i) {
-        auto button = new ColorButton(juce::String(default_color_names[i]), i, default_color_hexes[i]);
+        auto button = new ColorButton(juce::String(TuxConstants::default_color_names[i]), i, TuxConstants::default_color_hexes[i]);
         colorButtons.add(button);
         addAndMakeVisible(button);
         button->addListener(this);
@@ -41,6 +37,9 @@ void ColorsPanel::resized() {
 
 void ColorsPanel::parameterChanged (const juce::String& parameterID, float newValue)
 {
+    colorButtons[cur_color]->setDown(false);
+    cur_color = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("colors"))->getIndex();
+    colorButtons[cur_color]->setDown(true);
 }
 
 void ColorsPanel::buttonClicked (juce::Button* b)
@@ -52,6 +51,8 @@ void ColorsPanel::buttonClicked (juce::Button* b)
     colorButtons[cur_color]->setDown(false);
     old_color = cur_color;
     cur_color = button->optionID;
+    auto param = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("colors"));
+    *param = cur_color;
     button->setDown(true);
 
 }

@@ -9,7 +9,6 @@ ToolsPanel::ToolsPanel(juce::AudioProcessorValueTreeState& p)
 {
     toolSlider = std::make_unique<juce::Slider>();
     toolAttachment = std::make_unique<SliderAttachment>(parameters, "tool", *toolSlider);
-    gd_tools = {7,2};
     cur_tool = TOOL_BRUSH;
     old_tool = TOOL_BRUSH;
     parameters.addParameterListener("tool", this);

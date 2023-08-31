@@ -155,6 +155,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
         },
         0
         ));
+    parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
+        juce::ParameterID{"colors", 1},
+        "Colors",
+        juce::StringArray { &TuxConstants::default_color_names[0], TuxConstants::NUM_DEFAULT_COLORS},
+        0
+        ));
     return {parameters.begin(), parameters.end()};
 }
 

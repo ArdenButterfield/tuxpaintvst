@@ -1,13 +1,13 @@
 //
 // Created by arden on 7/22/23.
 //
-#include "CanvasPanel.h"
+#include "Canvas/CanvasPanel.h"
 #include "ColorsPanel.h"
 #include "InfoPanel.h"
+#include "OptionPanels/EraserOptionPanel.h"
 #include "OptionPanels/FillOptionsPanel.h"
 #include "OptionPanels/OptionsPanel.h"
 #include "OptionPanels/ShapesOptionsPanel.h"
-#include "OptionPanels/EraserOptionPanel.h"
 #include "TitlePanel.h"
 #include "ToolsPanel.h"
 #include "TuxConstants.h"

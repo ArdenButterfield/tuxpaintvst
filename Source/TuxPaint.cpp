@@ -14,7 +14,8 @@ TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p)
       toolsTitlePanel("Tools"),
       shapesOptionsPanel(p),
       fillOptionsPanel(p),
-      eraserOptionPanel(p)
+      eraserOptionPanel(p),
+      canvasPanel(p)
 {
     currentOptionsPanel = &shapesOptionsPanel;
 

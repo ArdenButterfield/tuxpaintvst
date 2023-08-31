@@ -32,7 +32,6 @@ public:
     void buttonClicked (juce::Button *) override;
     void buttonStateChanged (juce::Button *) override {}
 
-    grid_dims gd_tools;      /* was 2x7 */
 
     juce::Rectangle<int> real_tools;
 

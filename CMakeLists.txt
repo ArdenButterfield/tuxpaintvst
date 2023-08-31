@@ -71,14 +71,14 @@ set(SourceFiles
     ./Source/InfoPanel.h
     ./Source/PluginProcessor.cpp
     ./Source/TuxPaint.cpp
-        Source/OptionPanels/OptionsPanel.h
+    ./Source/OptionPanels/OptionsPanel.h
     ./Source/PluginEditor.h
-        Source/OptionPanels/OptionsPanel.cpp
+    ./Source/OptionPanels/OptionsPanel.cpp
     ./Source/InfoPanel.cpp
     ./Source/PluginEditor.cpp
-    ./Source/CanvasPanel.h
+    ./Source/Canvas/CanvasPanel.h
     ./Source/ToolsPanel.h
-    ./Source/CanvasPanel.cpp
+    ./Source/Canvas/CanvasPanel.cpp
     ./Source/ToolsPanel.cpp
     ./Source/ColorsPanel.h
     ./Source/ColorsPanel.cpp
@@ -103,6 +103,10 @@ set(SourceFiles
     ./Source/OptionPanels/FillOptionsPanel.h
     ./Source/OptionPanels/EraserOptionPanel.cpp
     ./Source/OptionPanels/EraserOptionPanel.h
+    ./Source/Canvas/GraphicsBase.cpp
+    ./Source/Canvas/GraphicsBase.h
+    ./Source/Canvas/FillGraphics.cpp
+    ./Source/Canvas/FillGraphics.h
     ./Source/BinaryDataHeaders/BinaryDataBrushes.h
     ./Source/BinaryDataHeaders/BinaryDataFills.h
     ./Source/BinaryDataHeaders/BinaryDataFonts.h
