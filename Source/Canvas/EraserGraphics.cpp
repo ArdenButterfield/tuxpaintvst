@@ -66,7 +66,7 @@ void EraserGraphics::doErase (int x, int y)
 void EraserGraphics::eraseLine (int x1, int y1, int x2, int y2)
 {
     int dx, dy, y;
-    int orig_x1, orig_y1, orig_x2, orig_y2, tmp, ;
+    int orig_x1, orig_y1, orig_x2, orig_y2, tmp;
     float m, b;
 
     orig_x1 = x1;
