@@ -9,49 +9,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
     parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
         juce::ParameterID {"tool", 1},
         "Tool",
-        juce::StringArray {
-            // Freehand painting tool
-            "Paint",
-
-            // Stamp tool (aka Rubber Stamps
-            "Stamp",
-
-            // Line drawing tool
-            "Lines",
-
-            // Shape creation tool (square, circle, etc.
-            "Shapes",
-
-            // Text tool
-            "Text",
-
-            // Label tool
-            "Label",
-
-            // Fill tool
-            "Fill",
-
-            // "Magic" effects tools (blur, flip image, etc.
-            "Magic",
-
-            // Undo last action
-            "Undo",
-
-            // Redo undone action
-            "Redo",
-
-            // Eraser tool
-            "Eraser",
-
-            // Start a new picture
-            "New",
-
-            // Open a saved picture
-            "Open",
-
-            // Save the current picture
-            "Save"
-        },
+        juce::StringArray { &TuxConstants::tool_names[0], TuxConstants::NUM_TOOLS},
         0));
     parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
         juce::ParameterID{"shapes", 1},
@@ -159,6 +117,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
         juce::ParameterID{"colors", 1},
         "Colors",
         juce::StringArray { &TuxConstants::default_color_names[0], TuxConstants::NUM_DEFAULT_COLORS},
+        0
+        ));
+    parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
+        juce::ParameterID{TuxConstants::tool_names[TuxConstants::TOOL_FILL]},
+        "Fills",
+        juce::StringArray{&TuxConstants::fill_names[0], TuxConstants::NUM_FILLS},
         0
         ));
     return {parameters.begin(), parameters.end()};

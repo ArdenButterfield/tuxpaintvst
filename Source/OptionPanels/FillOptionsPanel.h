@@ -22,31 +22,6 @@ public:
     void resized() override;
 private:
     ButtonSelector fillSelector;
-    enum
-    {
-        FILL_FLOOD,
-        FILL_BRUSH,
-        FILL_GRADIENT_LINEAR,
-        FILL_GRADIENT_RADIAL,
-        FILL_GRADIENT_SHAPED,
-        NUM_FILLS
-    };
-
-    const std::array<juce::String, NUM_FILLS> fill_names = {
-        "Solid",
-        "Brush",
-        "Linear",
-        "Radial",
-        "Shaped"
-    };
-
-    const std::array<juce::String, NUM_FILLS> fill_tips = {
-        "Click to fill an area with a solid color.",
-        "Click and drag to fill an area by hand, using a brush.",
-        "Click and drag to fill an area with a linear gradient (from the chosen color to transparent).",
-        "Click to fill an area with a radial gradient (from the chosen color to transparent).",
-        "Click to fill an area with a shaped gradient (from the chosen color to transparent)."
-    };
 
     const std::vector<juce::Image> icons {
         juce::ImageCache::getFromMemory(BinaryDataFills::solid_png, BinaryDataFills::solid_pngSize),

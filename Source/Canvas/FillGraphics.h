@@ -20,6 +20,8 @@ public:
     void doMouseUp(int x, int y) override {}
 
 private:
+    juce::Image imageBeforeFill;
+    juce::Point<int> startMouse, currentMouse;
     /* How close colors need to be to match all the time */
     const float COLOR_MATCH_NARROW = 0.04;
 
@@ -38,9 +40,15 @@ private:
     std::vector<bool> touchedPixels;
     std::vector<bool> shouldBeFilled;
     juce::Colour fillColor, startingColor;
+    int fillMode;
+
     juce::Colour global_old_colr, global_cur_colr;
-    int global_extent_x1, global_extent_y1, global_extent_x2, global_extent_y2;
+    int xMinTouched, yMinTouched, xMaxTouched, yMaxTouched;
     int global_prog_anim;
+
+    void getParamValues();
+
+    void applyFillMask();
 
     void simulate_flood_fill(int x, int y);
     void simulate_flood_fill_outside_check(int x, int y, int y_outside);

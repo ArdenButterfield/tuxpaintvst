@@ -115,6 +115,31 @@ namespace TuxConstants {
         "Your image has been saved!"
     };
 
+    /* =========== Fills =========== */
+
+    enum
+    {
+        FILL_FLOOD,
+        FILL_BRUSH,
+        FILL_GRADIENT_LINEAR,
+        FILL_GRADIENT_RADIAL,
+        NUM_FILLS
+    };
+
+    const std::array<juce::String, NUM_FILLS> fill_names = {
+        "Solid",
+        "Brush",
+        "Linear",
+        "Radial",
+    };
+
+    const std::array<juce::String, NUM_FILLS> fill_tips = {
+        "Click to fill an area with a solid color.",
+        "Click and drag to fill an area by hand, using a brush.",
+        "Click and drag to fill an area with a linear gradient (from the chosen color to transparent).",
+        "Click to fill an area with a radial gradient (from the chosen color to transparent).",
+    };
+
     /* =========== Colors =========== */
 
     enum
