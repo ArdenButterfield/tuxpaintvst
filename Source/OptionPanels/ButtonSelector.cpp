@@ -65,7 +65,9 @@ void ButtonSelector::paint (juce::Graphics& g)
                 g.drawImageAt(buttonOffBackground, x, y);
                 continue;
             }
-            g.drawImageAt(buttonIcons[buttonIndex], x, y);
+            auto w = buttonIcons[buttonIndex].getWidth();
+            auto h = buttonIcons[buttonIndex].getHeight();
+            g.drawImageAt(buttonIcons[buttonIndex], x + buttonWidth / 2 - w / 2, y + buttonHeight / 2 - h / 2);
         }
     } else {
         for (int i = 0; i < numVisibleButtons; ++i) {
@@ -80,7 +82,9 @@ void ButtonSelector::paint (juce::Graphics& g)
                 g.drawImageAt(buttonOffBackground, x, y);
                 continue;
             }
-            g.drawImageAt(buttonIcons[buttonIndex], x, y);
+            auto w = buttonIcons[buttonIndex].getWidth();
+            auto h = buttonIcons[buttonIndex].getHeight();
+            g.drawImageAt(buttonIcons[buttonIndex], x + buttonWidth / 2 - w / 2, y + buttonHeight / 2 - h / 2);
         }
 
     }
