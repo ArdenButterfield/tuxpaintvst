@@ -37,16 +37,17 @@ void FillGraphics::doMouseDown (int x, int y)
     imageBeforeFill = canvasImage->createCopy();
     startMouse = {x, y};
     currentMouse = {x, y};
+    previousMouse = {x, y};
     doFill(x, y);
 }
 
 void FillGraphics::doMouseDragged (int x, int y)
 {
     currentMouse = {x, y};
-    if (fillMode == TuxConstants::FILL_GRADIENT_LINEAR) {
-        *canvasImage = imageBeforeFill.createCopy();
+    if (fillMode == TuxConstants::FILL_GRADIENT_LINEAR || fillMode == TuxConstants::FILL_BRUSH) {
         applyFillMask();
     }
+    previousMouse = {x, y};
     // doFill(x,y,juce::Colours::magenta);
 }
 
@@ -84,6 +85,50 @@ void FillGraphics::applyFillMask()
                     }
                 }
             }
+        }
+
+    } else if (fillMode == TuxConstants::FILL_GRADIENT_LINEAR) {
+        float A, B, C, C1, C2, ratio;
+        A = (currentMouse.getX() - startMouse.getX());
+        B = (currentMouse.getY() - startMouse.getY());
+        C1 = (A * startMouse.getX()) + (B * startMouse.getY());
+        C2 = (A * currentMouse.getX()) + (B * currentMouse.getY());
+        for (auto yy = yMinTouched; yy < yMaxTouched; ++yy)
+        {
+            for (auto xx = xMinTouched; xx < xMaxTouched; ++xx)
+            {
+                if (touchedPixels[yy * canvasImage->getWidth() + xx])
+                {
+                    /* (h/t David Z on StackOverflow for how to quickly compute this:
+                     https://stackoverflow.com/questions/521493/creating-a-linear-gradient-in-2d-array) */
+                    C = (A * xx) + (B * yy);
+
+                    if (C < C1)
+                    {
+                        /* At/beyond the click spot (opposite direction of mouse); solid color */
+                        ratio = 0.0;
+                    }
+                    else if (C >= C2)
+                    {
+                        /* At/beyond the mouse; completely faded out */
+                        ratio = 1.0;
+                    }
+                    else
+                    {
+                        /* The actual gradient... */
+                        ratio = (C - C1) / (C2 - C1);
+                    }
+
+                    auto oldPixelColor = imageBeforeFill.getPixelAt (xx, yy);
+                    canvasImage->setPixelAt (xx, yy, fillColor.interpolatedWith (oldPixelColor, ratio));
+                }
+            }
+        }
+    } else if (fillMode == TuxConstants::FILL_BRUSH) {
+        if (currentMouse == startMouse) {
+            drawBrushFillSingle(currentMouse.getX(), currentMouse.getY());
+        } else {
+            drawBrushFill();
         }
     }
 
@@ -178,5 +223,82 @@ bool FillGraphics::would_flood_fill(juce::Colour cur_colr) const
     else
     {
         return false;
+    }
+}
+void FillGraphics::drawBrushFillSingle(int x, int y)
+{
+    const int brushRadius = 16;
+    for (int yy = -brushRadius; yy < brushRadius; ++yy) {
+        for (int xx = -brushRadius; xx < brushRadius; ++xx) {
+            auto pixX = x + xx;
+            auto pixY = y + yy;
+            if ((xx * xx + yy * yy < brushRadius * brushRadius) && shouldBeFilled[pixY * canvasImage->getWidth() + pixX]) {
+                canvasImage->setPixelAt(pixX, pixY, fillColor);
+            }
+        }
+    }
+}
+void FillGraphics::drawBrushFill()
+{
+    int dx, dy;
+    int y;
+    int orig_x1, orig_y1, orig_x2, orig_y2, tmp;
+    float m, b;
+    int x1, x2, y1, y2;
+
+    x1 = previousMouse.getX();
+    y1 = previousMouse.getY();
+    x2 = currentMouse.getX();
+    y2 = currentMouse.getY();
+
+    orig_x1 = x1;
+    orig_y1 = y1;
+
+    orig_x2 = x2;
+    orig_y2 = y2;
+
+    dx = x2 - x1;
+    dy = y2 - y1;
+
+    if (dx != 0)
+    {
+        m = ((float)dy) / ((float)dx);
+        b = y1 - m * x1;
+
+        if (x2 >= x1)
+            dx = 1;
+        else
+            dx = -1;
+
+        while (x1 != x2)
+        {
+            y1 = m * x1 + b;
+            y2 = m * (x1 + dx) + b;
+
+            if (y1 > y2)
+            {
+                for (y = y1; y >= y2; y--)
+                    drawBrushFillSingle( x1, y);
+            }
+            else
+            {
+                for (y = y1; y <= y2; y++)
+                    drawBrushFillSingle(x1, y);
+            }
+
+            x1 = x1 + dx;
+        }
+    }
+    else
+    {
+        if (y1 > y2)
+        {
+            y = y1;
+            y1 = y2;
+            y2 = y;
+        }
+
+        for (y = y1; y <= y2; y++)
+            drawBrushFillSingle(x1, y);
     }
 }

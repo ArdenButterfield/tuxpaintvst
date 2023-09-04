@@ -8,9 +8,6 @@
 
 namespace BinaryDataBrushes
 {
-    extern const char*   flower_6_small_dat;
-    const int            flower_6_small_datSize = 11;
-
     extern const char*   heart_png;
     const int            heart_pngSize = 1962;
 
@@ -23,17 +20,8 @@ namespace BinaryDataBrushes
     extern const char*   aa_round_fuzz_png;
     const int            aa_round_fuzz_pngSize = 341;
 
-    extern const char*   rotating_dash_dat;
-    const int            rotating_dash_datSize = 18;
-
-    extern const char*   squirrel_dat;
-    const int            squirrel_datSize = 32;
-
     extern const char*   slash_20_lt_png;
     const int            slash_20_lt_pngSize = 351;
-
-    extern const char*   spiral_dat;
-    const int            spiral_datSize = 20;
 
     extern const char*   rotating_dash_png;
     const int            rotating_dash_pngSize = 4645;
@@ -50,12 +38,6 @@ namespace BinaryDataBrushes
     extern const char*   spray_png;
     const int            spray_pngSize = 878;
 
-    extern const char*   inksplat_dat;
-    const int            inksplat_datSize = 27;
-
-    extern const char*   sparkles_dat;
-    const int            sparkles_datSize = 16;
-
     extern const char*   aa_round_seethru_10_png;
     const int            aa_round_seethru_10_pngSize = 165;
 
@@ -71,17 +53,8 @@ namespace BinaryDataBrushes
     extern const char*   aa_round_03_png;
     const int            aa_round_03_pngSize = 5335;
 
-    extern const char*   footprintshumanshoes_dat;
-    const int            footprintshumanshoes_datSize = 32;
-
     extern const char*   aa_round_36_png;
     const int            aa_round_36_pngSize = 357;
-
-    extern const char*   star_dat;
-    const int            star_datSize = 11;
-
-    extern const char*   linesangled_dat;
-    const int            linesangled_datSize = 12;
 
     extern const char*   square_12_png;
     const int            square_12_pngSize = 4651;
@@ -101,20 +74,8 @@ namespace BinaryDataBrushes
     extern const char*   slash_10_rt_png;
     const int            slash_10_rt_pngSize = 250;
 
-    extern const char*   heart_dat;
-    const int            heart_datSize = 11;
-
-    extern const char*   arrow_triangles_dat;
-    const int            arrow_triangles_datSize = 23;
-
-    extern const char*   footprintshuman_dat;
-    const int            footprintshuman_datSize = 32;
-
     extern const char*   aa_round_24_png;
     const int            aa_round_24_pngSize = 276;
-
-    extern const char*   footprintspaws_dat;
-    const int            footprintspaws_datSize = 32;
 
     extern const char*   slash_16_rt_png;
     const int            slash_16_rt_pngSize = 299;
@@ -124,9 +85,6 @@ namespace BinaryDataBrushes
 
     extern const char*   square_seethru_png;
     const int            square_seethru_pngSize = 4676;
-
-    extern const char*   flower_5_small_dat;
-    const int            flower_5_small_datSize = 11;
 
     extern const char*   square_06_png;
     const int            square_06_pngSize = 4650;
@@ -149,32 +107,20 @@ namespace BinaryDataBrushes
     extern const char*   vine_png;
     const int            vine_pngSize = 17538;
 
-    extern const char*   vine_dat;
-    const int            vine_datSize = 16;
-
     extern const char*   pentagon_png;
     const int            pentagon_pngSize = 355;
 
     extern const char*   triangle_down_png;
     const int            triangle_down_pngSize = 414;
 
-    extern const char*   arrow_dat;
-    const int            arrow_datSize = 18;
-
     extern const char*   footprintspaws_png;
     const int            footprintspaws_pngSize = 3330;
-
-    extern const char*   flower_7_dat;
-    const int            flower_7_datSize = 11;
 
     extern const char*   arrow_png;
     const int            arrow_pngSize = 573;
 
     extern const char*   sphere_png;
     const int            sphere_pngSize = 1054;
-
-    extern const char*   kuroneko_dat;
-    const int            kuroneko_datSize = 32;
 
     extern const char*   footprintshumanshoes_png;
     const int            footprintshumanshoes_pngSize = 3146;
@@ -206,26 +152,11 @@ namespace BinaryDataBrushes
     extern const char*   x_png;
     const int            x_pngSize = 209;
 
-    extern const char*   spray_dat;
-    const int            spray_datSize = 16;
-
-    extern const char*   flower_6_dat;
-    const int            flower_6_datSize = 11;
-
-    extern const char*   flower_5_dat;
-    const int            flower_5_datSize = 11;
-
     extern const char*   sparkles_png;
     const int            sparkles_pngSize = 1015;
 
-    extern const char*   sphere_dat;
-    const int            sphere_datSize = 11;
-
     extern const char*   cutout_star_circle_png;
     const int            cutout_star_circle_pngSize = 949;
-
-    extern const char*   dog_dat;
-    const int            dog_datSize = 32;
 
     extern const char*   dog_png;
     const int            dog_pngSize = 1911;
@@ -252,7 +183,7 @@ namespace BinaryDataBrushes
     const int            star_pngSize = 502;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 81;
+    const int namedResourceListSize = 58;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

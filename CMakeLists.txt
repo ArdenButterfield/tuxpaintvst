@@ -152,46 +152,32 @@ juce_add_binary_data(Brushes
         HEADER_NAME BinaryDataBrushes.h
         NAMESPACE BinaryDataBrushes
         SOURCES
-        ./Source/data/brushes/flower_6_small.dat
         ./Source/data/brushes/heart.png
         ./Source/data/brushes/flower_6_small.png
         ./Source/data/brushes/slash_10_lt.png
         ./Source/data/brushes/aa_round_fuzz.png
-        ./Source/data/brushes/rotating_dash.dat
-        ./Source/data/brushes/squirrel.dat
         ./Source/data/brushes/slash_20_lt.png
-        ./Source/data/brushes/spiral.dat
         ./Source/data/brushes/rotating_dash.png
         ./Source/data/brushes/kuroneko.png
         ./Source/data/brushes/hexagon.png
         ./Source/data/brushes/lines-angled.png
         ./Source/data/brushes/spray.png
-        ./Source/data/brushes/inksplat.dat
-        ./Source/data/brushes/sparkles.dat
         ./Source/data/brushes/aa_round_seethru_10.png
         ./Source/data/brushes/slash_20_rt.png
         ./Source/data/brushes/spiral.png
         ./Source/data/brushes/square_fuzz.png
         ./Source/data/brushes/aa_round_03.png
-        ./Source/data/brushes/footprints-human-shoes.dat
         ./Source/data/brushes/aa_round_36.png
-        ./Source/data/brushes/star.dat
-        ./Source/data/brushes/lines-angled.dat
         ./Source/data/brushes/square_12.png
         ./Source/data/brushes/tiny.png
         ./Source/data/brushes/flower_7.png
         ./Source/data/brushes/diamond.png
         ./Source/data/brushes/flower_6.png
         ./Source/data/brushes/slash_10_rt.png
-        ./Source/data/brushes/heart.dat
-        ./Source/data/brushes/arrow_triangles.dat
-        ./Source/data/brushes/footprints-human.dat
         ./Source/data/brushes/aa_round_24.png
-        ./Source/data/brushes/footprints-paws.dat
         ./Source/data/brushes/slash_16_rt.png
         ./Source/data/brushes/aa_round_seethru_05.png
         ./Source/data/brushes/square_seethru.png
-        ./Source/data/brushes/flower_5_small.dat
         ./Source/data/brushes/square_06.png
         ./Source/data/brushes/splat.png
         ./Source/data/brushes/cutout_square_diamond.png
@@ -199,15 +185,11 @@ juce_add_binary_data(Brushes
         ./Source/data/brushes/triangle_up.png
         ./Source/data/brushes/squirrel.png
         ./Source/data/brushes/vine.png
-        ./Source/data/brushes/vine.dat
         ./Source/data/brushes/pentagon.png
         ./Source/data/brushes/triangle_down.png
-        ./Source/data/brushes/arrow.dat
         ./Source/data/brushes/footprints-paws.png
-        ./Source/data/brushes/flower_7.dat
         ./Source/data/brushes/arrow.png
         ./Source/data/brushes/sphere.png
-        ./Source/data/brushes/kuroneko.dat
         ./Source/data/brushes/footprints-human-shoes.png
         ./Source/data/brushes/arrow_triangles.png
         ./Source/data/brushes/lozenge.png
@@ -218,13 +200,8 @@ juce_add_binary_data(Brushes
         ./Source/data/brushes/chisle.png
         ./Source/data/brushes/blob.png
         ./Source/data/brushes/x.png
-        ./Source/data/brushes/spray.dat
-        ./Source/data/brushes/flower_6.dat
-        ./Source/data/brushes/flower_5.dat
         ./Source/data/brushes/sparkles.png
-        ./Source/data/brushes/sphere.dat
         ./Source/data/brushes/cutout_star_circle.png
-        ./Source/data/brushes/dog.dat
         ./Source/data/brushes/dog.png
         ./Source/data/brushes/oval.png
         ./Source/data/brushes/flower_5.png

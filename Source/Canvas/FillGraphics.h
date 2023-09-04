@@ -21,7 +21,7 @@ public:
 
 private:
     juce::Image imageBeforeFill;
-    juce::Point<int> startMouse, currentMouse;
+    juce::Point<int> startMouse, currentMouse, previousMouse;
     /* How close colors need to be to match all the time */
     const float COLOR_MATCH_NARROW = 0.04;
 
@@ -49,6 +49,9 @@ private:
     void getParamValues();
 
     void applyFillMask();
+
+    void drawBrushFillSingle(int x, int y);
+    void drawBrushFill();
 
     void simulate_flood_fill(int x, int y);
     void simulate_flood_fill_outside_check(int x, int y, int y_outside);
