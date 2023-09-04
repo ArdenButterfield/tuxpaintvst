@@ -20,10 +20,38 @@ public:
     void doMouseUp(int x, int y) override {}
 
 private:
-    juce::Colour color;
+    /* How close colors need to be to match all the time */
+    const float COLOR_MATCH_NARROW = 0.04;
+
+    /* How close colors can be to match for a few pixels */
+    const float COLOR_MATCH_WIDE = 0.60;
+
+    /* How many pixels can we allow a wide match before stopping? */
+    const int WIDE_MATCH_THRESHOLD = 3;
+
+    typedef struct queue_s
+    {
+        int x, y, y_outside;
+    } queue_t;
+
+    std::vector<queue_t> queue;
+    std::vector<bool> touchedPixels;
+    std::vector<bool> shouldBeFilled;
+    juce::Colour fillColor, startingColor;
+    juce::Colour global_old_colr, global_cur_colr;
+    int global_extent_x1, global_extent_y1, global_extent_x2, global_extent_y2;
+    int global_prog_anim;
+
+    void simulate_flood_fill(int x, int y);
+    void simulate_flood_fill_outside_check(int x, int y, int y_outside);
 
     juce::AudioProcessorValueTreeState& parameters;
-    void doFill(int x, int y, juce::Colour fillColor);
+    bool removeFromQueue(int *x, int *y, int *y_outside);
+    void doFill(int x, int y);
+    bool would_flood_fill(juce::Colour pixelColor) const;
+    static float colors_close(juce::Colour c1, juce::Colour c2);
+    // juce::Colour blend(juce::Colour draw_colr, juce::Colour old_colr, double pct);
+
 };
 
 #endif //TUXPAINTVST_FILLGRAPHICS_H
