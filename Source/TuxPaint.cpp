@@ -15,7 +15,8 @@ TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p)
       shapesOptionsPanel(p),
       fillOptionsPanel(p),
       eraserOptionPanel(p),
-      canvasPanel(p)
+      canvasPanel(p),
+      brushesOptionsPanel(p)
 {
     currentOptionsPanel = &shapesOptionsPanel;
 
@@ -32,6 +33,7 @@ TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p)
     addAndMakeVisible(colorsTitlePanel);
     addAndMakeVisible(toolsTitlePanel);
 
+
 }
 TuxPaint::~TuxPaint() {
     parameters.removeParameterListener("tool", this);
@@ -45,6 +47,7 @@ void TuxPaint::resized() {
     fillOptionsPanel.setBounds(544,0,96,376);
     shapesOptionsPanel.setBounds(544,0,96,376);
     eraserOptionPanel.setBounds(544,0,96,376);
+    brushesOptionsPanel.setBounds(544,0,96,376);
     colorsPanel.setBounds(96,376,544,48);
     toolsTitlePanel.setBounds(0,0,96,40);
     colorsTitlePanel.setBounds(0,376,96,48);
@@ -63,6 +66,12 @@ void TuxPaint::updateRightPanel(int toolIndex)
             break;
         case TuxConstants::TOOL_ERASER:
             newPanel = &eraserOptionPanel;
+            break;
+        case TuxConstants::TOOL_BRUSH:
+            newPanel = &brushesOptionsPanel;
+            break;
+        case TuxConstants::TOOL_LINES:
+            newPanel = &brushesOptionsPanel;
             break;
         default:
             return;

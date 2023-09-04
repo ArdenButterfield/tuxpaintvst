@@ -103,6 +103,8 @@ set(SourceFiles
     ./Source/OptionPanels/FillOptionsPanel.h
     ./Source/OptionPanels/EraserOptionPanel.cpp
     ./Source/OptionPanels/EraserOptionPanel.h
+    ./Source/OptionPanels/BrushesOptionsPanel.cpp
+    ./Source/OptionPanels/BrushesOptionsPanel.h
     ./Source/Canvas/GraphicsBase.cpp
     ./Source/Canvas/GraphicsBase.h
     ./Source/Canvas/FillGraphics.cpp

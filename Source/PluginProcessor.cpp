@@ -120,9 +120,15 @@ juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
         0
         ));
     parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
-        juce::ParameterID{TuxConstants::tool_names[TuxConstants::TOOL_FILL]},
+        juce::ParameterID{TuxConstants::tool_names[TuxConstants::TOOL_FILL], 1},
         "Fills",
         juce::StringArray{&TuxConstants::fill_names[0], TuxConstants::NUM_FILLS},
+        0
+        ));
+    parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
+        juce::ParameterID{"brushes", 1},
+        "Brushes",
+        juce::StringArray{&TuxConstants::brush_names[0], TuxConstants::NUM_BRUSHES},
         0
         ));
     return {parameters.begin(), parameters.end()};
