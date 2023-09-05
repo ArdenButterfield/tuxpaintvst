@@ -28,6 +28,7 @@ public:
 private:
     void mouseDown(const juce::MouseEvent &event) override;
     void mouseDrag(const juce::MouseEvent &event) override;
+    void mouseUp(const juce::MouseEvent &event) override;
     void parameterChanged(const juce::String &parameterID, float newValue) override;
     juce::Image canvas;
     juce::AudioProcessorValueTreeState& parameters;

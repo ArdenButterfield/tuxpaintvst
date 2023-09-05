@@ -7,7 +7,7 @@
 /* What angle (degrees) is the mouse away from a brush drag, line draw, or stamp placement? */
 int brush_rotation(int ctr_x, int ctr_y, int ox, int oy)
 {
-    return (int)(atan2(oy - ctr_y, ox - ctr_x) * 180 / M_PI);
+    return (int)(atan2(oy - ctr_y, ox - ctr_x) * 180 / 3.14159);
 }
 
 
@@ -61,12 +61,14 @@ void BrushGraphics::doMouseDragged (int x, int y)
 {
     currentMouse.setXY(x, y);
     brush_draw();
+
     previousMouse.setXY(x, y);
 }
 
 void BrushGraphics::doMouseUp (int x, int y)
 {
     currentMouse.setXY(x, y);
+
     brush_draw();
 }
 

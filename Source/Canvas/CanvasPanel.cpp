@@ -66,3 +66,10 @@ void CanvasPanel::parameterChanged (const juce::String& parameterID, float newVa
     auto toolIndex = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("tool"))->getIndex();
     currentGraphics = graphicsTools[toolIndex];
 }
+void CanvasPanel::mouseUp (const juce::MouseEvent& event)
+{
+    if (currentGraphics != nullptr) {
+        currentGraphics->doMouseUp(event.getMouseDownX(), event.getMouseDownY());
+        repaint();
+    }
+}
