@@ -39,6 +39,7 @@ void ButtonSelector::resized() {
         firstDisplayedIcon = 0;
     }
 }
+
 void ButtonSelector::paint (juce::Graphics& g)
 {
     if (numVisibleButtons < buttonIcons.size()) {

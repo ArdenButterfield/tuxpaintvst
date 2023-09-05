@@ -48,6 +48,11 @@ void BrushGraphics::makeCurrentBrush()
             }
         }
     }
+    brush_frame = 0;
+
+    img_cur_brush_frame_w = currentBrush.getWidth() / abs(TuxConstants::brush_frames[currentBrushIndex]);
+    img_cur_brush_w = img_cur_brush_frame_w / (TuxConstants::brush_directional[currentBrushIndex] ? 3 : 1);
+    img_cur_brush_h = currentBrush.getHeight() / (TuxConstants::brush_directional[currentBrushIndex] ? 3 : 1);
 }
 
 
@@ -76,7 +81,6 @@ void BrushGraphics::brush_draw()
 {
     auto g = juce::Graphics(*canvasImage);
 
-    brush_frame = 0;
     int x1, y1, x2, y2;
     x1 = previousMouse.getX();  y1 = previousMouse.getY();
     x2 = currentMouse.getX();   y2 = currentMouse.getY();
@@ -215,6 +219,7 @@ void BrushGraphics::blit_brush (juce::Graphics& g, int x, int y, int direction, 
 
         if (TuxConstants::brush_frames[currentBrushIndex] >= 0)
         {
+
             brush_frame++;
             if (brush_frame >= TuxConstants::brush_frames[currentBrushIndex])
                 brush_frame = 0;
@@ -233,49 +238,48 @@ void BrushGraphics::blit_brush (juce::Graphics& g, int x, int y, int direction, 
         dest.setX(x);
         dest.setY(y);
 
-        // if (TuxConstants::brush_directional[currentBrushIndex]) TODO: bring back
-        if (false)
+        if (TuxConstants::brush_directional[currentBrushIndex])
         {
-/*            if (direction == BRUSH_DIRECTION_UP_LEFT ||
+            if (direction == BRUSH_DIRECTION_UP_LEFT ||
                 direction == BRUSH_DIRECTION_UP || direction == BRUSH_DIRECTION_UP_RIGHT)
             {
-                src.y = 0;
+                src.setY(0);
             }
             else if (direction == BRUSH_DIRECTION_LEFT ||
                      direction == BRUSH_DIRECTION_NONE || direction == BRUSH_DIRECTION_RIGHT)
             {
-                src.y = img_cur_brush_h;
+                src.setY(img_cur_brush_h);
             }
             else if (direction == BRUSH_DIRECTION_DOWN_LEFT ||
                      direction == BRUSH_DIRECTION_DOWN || direction == BRUSH_DIRECTION_DOWN_RIGHT)
             {
-                src.y = img_cur_brush_h << 1;
+                src.setY(img_cur_brush_h * 2);
             }
 
             if (direction == BRUSH_DIRECTION_UP_LEFT ||
                 direction == BRUSH_DIRECTION_LEFT || direction == BRUSH_DIRECTION_DOWN_LEFT)
             {
-                src.x = brush_frame * img_cur_brush_frame_w;
+                src.setX(brush_frame * img_cur_brush_frame_w);
             }
             else if (direction == BRUSH_DIRECTION_UP ||
                      direction == BRUSH_DIRECTION_NONE || direction == BRUSH_DIRECTION_DOWN)
             {
-                src.x = brush_frame * img_cur_brush_frame_w + img_cur_brush_w;
+                src.setX(brush_frame * img_cur_brush_frame_w + img_cur_brush_w);
             }
             else if (direction == BRUSH_DIRECTION_UP_RIGHT ||
                      direction == BRUSH_DIRECTION_RIGHT || direction == BRUSH_DIRECTION_DOWN_RIGHT)
             {
-                src.x = brush_frame * img_cur_brush_frame_w + (img_cur_brush_w << 1);
-            }*/
+                src.setX(brush_frame * img_cur_brush_frame_w + (img_cur_brush_w << 1));
+            }
         }
         else
         {
             src.setX(brush_frame * currentBrush.getWidth());
             src.setY(0);
         }
+        src.setWidth(img_cur_brush_w);
+        src.setHeight(img_cur_brush_h);
 
-        src.setWidth(currentBrush.getWidth());
-        src.setHeight(currentBrush.getHeight());
         dest.setWidth(src.getWidth());
         dest.setHeight(src.getHeight());
         // if (TuxConstants::brush_rotate[currentBrushIndex] && rotation != -1.0 /* only if we're moving */ )

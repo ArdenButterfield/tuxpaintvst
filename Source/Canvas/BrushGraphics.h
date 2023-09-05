@@ -44,6 +44,11 @@ private:
     int brush_counter;
     int brush_frame;
 
+    int img_cur_brush_frame_w;
+    int img_cur_brush_w;
+    int img_cur_brush_h;
+
+
     void makeCurrentBrush();
 
     juce::Colour currentColor;
