@@ -14,6 +14,7 @@
 #include "FillGraphics.h"
 #include "EraserGraphics.h"
 #include "GraphicsBase.h"
+#include "BrushGraphics.h"
 
 class CanvasPanel : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
 {
@@ -32,6 +33,7 @@ private:
     juce::AudioProcessorValueTreeState& parameters;
     FillGraphics fillGraphics;
     EraserGraphics eraserGraphics;
+    BrushGraphics brushGraphics;
 
     std::array<GraphicsBase*, TuxConstants::NUM_TOOLS> graphicsTools;
 

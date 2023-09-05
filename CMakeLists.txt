@@ -111,6 +111,8 @@ set(SourceFiles
     ./Source/Canvas/FillGraphics.h
     ./Source/Canvas/EraserGraphics.cpp
     ./Source/Canvas/EraserGraphics.h
+    ./Source/Canvas/BrushGraphics.cpp
+    ./Source/Canvas/BrushGraphics.h
     ./Source/BinaryDataHeaders/BinaryDataBrushes.h
     ./Source/BinaryDataHeaders/BinaryDataFills.h
     ./Source/BinaryDataHeaders/BinaryDataFonts.h

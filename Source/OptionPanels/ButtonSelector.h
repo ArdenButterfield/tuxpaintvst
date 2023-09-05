@@ -12,6 +12,7 @@
 #include "../BinaryDataHeaders/BinaryDataUI.h"
 #include "../ScrollButton.h"
 #include "../ToolButton.h"
+#include "../TuxConstants.h"
 
 class ButtonSelector : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
 {
@@ -31,8 +32,8 @@ private:
     int firstDisplayedIcon;
     int rows;
     int cols;
-    const int buttonWidth = 48;
-    const int buttonHeight = 48;
+    const int buttonWidth = TuxConstants::buttonWidth;
+    const int buttonHeight = TuxConstants::buttonHeight;
 
     const juce::Image buttonUpBackground = juce::ImageCache::getFromMemory (BinaryDataUI::btn_up_png, BinaryDataUI::btn_up_pngSize);
     const juce::Image buttonDownBackground = juce::ImageCache::getFromMemory (BinaryDataUI::btn_down_png, BinaryDataUI::btn_down_pngSize);

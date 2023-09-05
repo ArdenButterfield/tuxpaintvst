@@ -27,11 +27,25 @@ for i in images:
             dataContents.append(d)
     else:
         dataContents.append({})
-for key in keys:
+for key in ['directional', 'rotate', 'random']:
     print(f"const std::array<int, NUM_BRUSHES> brush_{key} = {{", end="")
     for i in dataContents:
-        if key in i:
-            print(f"{i[key]}, ", end="")
-        else:
-            print(f"0, ", end="")
+        print(f"{i[key] if key in i else 0}, ", end="")
     print("\b\b};")
+for key in ['spacing']:
+    print(f"const std::array<int, NUM_BRUSHES> brush_{key} = {{", end="")
+    for i in dataContents:
+        print(f"{i[key] if key in i else 1}, ", end="")
+    print("\b\b};")
+for key in ['frames']:
+    print(f"const std::array<int, NUM_BRUSHES> brush_{key} = {{", end="")
+    for i in dataContents:
+        if ('random' in i):
+            v = -1
+        elif 'frames' in i:
+            v = i['frames']
+        else:
+            v = 1
+        print(f"{v}, ", end="")
+    print("\b\b};")
+

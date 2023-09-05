@@ -5,7 +5,12 @@
 #ifndef TUXPAINTVST_TUXCONSTANTS_H
 #define TUXPAINTVST_TUXCONSTANTS_H
 
+#include "BinaryDataHeaders/BinaryDataBrushes.h"
+
 namespace TuxConstants {
+
+    const int buttonHeight = 48;
+    const int buttonWidth = 48;
 
     /* =========== Tools =========== */
     enum
@@ -242,11 +247,11 @@ namespace TuxConstants {
     };
 
     // Generated from .dat files, using getData.py
-    const std::array<int, NUM_BRUSHES> brush_rotate = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    const std::array<int, NUM_BRUSHES> brush_frames = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 4, 0, 6, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 6, 0};
-    const std::array<int, NUM_BRUSHES> brush_spacing = {0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 80, 0, 0, 0, 0, 0, 48, 45, 20, 45, 20, 45, 72, 72, 56, 50, 0, 25, 40, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 40, 40, 0, 0, 0, 0, 0, 0, 0, 0, 48, 45, 0, 0, 0, 0, 0};
-    const std::array<int, NUM_BRUSHES> brush_random = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0};
     const std::array<int, NUM_BRUSHES> brush_directional = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0};
+    const std::array<int, NUM_BRUSHES> brush_rotate = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    const std::array<int, NUM_BRUSHES> brush_random = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0};
+    const std::array<int, NUM_BRUSHES> brush_spacing = {1, 1, 1, 1, 1, 1, 1, 1, 1, 60, 80, 1, 1, 1, 1, 1, 48, 45, 20, 45, 20, 45, 72, 72, 56, 50, 1, 25, 40, 1, 1, 1, 1, 10, 1, 1, 1, 1, 1, 1, 1, 40, 40, 1, 1, 1, 1, 1, 1, 1, 1, 48, 45, 1, 1, 1, 1, 1};
+    const std::array<int, NUM_BRUSHES> brush_frames = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, -1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 4, 1, -1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, -1, 1};
 
 
     /* =========== Fills =========== */

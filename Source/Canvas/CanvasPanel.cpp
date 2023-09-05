@@ -5,17 +5,20 @@
 #include "CanvasPanel.h"
 
 CanvasPanel::CanvasPanel(juce::AudioProcessorValueTreeState& p)
-    : parameters(p), fillGraphics(p), eraserGraphics(p, backgroundColour)
+    : parameters(p),
+      fillGraphics(p),
+      eraserGraphics(p, backgroundColour),
+      brushGraphics(p)
 {
     parameters.addParameterListener("tool", this);
 
-    currentGraphics = &fillGraphics;
     for (int i = 0; i < TuxConstants::NUM_TOOLS; ++i) {
         graphicsTools[i] = nullptr;
     }
     auto toolIndex = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("tool"))->getIndex();
     currentGraphics = graphicsTools[toolIndex];
 
+    graphicsTools[TuxConstants::TOOL_BRUSH] = &brushGraphics;
     graphicsTools[TuxConstants::TOOL_ERASER] = &eraserGraphics;
     graphicsTools[TuxConstants::TOOL_FILL] = &fillGraphics;
 }

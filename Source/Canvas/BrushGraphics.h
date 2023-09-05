@@ -1,27 +1,57 @@
 //
-// Created by arden on 8/29/23.
+// Created by arden on 9/4/23.
 //
 
-#ifndef TUXPAINTVST_BRUSHESOPTIONSPANEL_H
-#define TUXPAINTVST_BRUSHESOPTIONSPANEL_H
+#ifndef TUXPAINTVST_BRUSHGRAPHICS_H
+#define TUXPAINTVST_BRUSHGRAPHICS_H
 
-#include "juce_audio_processors/juce_audio_processors.h"
-#include "juce_graphics/juce_graphics.h"
-#include "juce_gui_basics/juce_gui_basics.h"
-#include "../BinaryDataHeaders/BinaryDataBrushes.h"
+#include "GraphicsBase.h"
+#include "../TuxConstants.h"
 
-#include "ButtonSelector.h"
-#include "OptionsPanel.h"
+/* What angle (degrees) is the mouse away from a brush drag, line draw, or stamp placement? */
+int brush_rotation(int ctr_x, int ctr_y, int ox, int oy);
 
-
-class BrushesOptionsPanel : public OptionsPanel
+class BrushGraphics : public GraphicsBase, public juce::AudioProcessorValueTreeState::Listener
 {
 public:
-    BrushesOptionsPanel(juce::AudioProcessorValueTreeState& p);
-    ~BrushesOptionsPanel();
-    void paint (juce::Graphics& g) override;
-    void resized() override;
+    BrushGraphics(juce::AudioProcessorValueTreeState& p);
+    ~BrushGraphics();
+    void parameterChanged(const juce::String &parameterID, float newValue) override;
+
+    void doMouseDown(int x, int y) override;
+    void doMouseDragged(int x, int y) override;
+    void doMouseUp(int x, int y) override;
 private:
+    enum
+    {
+        BRUSH_DIRECTION_RIGHT,
+        BRUSH_DIRECTION_DOWN_RIGHT,
+        BRUSH_DIRECTION_DOWN,
+        BRUSH_DIRECTION_DOWN_LEFT,
+        BRUSH_DIRECTION_LEFT,
+        BRUSH_DIRECTION_UP_LEFT,
+        BRUSH_DIRECTION_UP,
+        BRUSH_DIRECTION_UP_RIGHT,
+        BRUSH_DIRECTION_NONE
+    };
+
+    juce::AudioProcessorValueTreeState& parameters;
+    juce::Point<int> previousMouse;
+    juce::Point<int> currentMouse;
+
+    juce::Image currentBrush;
+    int currentBrushIndex;
+    int brush_counter;
+    int brush_frame;
+
+    void makeCurrentBrush();
+
+    juce::Colour currentColor;
+
+    void brush_draw();
+    void reset_brush_counter();
+    void blit_brush(juce::Graphics& g, int x, int y, int direction, double rotation, int *w, int *h);
+
     const std::vector<juce::Image> brush_icons {
         juce::ImageCache::getFromMemory(BinaryDataBrushes::aa_round_03_png, BinaryDataBrushes::aa_round_03_pngSize),
         juce::ImageCache::getFromMemory(BinaryDataBrushes::aa_round_06_png, BinaryDataBrushes::aa_round_06_pngSize),
@@ -82,11 +112,6 @@ private:
         juce::ImageCache::getFromMemory(BinaryDataBrushes::vine_png, BinaryDataBrushes::vine_pngSize),
         juce::ImageCache::getFromMemory(BinaryDataBrushes::x_png, BinaryDataBrushes::x_pngSize)
     };
-
-    const std::vector<juce::Image> thumbnailIcons;
-
-    ButtonSelector brushSelector;
-
 };
 
-#endif //TUXPAINTVST_BRUSHESOPTIONSPANEL_H
+#endif //TUXPAINTVST_BRUSHGRAPHICS_H

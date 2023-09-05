@@ -4,7 +4,24 @@
 
 #include "BrushesOptionsPanel.h"
 
-BrushesOptionsPanel::BrushesOptionsPanel(juce::AudioProcessorValueTreeState& p) : OptionsPanel(p, "Brushes"), brushSelector(p, "brushes",icons)
+std::vector<juce::Image> makeThumbnails(const std::vector<juce::Image>& icons) {
+    auto thumbnails = std::vector<juce::Image>();
+    for (const auto& icon: icons) {
+        if (icon.getHeight() > 40 || icon.getWidth() > 40) {
+            const auto start = icon.getHeight() > 40 ? icon.getHeight() / 3 : 0;
+            const auto w = start == 0 ? icon.getHeight() : start;
+            thumbnails.push_back(icon.getClippedImage({start, start, w, w}));
+        } else {
+            thumbnails.push_back(icon.createCopy());
+        }
+    }
+    return thumbnails;
+}
+
+BrushesOptionsPanel::BrushesOptionsPanel(juce::AudioProcessorValueTreeState& p)
+    : OptionsPanel(p, "Brushes"),
+      thumbnailIcons(makeThumbnails(brush_icons)),
+      brushSelector(p, "brushes",thumbnailIcons)
 {
     addAndMakeVisible(brushSelector);
 

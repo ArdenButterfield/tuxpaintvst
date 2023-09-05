@@ -25,6 +25,6 @@ void ShapesOptionsPanel::paint (juce::Graphics& g)
 void ShapesOptionsPanel::resized()
 {
     titlePanel.setBounds(getLocalBounds().withHeight(40));
-    shapeSelector.setBounds(getLocalBounds().withTrimmedTop(40).withTrimmedBottom(48));
-    originSelector.setBounds(getLocalBounds().withHeight(48).withBottomY(getLocalBounds().getBottom()));
+    shapeSelector.setBounds(getLocalBounds().withTrimmedTop(40).withTrimmedBottom(TuxConstants::buttonHeight));
+    originSelector.setBounds(getLocalBounds().withHeight(TuxConstants::buttonHeight).withBottomY(getLocalBounds().getBottom()));
 }

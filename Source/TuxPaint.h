@@ -47,8 +47,8 @@ private:
     juce::ImageComponent toolTitleBackground;
     juce::ImageComponent colorTitleBackground;
 
-    const int button_w = 48;
-    const int button_h = 48;
+    const int button_w = TuxConstants::buttonWidth;
+    const int button_h = TuxConstants::buttonHeight;
     const int color_button_w = 32;
     const int color_button_h = 48;
     void parameterChanged (const juce::String &parameterID, float newValue) override;

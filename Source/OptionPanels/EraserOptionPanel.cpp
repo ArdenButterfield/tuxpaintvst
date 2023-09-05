@@ -10,7 +10,7 @@ std::vector<juce::Image> makeIcons(const int numErasers)
     // Make square erasers
     const int numSquareErasers = numErasers / 2;
     for (int i = 0; i < numSquareErasers; ++i) {
-        auto im = juce::Image(juce::Image::ARGB, 48, 48, true);
+        auto im = juce::Image(juce::Image::ARGB, TuxConstants::buttonWidth, TuxConstants::buttonHeight, true);
         juce::Graphics g(im);
         g.setColour(juce::Colour(0,0,0));
         auto sz = (2 + ((numSquareErasers - 1 - i) * (38 / (numSquareErasers - 1))));
@@ -20,7 +20,7 @@ std::vector<juce::Image> makeIcons(const int numErasers)
     }
     const int numCircleErasers = numErasers - numSquareErasers;
     for (int i = 0; i < numCircleErasers; ++i) {
-        auto im = juce::Image(juce::Image::ARGB, 48, 48, true);
+        auto im = juce::Image(juce::Image::ARGB, TuxConstants::buttonWidth, TuxConstants::buttonHeight, true);
         juce::Graphics g(im);
         const auto cx = 24;
         const auto cy = 24;
