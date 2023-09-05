@@ -69,7 +69,7 @@ void CanvasPanel::parameterChanged (const juce::String& parameterID, float newVa
 void CanvasPanel::mouseUp (const juce::MouseEvent& event)
 {
     if (currentGraphics != nullptr) {
-        currentGraphics->doMouseUp(event.getMouseDownX(), event.getMouseDownY());
+        currentGraphics->doMouseUp(event.position.getX(), event.position.getY());
         repaint();
     }
 }
