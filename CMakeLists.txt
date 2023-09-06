@@ -126,6 +126,141 @@ set_target_properties("${PROJECT_NAME}" PROPERTIES FOLDER "")
 # The Xcode source tree should uhhh, still look like the source tree, yo
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Source PREFIX "" FILES ${SourceFiles})
 
+juce_add_binary_data(MagicIcons
+    HEADER_NAME BinaryDataMagicIcons.h
+    NAMESPACE BinaryDataMagicIcons
+    SOURCES
+    ./Source/data/magicicons/smooth.png
+    ./Source/data/magicicons/blur.png
+    ./Source/data/magicicons/foam_data.png
+    ./Source/data/magicicons/rails_four.png
+    ./Source/data/magicicons/realrainbow-roygbiv-colors.png
+    ./Source/data/magicicons/googly-eyes-bkgd.png
+    ./Source/data/magicicons/3dglasses.png
+    ./Source/data/magicicons/rainbow.png
+    ./Source/data/magicicons/rails_one.png
+    ./Source/data/magicicons/tv.png
+    ./Source/data/magicicons/fretwork.png
+    ./Source/data/magicicons/tint.png
+    ./Source/data/magicicons/rails.png
+    ./Source/data/magicicons/colornwhite.png
+    ./Source/data/magicicons/swirls_circles.png
+    ./Source/data/magicicons/largebrick.png
+    ./Source/data/magicicons/grass_data.png
+    ./Source/data/magicicons/metalpaint.png
+    ./Source/data/magicicons/kaleido-8.png
+    ./Source/data/magicicons/puzzle.png
+    ./Source/data/magicicons/checkerboard.png
+    ./Source/data/magicicons/realrainbow-roygbiv.png
+    ./Source/data/magicicons/ripples.png
+    ./Source/data/magicicons/swirls_fur.png
+    ./Source/data/magicicons/fold.png
+    ./Source/data/magicicons/string_art_angles.png
+    ./Source/data/magicicons/smallbrick.png
+    ./Source/data/magicicons/fretwork_three.png
+    ./Source/data/magicicons/tornado.png
+    ./Source/data/magicicons/tornado_base.png
+    ./Source/data/magicicons/symmetric_updown.png
+    ./Source/data/magicicons/rails_three.png
+    ./Source/data/magicicons/halftone.png
+    ./Source/data/magicicons/alien.png
+    ./Source/data/magicicons/snowball.png
+    ./Source/data/magicicons/blind.png
+    ./Source/data/magicicons/loops.png
+    ./Source/data/magicicons/calligraphy_brush.png
+    ./Source/data/magicicons/rivulet-brush-sub.png
+    ./Source/data/magicicons/Snow_flake4.png
+    ./Source/data/magicicons/mosaic.png
+    ./Source/data/magicicons/glasstile.png
+    ./Source/data/magicicons/distortion.png
+    ./Source/data/magicicons/stretch.png
+    ./Source/data/magicicons/rush.png
+    ./Source/data/magicicons/kalidescope.png
+    ./Source/data/magicicons/fisheye.png
+    ./Source/data/magicicons/realrainbow.png
+    ./Source/data/magicicons/reflection.png
+    ./Source/data/magicicons/string_art_full_by_offset.png
+    ./Source/data/magicicons/emboss.png
+    ./Source/data/magicicons/rails_corner.png
+    ./Source/data/magicicons/fretwork_one.png
+    ./Source/data/magicicons/confetti.png
+    ./Source/data/magicicons/light.png
+    ./Source/data/magicicons/rivulet-angles.png
+    ./Source/data/magicicons/xor.png
+    ./Source/data/magicicons/kaleido-6.png
+    ./Source/data/magicicons/flower_base.png
+    ./Source/data/magicicons/blocks.png
+    ./Source/data/magicicons/bloom.png
+    ./Source/data/magicicons/sharpen.png
+    ./Source/data/magicicons/thin.png
+    ./Source/data/magicicons/googlyeyes-sm.png
+    ./Source/data/magicicons/string_art_triangles.png
+    ./Source/data/magicicons/swirls_rays.png
+    ./Source/data/magicicons/realrainbow-colors.png
+    ./Source/data/magicicons/foam.png
+    ./Source/data/magicicons/opposite.png
+    ./Source/data/magicicons/rivulet.png
+    ./Source/data/magicicons/saturate.png
+    ./Source/data/magicicons/fade.png
+    ./Source/data/magicicons/toothpaste.png
+    ./Source/data/magicicons/googly-eyes-pupil.png
+    ./Source/data/magicicons/kal_tiles.png
+    ./Source/data/magicicons/wavelet.png
+    ./Source/data/magicicons/calligraphy.png
+    ./Source/data/magicicons/waves.png
+    ./Source/data/magicicons/tornado_cloud.png
+    ./Source/data/magicicons/darken.png
+    ./Source/data/magicicons/googlyeyes.png
+    ./Source/data/magicicons/perspective.png
+    ./Source/data/magicicons/panels.png
+    ./Source/data/magicicons/Snow_flake5.png
+    ./Source/data/magicicons/squiggles.png
+    ./Source/data/magicicons/zoom.png
+    ./Source/data/magicicons/rosette.png
+    ./Source/data/magicicons/clone.png
+    ./Source/data/magicicons/rivulet-brush-add.png
+    ./Source/data/magicicons/desaturate.png
+    ./Source/data/magicicons/picasso.png
+    ./Source/data/magicicons/cartoon.png
+    ./Source/data/magicicons/symmetric_leftright.png
+    ./Source/data/magicicons/flower_petals.png
+    ./Source/data/magicicons/mirror.png
+    ./Source/data/magicicons/pixels.png
+    ./Source/data/magicicons/doublevision.png
+    ./Source/data/magicicons/flip.png
+    ./Source/data/magicicons/flower.png
+    ./Source/data/magicicons/fretwork_four.png
+    ./Source/data/magicicons/rain.png
+    ./Source/data/magicicons/drip.png
+    ./Source/data/magicicons/mosaic_shaped_irregular.png
+    ./Source/data/magicicons/noise.png
+    ./Source/data/magicicons/edges.png
+    ./Source/data/magicicons/rivulet-brush-alpha.png
+    ./Source/data/magicicons/wetpaint.png
+    ./Source/data/magicicons/fretwork_corner.png
+    ./Source/data/magicicons/flower_leaf.png
+    ./Source/data/magicicons/smudge.png
+    ./Source/data/magicicons/thick.png
+    ./Source/data/magicicons/shift.png
+    ./Source/data/magicicons/mosaic_shaped_hex.png
+    ./Source/data/magicicons/mosaic_shaped_square.png
+    ./Source/data/magicicons/grass.png
+    ./Source/data/magicicons/googly-eyes-reflection.png
+    ./Source/data/magicicons/kaleido-4.png
+    ./Source/data/magicicons/remove_color.png
+    ./Source/data/magicicons/tilezoom.png
+    ./Source/data/magicicons/colorsep.png
+    ./Source/data/magicicons/ribbon.png
+    ./Source/data/magicicons/keep_color.png
+    ./Source/data/magicicons/silhouette.png
+    ./Source/data/magicicons/snowflake.png
+    ./Source/data/magicicons/negative.png
+    ./Source/data/magicicons/maze.png
+    ./Source/data/magicicons/kal_pattern.png
+    ./Source/data/magicicons/chalk.png
+    ./Source/data/magicicons/lightning.png
+    )
+
 juce_add_binary_data(Tools
     HEADER_NAME BinaryDataTools.h
     NAMESPACE BinaryDataTools
@@ -358,6 +493,7 @@ juce_add_binary_data(ui
         )
 # Required for Linux happiness:
 # See https://forum.juce.com/t/loading-pytorch-model-using-binarydata/39997/2
+set_target_properties(MagicIcons PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Brushes PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Fonts PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
 set_target_properties(Fills PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
@@ -385,6 +521,8 @@ foreach (target ${FORMATS} "All")
             XCODE_GENERATE_SCHEME ON)
     endif ()
 endforeach ()
+
+set_target_properties(MagicIcons PROPERTIES FOLDER "Targets")
 set_target_properties(Brushes PROPERTIES FOLDER "Targets")
 set_target_properties(Fonts PROPERTIES FOLDER "Targets")
 set_target_properties(Fills PROPERTIES FOLDER "Targets")
@@ -400,6 +538,7 @@ target_compile_definitions("${PROJECT_NAME}"
 
 target_link_libraries("${PROJECT_NAME}"
     PUBLIC
+    MagicIcons
     Brushes
     Fonts
     Fills
