@@ -11,10 +11,20 @@
 
 #include "ButtonSelector.h"
 #include "OptionsPanel.h"
-
+#include "../TuxConstants.h"
+#include "../Canvas/Magic/MagicConstants.h"
 
 class MagicOptionPanel : public OptionsPanel
 {
+public:
+    MagicOptionPanel(juce::AudioProcessorValueTreeState& p);
+    ~MagicOptionPanel();
+    void paint (juce::Graphics& g) override;
+    void resized() override;
+private:
+    std::array<std::vector<juce::Image>, Magic::NUM_MAGIC_TYPES> icons;
+    juce::OwnedArray<ButtonSelector> buttonSelectors;
+    int currentButtonSelector;
 };
 
 #endif //TUXPAINTVST_MAGICOPTIONPANEL_H

@@ -7,28 +7,31 @@
 
 #include "juce_audio_processors/juce_audio_processors.h"
 #include "juce_graphics/juce_graphics.h"
+#include "../../BinaryDataHeaders/BinaryDataMagicIcons.h"
+#include "MagicModes.h"
 
-#include "../../TuxConstants.h"
+namespace Magic {
 
-class MagicBase
-{
-public:
-    MagicBase() {}
-    ~MagicBase() {}
-    void setCanvasImage(juce::Image im) {}
-    juce::Image* getIcon() {return nullptr;}
-    std::string getName() {return "";}
-    int getGroup() {return 0;}
-    std::string getDescription() {return "";}
-    void switchIn() {}
-    void switchOut() {}
-    void click(int mode, int x, int y) {}
-    void drag(int ox, int oy, int x, int y) {}
-    void release(int x, int y) {}
-    bool requireColors() {return false;}
+    class MagicBase
+    {
+    public:
+        MagicBase() : canvasImage(nullptr) {}
+        ~MagicBase() = default;
+        void setCanvasImage(juce::Image* im) { canvasImage = im; }
+        [[nodiscard]] virtual juce::Image getIcon() const {return {};}
+        [[nodiscard]] virtual std::string getName() const { return "";}
+        [[nodiscard]] virtual std::string getDescription() const {return "";}
+        virtual void switchIn() {}
+        virtual void switchOut() {}
+        virtual void click(int mode, int x, int y) {}
+        virtual void drag(int ox, int oy, int x, int y) {}
+        virtual void release(int x, int y) {}
+        virtual bool requireColors() {return false;}
+        virtual int modes() {return 0;}
+    protected:
+        juce::Image* canvasImage;
+    };
 
-private:
-    juce::Image* canvasImage;
-};
+}
 
 #endif //TUXPAINTVST_MAGICBASE_H

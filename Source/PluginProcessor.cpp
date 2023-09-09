@@ -131,6 +131,27 @@ juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
         juce::StringArray{&TuxConstants::brush_names[0], TuxConstants::NUM_BRUSHES},
         0
         ));
+
+    parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
+        juce::ParameterID{"magictype", 1},
+        "Magic Type",
+        juce::StringArray{&Magic::magic_names[0], Magic::NUM_MAGIC_TYPES},
+        0
+        ));
+
+    for (int i = 0; i < Magic::NUM_MAGIC_TYPES; ++i) {
+        juce::StringArray options;
+        for (auto effect : Magic::magicEffects[i]) {
+            options.add(effect->getName());
+        }
+        parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
+            juce::ParameterID{Magic::magic_ids[i], 1},
+            Magic::magic_names[i],
+            options,
+            0
+            ));
+    }
+
     return {parameters.begin(), parameters.end()};
 }
 

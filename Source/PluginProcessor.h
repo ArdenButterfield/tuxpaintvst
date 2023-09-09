@@ -2,6 +2,8 @@
 
 #include <juce_audio_processors/juce_audio_processors.h>
 
+#include "Canvas/Magic/MagicConstants.h"
+
 #if (MSVC)
 #include "ipps.h"
 #endif

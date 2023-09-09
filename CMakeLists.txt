@@ -95,6 +95,7 @@ set(SourceFiles
     ./Source/NamedToolButton.h
     ./Source/ScrollButton.cpp
     ./Source/ScrollButton.h
+
     ./Source/OptionPanels/ShapesOptionsPanel.cpp
     ./Source/OptionPanels/ShapesOptionsPanel.h
     ./Source/OptionPanels/ButtonSelector.cpp
@@ -105,6 +106,9 @@ set(SourceFiles
     ./Source/OptionPanels/EraserOptionPanel.h
     ./Source/OptionPanels/BrushesOptionsPanel.cpp
     ./Source/OptionPanels/BrushesOptionsPanel.h
+    ./Source/OptionPanels/MagicOptionPanel.cpp
+    ./Source/OptionPanels/MagicOptionPanel.h
+
     ./Source/Canvas/GraphicsBase.cpp
     ./Source/Canvas/GraphicsBase.h
     ./Source/Canvas/FillGraphics.cpp
@@ -113,10 +117,20 @@ set(SourceFiles
     ./Source/Canvas/EraserGraphics.h
     ./Source/Canvas/BrushGraphics.cpp
     ./Source/Canvas/BrushGraphics.h
+
+    ./Source/Canvas/Magic/MagicModes.h
+    ./Source/Canvas/Magic/MagicConstants.h
+    ./Source/Canvas/Magic/MagicBase.h
+    ./Source/Canvas/Magic/MirrorFlip.h
+    ./Source/Canvas/Magic/MirrorFlip.cpp
+    ./Source/Canvas/Magic/Flip.h
+    ./Source/Canvas/Magic/Mirror.h
+
     ./Source/BinaryDataHeaders/BinaryDataBrushes.h
     ./Source/BinaryDataHeaders/BinaryDataFills.h
     ./Source/BinaryDataHeaders/BinaryDataFonts.h
     ./Source/BinaryDataHeaders/BinaryDataUI.h
+    ./Source/BinaryDataHeaders/BinaryDataMagicIcons.h
 )
 target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 

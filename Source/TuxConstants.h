@@ -5,6 +5,7 @@
 #ifndef TUXPAINTVST_TUXCONSTANTS_H
 #define TUXPAINTVST_TUXCONSTANTS_H
 
+#include "Canvas/Magic/MagicBase.h"
 #include "BinaryDataHeaders/BinaryDataBrushes.h"
 
 namespace TuxConstants {
@@ -390,21 +391,6 @@ namespace TuxConstants {
     const int ERASER_MIN = 5;            /* Smaller than 5 will not render as a circle! */
 
     const int ERASER_MAX = 128;
-
-    /* =========== Magic =========== */
-
-    /* Pre-defined Magic tool grouping codes */
-    enum {
-        MAGIC_TYPE_DISTORTS,
-        MAGIC_TYPE_COLOR_FILTERS,
-        MAGIC_TYPE_PICTURE_WARPS,
-        MAGIC_TYPE_PAINTING,
-        MAGIC_TYPE_PATTERN_PAINTING,
-        MAGIC_TYPE_PICTURE_DECORATIONS,
-        MAGIC_TYPE_ARTISTIC,
-        NUM_MAGIC_TYPES
-    };
-
 
 }
 #endif //TUXPAINTVST_TUXCONSTANTS_H

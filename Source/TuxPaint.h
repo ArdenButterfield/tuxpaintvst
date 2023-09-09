@@ -9,6 +9,7 @@
 #include "OptionPanels/OptionsPanel.h"
 #include "OptionPanels/ShapesOptionsPanel.h"
 #include "OptionPanels/BrushesOptionsPanel.h"
+#include "OptionPanels/MagicOptionPanel.h"
 #include "TitlePanel.h"
 #include "ToolsPanel.h"
 #include "TuxConstants.h"
@@ -37,6 +38,7 @@ private:
     FillOptionsPanel fillOptionsPanel;
     EraserOptionPanel eraserOptionPanel;
     BrushesOptionsPanel brushesOptionsPanel;
+    MagicOptionPanel magicOptionPanel;
 
     OptionsPanel* currentOptionsPanel;
 
