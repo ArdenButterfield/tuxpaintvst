@@ -8,7 +8,8 @@ CanvasPanel::CanvasPanel(juce::AudioProcessorValueTreeState& p)
     : parameters(p),
       fillGraphics(p),
       eraserGraphics(p, backgroundColour),
-      brushGraphics(p)
+      brushGraphics(p),
+      magicGraphics(p)
 {
     parameters.addParameterListener("tool", this);
 
@@ -21,6 +22,7 @@ CanvasPanel::CanvasPanel(juce::AudioProcessorValueTreeState& p)
     graphicsTools[TuxConstants::TOOL_BRUSH] = &brushGraphics;
     graphicsTools[TuxConstants::TOOL_ERASER] = &eraserGraphics;
     graphicsTools[TuxConstants::TOOL_FILL] = &fillGraphics;
+    graphicsTools[TuxConstants::TOOL_MAGIC] = &magicGraphics;
 }
 
 CanvasPanel::~CanvasPanel()

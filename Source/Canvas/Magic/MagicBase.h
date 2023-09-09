@@ -16,7 +16,7 @@ namespace Magic {
     {
     public:
         MagicBase() : canvasImage(nullptr) {}
-        ~MagicBase() = default;
+        virtual ~MagicBase() = default;
         void setCanvasImage(juce::Image* im) { canvasImage = im; }
         [[nodiscard]] virtual juce::Image getIcon() const {return {};}
         [[nodiscard]] virtual std::string getName() const { return "";}

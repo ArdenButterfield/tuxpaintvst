@@ -18,7 +18,7 @@ public:
     virtual void doMouseDragged(int x, int y) {}
     virtual void doMouseUp(int x, int y) {}
 
-    void setImage(juce::Image* im) {canvasImage = im;}
+    virtual void setImage(juce::Image* im) {canvasImage = im;}
 protected:
     juce::Image* canvasImage;
 };

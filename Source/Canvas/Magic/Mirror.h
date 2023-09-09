@@ -23,7 +23,7 @@ namespace Magic {
         }
 
         void click(int mode, int x, int y) {
-            doOperation(VERTICAL);
+            doOperation(HORIZONTAL);
         }
 
     };

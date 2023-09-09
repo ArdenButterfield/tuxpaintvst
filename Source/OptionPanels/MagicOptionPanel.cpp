@@ -44,6 +44,7 @@ void MagicOptionPanel::resized()
     prevButtonBounds = navArea.withTrimmedRight(TuxConstants::buttonWidth);
     nextButtonBounds = navArea.withTrimmedLeft(TuxConstants::buttonWidth);
 }
+
 void MagicOptionPanel::mouseDown (const juce::MouseEvent& event)
 {
     if (prevButtonBounds.contains(event.position.roundToInt())) {

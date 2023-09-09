@@ -117,6 +117,8 @@ set(SourceFiles
     ./Source/Canvas/EraserGraphics.h
     ./Source/Canvas/BrushGraphics.cpp
     ./Source/Canvas/BrushGraphics.h
+    ./Source/Canvas/MagicGraphics.cpp
+    ./Source/Canvas/MagicGraphics.h
 
     ./Source/Canvas/Magic/MagicModes.h
     ./Source/Canvas/Magic/MagicConstants.h
