@@ -25,12 +25,14 @@ MagicGraphics::~MagicGraphics()
 }
 void MagicGraphics::doMouseDown (int x, int y)
 {
+    currentMagicEffect->prepareToDraw();
     currentMagicEffect->click(mode, x, y);
     prevX = x; prevY = y;
 }
 void MagicGraphics::doMouseDragged (int x, int y)
 {
     currentMagicEffect->drag(prevX, prevY, x, y);
+    prevX = x; prevY = y;
 }
 void MagicGraphics::doMouseUp (int x, int y)
 {
@@ -38,9 +40,7 @@ void MagicGraphics::doMouseUp (int x, int y)
 }
 void MagicGraphics::parameterChanged (const juce::String& parameterID, float newValue)
 {
-    auto magictype = (dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("magictype")))->getIndex();
-    auto effectindex = (dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter(Magic::magic_ids[magictype])))->getIndex();
-    currentMagicEffect = Magic::magicEffects[magictype][effectindex];
+    currentMagicEffect = Magic::getCurrentMagicEffect(parameters);
     currentMagicEffect->setCanvasImage(canvasImage);
 }
 void MagicGraphics::setImage (juce::Image* im)

@@ -9,6 +9,7 @@
 #include "MagicBase.h"
 #include "Flip.h"
 #include "Mirror.h"
+#include "Distortion.h"
 
 namespace Magic {
     /* =========== Magic =========== */
@@ -46,7 +47,7 @@ namespace Magic {
     };
 
     const std::array<const std::vector<MagicBase*>, NUM_MAGIC_TYPES> magicEffects = {
-        std::vector<MagicBase*>({new Flip(), new Mirror()}),
+        std::vector<MagicBase*>({new Flip(), new Mirror(), new Distortion()}),
         std::vector<MagicBase*>({new Flip(), new Mirror()}),
         std::vector<MagicBase*>({new Flip(), new Mirror()}),
         std::vector<MagicBase*>({new Flip(), new Mirror()}),
@@ -55,6 +56,12 @@ namespace Magic {
         std::vector<MagicBase*>({new Flip(), new Mirror()})
     };
 
+    inline MagicBase* getCurrentMagicEffect(juce::AudioProcessorValueTreeState& parameters) {
+        auto magictype = (dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("magictype")))->getIndex();
+        auto effectindex = (dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter(magic_ids[magictype])))->getIndex();
+        return magicEffects[magictype][effectindex];
+
+    }
 }
 
 #endif //TUXPAINTVST_MAGICCONSTANTS_H

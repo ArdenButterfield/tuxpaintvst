@@ -15,7 +15,7 @@ namespace Magic {
     class MagicBase
     {
     public:
-        MagicBase() : canvasImage(nullptr) {}
+        MagicBase() : canvasImage(nullptr), currentMode(0), availableModes(0) {}
         virtual ~MagicBase() = default;
         void setCanvasImage(juce::Image* im) { canvasImage = im; }
         [[nodiscard]] virtual juce::Image getIcon() const {return {};}
@@ -27,9 +27,73 @@ namespace Magic {
         virtual void drag(int ox, int oy, int x, int y) {}
         virtual void release(int x, int y) {}
         virtual bool requireColors() {return false;}
-        virtual int modes() {return 0;}
+        int getAvailableModes() const {return availableModes;}
+        void setMode(int mode) {
+            if (mode & availableModes) {
+                currentMode = mode;
+            }
+        }
+        int getMode() {
+            return currentMode;
+        }
+        void prepareToDraw() {snapshot = canvasImage->createCopy();}
     protected:
+        virtual void drawAlongLine(int x, int y) {}
+
+        void drawLine(int x1, int y1, int x2, int y2) {
+            int dx, dy, y;
+            float m, b;
+
+            dx = x2 - x1;
+            dy = y2 - y1;
+
+            if (dx != 0)
+            {
+                m = ((float)dy) / ((float)dx);
+                b = y1 - m * x1;
+
+                if (x2 >= x1)
+                    dx = 1;
+                else
+                    dx = -1;
+
+
+                while (x1 != x2)
+                {
+                    y1 = m * x1 + b;
+                    y2 = m * (x1 + dx) + b;
+
+                    if (y1 > y2)
+                    {
+                        for (y = y1; y >= y2; y--)
+                            drawAlongLine(x1, y);
+                    }
+                    else
+                    {
+                        for (y = y1; y <= y2; y++)
+                            drawAlongLine(x1, y);
+                    }
+
+                    x1 = x1 + dx;
+                }
+            }
+            else
+            {
+                if (y1 > y2)
+                {
+                    y = y1;
+                    y1 = y2;
+                    y2 = y;
+                }
+
+                for (y = y1; y <= y2; y++)
+                    drawAlongLine(x1, y);
+            }
+        }
         juce::Image* canvasImage;
+        juce::Image snapshot;
+        int currentMode{};
+        int availableModes{};
     };
 
 }

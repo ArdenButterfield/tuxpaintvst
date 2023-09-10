@@ -11,8 +11,9 @@
 namespace Magic {
     class MirrorFlip : public MagicBase {
     public:
-        int modes() override {
-            return MODE_FULLSCREEN;
+        MirrorFlip() {
+            currentMode = MODE_FULLSCREEN;
+            availableModes = MODE_FULLSCREEN;
         }
     protected:
         enum {

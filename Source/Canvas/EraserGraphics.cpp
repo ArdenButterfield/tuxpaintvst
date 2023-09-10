@@ -66,15 +66,7 @@ void EraserGraphics::doErase (int x, int y)
 void EraserGraphics::eraseLine (int x1, int y1, int x2, int y2)
 {
     int dx, dy, y;
-    int orig_x1, orig_y1, orig_x2, orig_y2, tmp;
     float m, b;
-
-    orig_x1 = x1;
-    orig_y1 = y1;
-
-    orig_x2 = x2;
-    orig_y2 = y2;
-
 
     dx = x2 - x1;
     dy = y2 - y1;
@@ -123,19 +115,6 @@ void EraserGraphics::eraseLine (int x1, int y1, int x2, int y2)
     }
 
 
-    if (orig_x1 > orig_x2)
-    {
-        tmp = orig_x1;
-        orig_x1 = orig_x2;
-        orig_x2 = tmp;
-    }
-
-    if (orig_y1 > orig_y2)
-    {
-        tmp = orig_y1;
-        orig_y1 = orig_y2;
-        orig_y2 = tmp;
-    }
 }
 void EraserGraphics::parameterChanged (const juce::String& parameterID, float newValue)
 {

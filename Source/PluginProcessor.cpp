@@ -152,6 +152,13 @@ juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
             ));
     }
 
+    parameters.push_back(std::make_unique<juce::AudioParameterChoice>(
+        juce::ParameterID{"magicmode", 1},
+        "Magic mode",
+        juce::StringArray{"paint", "fullscreen"},
+        0
+        ));
+
     return {parameters.begin(), parameters.end()};
 }
 
