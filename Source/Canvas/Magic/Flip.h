@@ -22,7 +22,7 @@ namespace Magic {
            return "Click to flip the picture upside-down.";
         }
 
-        void click(int mode, int x, int y) override {
+        void click(int x, int y) override {
            doOperation(VERTICAL);
         }
 

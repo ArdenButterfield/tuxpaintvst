@@ -22,7 +22,7 @@ namespace Magic {
             return "Click to make a mirror image.";
         }
 
-        void click(int mode, int x, int y) {
+        void click(int x, int y) {
             doOperation(HORIZONTAL);
         }
 

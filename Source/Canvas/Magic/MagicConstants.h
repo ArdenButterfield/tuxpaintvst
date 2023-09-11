@@ -10,6 +10,7 @@
 #include "Flip.h"
 #include "Mirror.h"
 #include "Distortion.h"
+#include "Blocks.h"
 
 namespace Magic {
     /* =========== Magic =========== */
@@ -47,7 +48,7 @@ namespace Magic {
     };
 
     const std::array<const std::vector<MagicBase*>, NUM_MAGIC_TYPES> magicEffects = {
-        std::vector<MagicBase*>({new Flip(), new Mirror(), new Distortion()}),
+        std::vector<MagicBase*>({new Blocks(), new Flip(), new Mirror(), new Distortion()}),
         std::vector<MagicBase*>({new Flip(), new Mirror()}),
         std::vector<MagicBase*>({new Flip(), new Mirror()}),
         std::vector<MagicBase*>({new Flip(), new Mirror()}),

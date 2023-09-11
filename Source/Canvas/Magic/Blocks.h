@@ -1,17 +1,17 @@
 //
-// Created by arden on 9/9/23.
+// Created by arden on 9/10/23.
 //
 
-#ifndef TUXPAINTVST_DISTORTION_H
-#define TUXPAINTVST_DISTORTION_H
+#ifndef TUXPAINTVST_BLOCKS_H
+#define TUXPAINTVST_BLOCKS_H
 
 #include "MagicBase.h"
 
 namespace Magic {
-    class Distortion : public MagicBase
+    class Blocks : public MagicBase
     {
     public:
-        Distortion();
+        Blocks();
         [[nodiscard]] juce::Image getIcon() const override;
         [[nodiscard]] std::string getName() const override;
         [[nodiscard]] std::string getDescription() const override;
@@ -21,7 +21,10 @@ namespace Magic {
         void drag(int ox, int oy, int x, int y) override;
         void drawAlongLine(int x, int y) override;
         const int distortionRadius = 8;
+
+        const int EFFECT_REZ = 4;
     };
 }
 
-#endif //TUXPAINTVST_DISTORTION_H
+
+#endif //TUXPAINTVST_BLOCKS_H

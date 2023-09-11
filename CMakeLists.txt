@@ -129,6 +129,8 @@ set(SourceFiles
     ./Source/Canvas/Magic/Mirror.h
     ./Source/Canvas/Magic/Distortion.cpp
     ./Source/Canvas/Magic/Distortion.h
+    ./Source/Canvas/Magic/Blocks.cpp
+    ./Source/Canvas/Magic/Blocks.h
 
     ./Source/BinaryDataHeaders/BinaryDataBrushes.h
     ./Source/BinaryDataHeaders/BinaryDataFills.h

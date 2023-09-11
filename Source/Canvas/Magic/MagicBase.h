@@ -23,7 +23,7 @@ namespace Magic {
         [[nodiscard]] virtual std::string getDescription() const {return "";}
         virtual void switchIn() {}
         virtual void switchOut() {}
-        virtual void click(int mode, int x, int y) {}
+        virtual void click(int x, int y) {}
         virtual void drag(int ox, int oy, int x, int y) {}
         virtual void release(int x, int y) {}
         virtual bool requireColors() {return false;}
@@ -31,12 +31,19 @@ namespace Magic {
         void setMode(int mode) {
             if (mode & availableModes) {
                 currentMode = mode;
+                std::cout << "set mode to " << mode << "\n";
             }
         }
         int getMode() {
             return currentMode;
         }
-        void prepareToDraw() {snapshot = canvasImage->createCopy();}
+        void prepareToDraw() {
+            snapshot = canvasImage->createCopy();
+            graphics = std::make_unique<juce::Graphics>(*canvasImage);
+
+            canvasData = std::make_unique<juce::Image::BitmapData>(*canvasImage, 0, 0, canvasImage->getWidth(), canvasImage->getHeight(), juce::Image::BitmapData::writeOnly);
+            snapshotData = std::make_unique<juce::Image::BitmapData>(snapshot, 0, 0, canvasImage->getWidth(), canvasImage->getHeight(), juce::Image::BitmapData::readOnly);
+        }
     protected:
         virtual void drawAlongLine(int x, int y) {}
 
@@ -92,6 +99,9 @@ namespace Magic {
         }
         juce::Image* canvasImage;
         juce::Image snapshot;
+        std::unique_ptr<juce::Image::BitmapData> canvasData;
+        std::unique_ptr<juce::Image::BitmapData> snapshotData;
+        std::unique_ptr<juce::Graphics> graphics;
         int currentMode{};
         int availableModes{};
     };

@@ -13,7 +13,6 @@ MagicGraphics::MagicGraphics (juce::AudioProcessorValueTreeState& p) : parameter
     }
     currentMagicEffect = Magic::magicEffects[magictype][effectindex];
     currentMagicEffect->setCanvasImage(canvasImage);
-    mode = Magic::MODE_FULLSCREEN; // TODO: have this be changeable.
 }
 
 MagicGraphics::~MagicGraphics()
@@ -26,7 +25,7 @@ MagicGraphics::~MagicGraphics()
 void MagicGraphics::doMouseDown (int x, int y)
 {
     currentMagicEffect->prepareToDraw();
-    currentMagicEffect->click(mode, x, y);
+    currentMagicEffect->click(x, y);
     prevX = x; prevY = y;
 }
 void MagicGraphics::doMouseDragged (int x, int y)
