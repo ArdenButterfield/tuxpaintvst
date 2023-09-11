@@ -47,14 +47,19 @@ namespace Magic {
         "Magic artistic"
     };
 
+    inline Blocks blocks;
+    inline Flip flip;
+    inline Mirror mirror;
+    inline Distortion distortion;
+
     const std::array<const std::vector<MagicBase*>, NUM_MAGIC_TYPES> magicEffects = {
-        std::vector<MagicBase*>({new Blocks(), new Flip(), new Mirror(), new Distortion()}),
-        std::vector<MagicBase*>({new Flip(), new Mirror()}),
-        std::vector<MagicBase*>({new Flip(), new Mirror()}),
-        std::vector<MagicBase*>({new Flip(), new Mirror()}),
-        std::vector<MagicBase*>({new Flip(), new Mirror()}),
-        std::vector<MagicBase*>({new Flip(), new Mirror()}),
-        std::vector<MagicBase*>({new Flip(), new Mirror()})
+        std::vector<MagicBase*>({&blocks, &distortion}),
+        std::vector<MagicBase*>({&mirror, &flip}),
+        std::vector<MagicBase*>({&mirror, &flip}),
+        std::vector<MagicBase*>({&mirror, &flip}),
+        std::vector<MagicBase*>({&mirror, &flip}),
+        std::vector<MagicBase*>({&mirror, &flip}),
+        std::vector<MagicBase*>({&mirror, &flip}),
     };
 
     inline MagicBase* getCurrentMagicEffect(juce::AudioProcessorValueTreeState& parameters) {

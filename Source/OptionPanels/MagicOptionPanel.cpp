@@ -108,12 +108,14 @@ void MagicOptionPanel::mouseDown (const juce::MouseEvent& event)
         } else if (availableModes & Magic::MODE_PAINT_WITH_PREVIEW) {
             currentMagicEffect->setMode(Magic::MODE_PAINT_WITH_PREVIEW);
         }
+        repaint();
     } else if (magicFullscreenButtonBounds.contains(event.position.roundToInt())) {
         auto currentMagicEffect = Magic::getCurrentMagicEffect(parameters);
         auto availableModes = currentMagicEffect->getAvailableModes();
         if (availableModes & Magic::MODE_FULLSCREEN) {
             currentMagicEffect->setMode(Magic::MODE_FULLSCREEN);
         }
+        repaint();
     }
 }
 

@@ -31,7 +31,6 @@ namespace Magic {
         void setMode(int mode) {
             if (mode & availableModes) {
                 currentMode = mode;
-                std::cout << "set mode to " << mode << "\n";
             }
         }
         int getMode() {
