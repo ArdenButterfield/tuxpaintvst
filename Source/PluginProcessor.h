@@ -1,8 +1,12 @@
 #pragma once
 
 #include <juce_audio_processors/juce_audio_processors.h>
+#include <juce_audio_basics/juce_audio_basics.h>
 
 #include "Canvas/Magic/MagicConstants.h"
+
+#include "TuxSynthSound.h"
+#include "TuxSynthVoice.h"
 
 #if (MSVC)
 #include "ipps.h"
@@ -46,6 +50,9 @@ public:
     void parameterChanged (const juce::String &parameterID, float newValue) override;
 
 private:
+    juce::Synthesiser synthesiser;
+    const int NUM_SYNTH_VOICES = 4;
+
     juce::AudioProcessorValueTreeState parameters;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginProcessor)
 };

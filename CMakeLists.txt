@@ -52,11 +52,11 @@ juce_add_plugin("${PROJECT_NAME}"
     # ICON_SMALL ...
     COMPANY_NAME Wildergarden
     BUNDLE_ID com.wildergarden.tuxpaintVST
-    # IS_SYNTH TRUE/FALSE                       # Is this a synth or an effect?
-    # NEEDS_MIDI_INPUT TRUE/FALSE               # Does the plugin need midi input?
-    # NEEDS_MIDI_OUTPUT TRUE/FALSE              # Does the plugin need midi output?
-    # IS_MIDI_EFFECT TRUE/FALSE                 # Is this plugin a MIDI effect?
-    # EDITOR_WANTS_KEYBOARD_FOCUS TRUE/FALSE    # Does the editor need keyboard focus?
+    IS_SYNTH TRUE                       # Is this a synth or an effect?
+    NEEDS_MIDI_INPUT TRUE               # Does the plugin need midi input?
+    NEEDS_MIDI_OUTPUT FALSE              # Does the plugin need midi output?
+    IS_MIDI_EFFECT FALSE                 # Is this plugin a MIDI effect?
+    EDITOR_WANTS_KEYBOARD_FOCUS FALSE    # Does the editor need keyboard focus?
     COPY_PLUGIN_AFTER_BUILD TRUE                # On MacOS, plugin will be copied to /Users/you/Library/Audio/Plug-Ins/
     PLUGIN_MANUFACTURER_CODE Awbb               # This has to be one uppercase, rest lower for AU formats
     PLUGIN_CODE TP01                            # A unique four-character plugin id with at least one upper-case character
@@ -96,6 +96,11 @@ set(SourceFiles
     ./Source/ScrollButton.cpp
     ./Source/ScrollButton.h
 
+    ./Source/TuxSynthVoice.cpp
+    ./Source/TuxSynthVoice.h
+    ./Source/TuxSynthSound.cpp
+    ./Source/TuxSynthSound.h
+
     ./Source/OptionPanels/ShapesOptionsPanel.cpp
     ./Source/OptionPanels/ShapesOptionsPanel.h
     ./Source/OptionPanels/ButtonSelector.cpp
@@ -131,6 +136,8 @@ set(SourceFiles
     ./Source/Canvas/Magic/Distortion.h
     ./Source/Canvas/Magic/Blocks.cpp
     ./Source/Canvas/Magic/Blocks.h
+    ./Source/Canvas/Magic/Blur.cpp
+    ./Source/Canvas/Magic/Blur.h
 
     ./Source/BinaryDataHeaders/BinaryDataBrushes.h
     ./Source/BinaryDataHeaders/BinaryDataFills.h
