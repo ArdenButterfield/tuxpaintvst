@@ -392,5 +392,8 @@ namespace TuxConstants {
 
     const int ERASER_MAX = 128;
 
+    const juce::Colour backgroundColour = juce::Colour(255,255,255);
+
+
 }
 #endif //TUXPAINTVST_TUXCONSTANTS_H

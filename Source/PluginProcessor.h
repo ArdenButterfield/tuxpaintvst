@@ -49,9 +49,14 @@ public:
 
     void parameterChanged (const juce::String &parameterID, float newValue) override;
 
+    juce::Image* getCanvas();
+
 private:
+
     juce::Synthesiser synthesiser;
     const int NUM_SYNTH_VOICES = 4;
+
+    juce::Image canvas;
 
     juce::AudioProcessorValueTreeState parameters;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginProcessor)

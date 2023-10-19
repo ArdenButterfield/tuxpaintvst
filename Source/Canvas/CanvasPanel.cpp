@@ -4,13 +4,15 @@
 
 #include "CanvasPanel.h"
 
-CanvasPanel::CanvasPanel(juce::AudioProcessorValueTreeState& p)
+CanvasPanel::CanvasPanel (juce::AudioProcessorValueTreeState& p, juce::Image* c)
     : parameters(p),
+      canvas(c),
       fillGraphics(p),
-      eraserGraphics(p, backgroundColour),
+      eraserGraphics(p, TuxConstants::backgroundColour),
       brushGraphics(p),
       magicGraphics(p),
-      musicGuiOverlay(p,canvas)
+      musicGuiOverlay(p,*canvas)
+
 {
     parameters.addParameterListener("tool", this);
 
@@ -37,23 +39,19 @@ CanvasPanel::~CanvasPanel()
 
 void CanvasPanel::paint (juce::Graphics& g)
 {
-    g.drawImageAt(canvas, 0, 0);
+    g.drawImageAt(*canvas, 0, 0);
 }
 
 void CanvasPanel::resized()
 {
-    canvas = juce::Image(juce::Image::RGB, getWidth(), getHeight(), false);
     for (int i = 0; i < TuxConstants::NUM_TOOLS; ++i) {
         if (graphicsTools[i] != nullptr) {
-            graphicsTools[i]->setImage(&canvas);
+            graphicsTools[i]->setImage(canvas);
         }
     }
-    auto g = juce::Graphics(canvas);
-    g.setColour(backgroundColour);
-    g.fillAll();
 
     musicGuiOverlay.setBounds(getLocalBounds());
-    musicGuiOverlay.setImage(canvas);
+    musicGuiOverlay.setImage(*canvas);
 }
 
 void CanvasPanel::mouseDown (const juce::MouseEvent& event)

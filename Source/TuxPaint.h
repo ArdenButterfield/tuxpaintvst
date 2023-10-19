@@ -23,7 +23,7 @@
 class TuxPaint : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
 {
 public:
-    TuxPaint(juce::AudioProcessorValueTreeState& p);
+    TuxPaint(juce::AudioProcessorValueTreeState& p, juce::Image* canvas);
     ~TuxPaint();
     void paint (juce::Graphics& g) override;
     void resized() override;
@@ -40,7 +40,7 @@ private:
     BrushesOptionsPanel brushesOptionsPanel;
     MagicOptionPanel magicOptionPanel;
 
-    OptionsPanel* currentOptionsPanel;
+    OptionsPanel* currentOptionsPanel{};
 
     ColorsPanel colorsPanel;
     InfoPanel infoPanel;

@@ -6,7 +6,7 @@
 
 
 
-TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p)
+TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p, juce::Image* canvas)
     : parameters(p),
       toolsPanel(p),
       colorsPanel(p),
@@ -15,7 +15,7 @@ TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p)
       shapesOptionsPanel(p),
       fillOptionsPanel(p),
       eraserOptionPanel(p),
-      canvasPanel(p),
+      canvasPanel(p, canvas),
       brushesOptionsPanel(p),
       magicOptionPanel(p)
 {

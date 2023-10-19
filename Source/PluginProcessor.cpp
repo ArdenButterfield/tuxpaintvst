@@ -185,6 +185,12 @@ PluginProcessor::PluginProcessor()
         synthesiser.addVoice(new TuxSynthVoice);
     }
     synthesiser.addSound(new TuxSynthSound);
+
+    canvas = juce::Image(juce::Image::RGB, 600, 400, false);
+    auto g = juce::Graphics(canvas);
+    g.setColour(TuxConstants::backgroundColour);
+    g.fillAll();
+
 }
 
 PluginProcessor::~PluginProcessor()
@@ -349,6 +355,11 @@ juce::AudioProcessorValueTreeState& PluginProcessor::getValueTreeState()
 }
 void PluginProcessor::parameterChanged (const juce::String& parameterID, float newValue)
 {
+}
+
+juce::Image* PluginProcessor::getCanvas()
+{
+    return &canvas;
 }
 
 //==============================================================================

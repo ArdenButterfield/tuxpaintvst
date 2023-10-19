@@ -4,7 +4,7 @@
 
 //==============================================================================
 PluginEditor::PluginEditor (PluginProcessor& p)
-    : AudioProcessorEditor (&p), processorRef (p), tuxPaint(p.getValueTreeState())
+    : AudioProcessorEditor (&p), processorRef (p), tuxPaint(p.getValueTreeState(), p.getCanvas())
 {
     juce::ignoreUnused (processorRef);
 
