@@ -17,28 +17,25 @@ bool TuxSynthVoice::canPlaySound (juce::SynthesiserSound* sound)
 
 void TuxSynthVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound*, int)
 {
-    currentAngle = 0.0;
-    level = velocity * 0.15;
+    noteOn = true;
     tailOff = 0.0;
-
     auto cyclesPerSecond = juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber);
-    auto cyclesPerSample = cyclesPerSecond / getSampleRate();
-
-    angleDelta = cyclesPerSample * 2.0 * juce::MathConstants<double>::pi;
-
+    oscillator->setFrequency((float)cyclesPerSecond);
+    oscillator->setMagnitude(1);
+    oscillator->setStartingPhase(0);
+    oscillator->reset();
 }
 
 void TuxSynthVoice::stopNote (float, bool allowTailOff)
 {
+    noteOn = false;
     if (allowTailOff)
     {
-        if (tailOff == 0.0)
-            tailOff = 1.0;
+        clearCurrentNote();
     }
     else
     {
         clearCurrentNote();
-        angleDelta = 0.0;
     }
 
 }
@@ -55,33 +52,15 @@ void TuxSynthVoice::controllerMoved (int, int)
 
 void TuxSynthVoice::renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int startSample, int numSamples)
 {
-    if (angleDelta != 0.0)
     {
-        if (tailOff > 0.0) // [7]
+        if (noteOn) // [7]
         {
-            while (--numSamples >= 0)
-            {
-                auto currentSample = (float) (std::sin (currentAngle) * level * tailOff);
+            oscillator->processBlock(outputBuffer.getWritePointer(0,startSample), numSamples);
 
-                for (auto i = outputBuffer.getNumChannels(); --i >= 0;)
-                    outputBuffer.addSample (i, startSample, currentSample);
-
-                currentAngle += angleDelta;
-                ++startSample;
-
-                tailOff *= 0.99; // [8]
-
-                if (tailOff <= 0.005)
-                {
-                    clearCurrentNote(); // [9]
-
-                    angleDelta = 0.0;
-                    break;
-                }
-            }
         }
         else
         {
+/*
             while (--numSamples >= 0) // [6]
             {
                 auto currentSample = (float) (std::sin (currentAngle) * level);
@@ -92,6 +71,12 @@ void TuxSynthVoice::renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int 
                 currentAngle += angleDelta;
                 ++startSample;
             }
+*/
         }
     }
+}
+void TuxSynthVoice::setCurrentPlaybackSampleRate (double newRate)
+{
+    SynthesiserVoice::setCurrentPlaybackSampleRate (newRate);
+    oscillator = std::make_unique<Oscillator>(newRate);
 }
