@@ -127,6 +127,9 @@ set(SourceFiles
     ./Source/Canvas/MagicGraphics.cpp
     ./Source/Canvas/MagicGraphics.h
 
+    ./Source/Canvas/MusicGuiOverlay.cpp
+    ./Source/Canvas/MusicGuiOverlay.h
+
     ./Source/Canvas/Magic/MagicModes.h
     ./Source/Canvas/Magic/MagicConstants.h
     ./Source/Canvas/Magic/MagicBase.h

@@ -9,7 +9,8 @@ CanvasPanel::CanvasPanel(juce::AudioProcessorValueTreeState& p)
       fillGraphics(p),
       eraserGraphics(p, backgroundColour),
       brushGraphics(p),
-      magicGraphics(p)
+      magicGraphics(p),
+      musicGuiOverlay(p,canvas)
 {
     parameters.addParameterListener("tool", this);
 
@@ -17,7 +18,11 @@ CanvasPanel::CanvasPanel(juce::AudioProcessorValueTreeState& p)
         graphicsTools[i] = nullptr;
     }
     auto toolIndex = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("tool"))->getIndex();
+    if (toolIndex == TuxConstants::TOOL_MUSIC) {
+        addAndMakeVisible(musicGuiOverlay);
+    }
     currentGraphics = graphicsTools[toolIndex];
+    currentToolIndex = toolIndex;
 
     graphicsTools[TuxConstants::TOOL_BRUSH] = &brushGraphics;
     graphicsTools[TuxConstants::TOOL_ERASER] = &eraserGraphics;
@@ -46,7 +51,11 @@ void CanvasPanel::resized()
     auto g = juce::Graphics(canvas);
     g.setColour(backgroundColour);
     g.fillAll();
+
+    musicGuiOverlay.setBounds(getLocalBounds());
+    musicGuiOverlay.setImage(canvas);
 }
+
 void CanvasPanel::mouseDown (const juce::MouseEvent& event)
 {
     if (currentGraphics != nullptr) {
@@ -66,7 +75,16 @@ void CanvasPanel::mouseDrag (const juce::MouseEvent& event)
 void CanvasPanel::parameterChanged (const juce::String& parameterID, float newValue)
 {
     auto toolIndex = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("tool"))->getIndex();
-    currentGraphics = graphicsTools[toolIndex];
+    if ((currentToolIndex == TuxConstants::TOOL_MUSIC) && (toolIndex != TuxConstants::TOOL_MUSIC)) {
+        removeChildComponent(&musicGuiOverlay);
+    }
+    if (toolIndex == TuxConstants::TOOL_MUSIC) {
+        addAndMakeVisible(musicGuiOverlay);
+    }
+    if (currentGraphics != graphicsTools[toolIndex]) {
+        currentGraphics = graphicsTools[toolIndex];
+    }
+    currentToolIndex = toolIndex;
 }
 void CanvasPanel::mouseUp (const juce::MouseEvent& event)
 {

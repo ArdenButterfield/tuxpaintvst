@@ -159,6 +159,13 @@ juce::AudioProcessorValueTreeState::ParameterLayout makeParameters()
         0
         ));
 
+    parameters.push_back(std::make_unique<juce::AudioParameterFloat>(
+        juce::ParameterID{"wavx", 1},
+        "Wavetable X",
+        juce::NormalisableRange<float>(0, 1),
+        0.5
+        ));
+
     return {parameters.begin(), parameters.end()};
 }
 

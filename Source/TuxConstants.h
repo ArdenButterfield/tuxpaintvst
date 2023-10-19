@@ -21,7 +21,7 @@ namespace TuxConstants {
         TOOL_LINES,
         TOOL_SHAPES,
         TOOL_TEXT,
-        TOOL_LABEL,
+        TOOL_MUSIC,
         TOOL_FILL,
         TOOL_MAGIC,
         TOOL_UNDO,
@@ -50,7 +50,7 @@ namespace TuxConstants {
         "Text",
 
         // Label tool
-        "Label",
+        "Music",
 
         // Fill tool
         "Fill",

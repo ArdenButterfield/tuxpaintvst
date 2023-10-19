@@ -17,6 +17,8 @@
 #include "BrushGraphics.h"
 #include "MagicGraphics.h"
 
+#include "MusicGuiOverlay.h"
+
 class CanvasPanel : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
 {
 public:
@@ -38,9 +40,12 @@ private:
     BrushGraphics brushGraphics;
     MagicGraphics magicGraphics;
 
-    std::array<GraphicsBase*, TuxConstants::NUM_TOOLS> graphicsTools;
+    MusicGuiOverlay musicGuiOverlay;
 
+    std::array<GraphicsBase*, TuxConstants::NUM_TOOLS> graphicsTools;
     GraphicsBase* currentGraphics;
+
+    int currentToolIndex;
 };
 
 #endif //TUXPAINTVST_CANVAS_H
