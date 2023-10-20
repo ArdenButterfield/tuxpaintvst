@@ -123,6 +123,7 @@ void MagicOptionPanel::parameterChanged (const juce::String& parameterID, float 
 {
     setMagicPane(dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("magictype"))->getIndex());
 }
+
 void MagicOptionPanel::setMagicPane (int index)
 {
     if (index == currentButtonSelector) {

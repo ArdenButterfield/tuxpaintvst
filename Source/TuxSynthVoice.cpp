@@ -5,7 +5,7 @@
 #include "TuxSynthVoice.h"
 #include "TuxSynthSound.h"
 
-TuxSynthVoice::TuxSynthVoice()
+TuxSynthVoice::TuxSynthVoice(OscillatorCoefficients* c) : coefficients(c)
 {
 
 }
@@ -17,13 +17,20 @@ bool TuxSynthVoice::canPlaySound (juce::SynthesiserSound* sound)
 
 void TuxSynthVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound*, int)
 {
+    oscillators.resize(coefficients->getNumCoefficients());
     noteOn = true;
     tailOff = 0.0;
     auto cyclesPerSecond = juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber);
-    oscillator->setFrequency((float)cyclesPerSecond);
-    oscillator->setMagnitude(1);
-    oscillator->setStartingPhase(0);
-    oscillator->reset();
+    coefficients->setBaseFreq(cyclesPerSecond);
+    coefficients->setSampleRate(getSampleRate());
+    maxHarmonic = coefficients->getMaxHarmonic();
+    for (int i = 0; i < maxHarmonic; ++i) {
+        oscillators[i].setSamplerate(getSampleRate());
+        oscillators[i].setFrequency(cyclesPerSecond * i);
+        oscillators[i].setMagnitude(coefficients->getMagnitude(i));
+        oscillators[i].setStartingPhase(coefficients->getPhase(i));
+        oscillators[i].reset();
+    }
 }
 
 void TuxSynthVoice::stopNote (float, bool allowTailOff)
@@ -55,7 +62,10 @@ void TuxSynthVoice::renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int 
     {
         if (noteOn) // [7]
         {
-            oscillator->processBlock(outputBuffer.getWritePointer(0,startSample), numSamples);
+            for (int i = 0; i < maxHarmonic; ++i) {
+
+                oscillators[i].processBlock(outputBuffer.getWritePointer(0,startSample), numSamples);
+            }
 
         }
         else
@@ -78,5 +88,4 @@ void TuxSynthVoice::renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int 
 void TuxSynthVoice::setCurrentPlaybackSampleRate (double newRate)
 {
     SynthesiserVoice::setCurrentPlaybackSampleRate (newRate);
-    oscillator = std::make_unique<Oscillator>(newRate);
 }

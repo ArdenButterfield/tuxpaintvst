@@ -6,12 +6,19 @@
 
 #include "Oscillator.h"
 
-Oscillator::Oscillator(float sampleRate) : fs(sampleRate)
+Oscillator::Oscillator()
 {
     frequency = 0;
     startingPhase = 0;
     magnitude = 0;
+    fs = 44100;
 
+    updateMatrix();
+}
+
+void Oscillator::setSamplerate (float rate)
+{
+    fs = rate;
     updateMatrix();
 }
 
@@ -51,7 +58,6 @@ void Oscillator::processBlock (float* samples, int numSamples)
         y = newy;
     }
 }
-
 void Oscillator::updateMatrix()
 {
     auto angleIncrement = frequency * twoPi / fs;
@@ -60,4 +66,3 @@ void Oscillator::updateMatrix()
     m10 = sin(angleIncrement);
     m11 = cos(angleIncrement);
 }
-

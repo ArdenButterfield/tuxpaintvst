@@ -10,15 +10,15 @@
 class Oscillator
 {
 public:
-    explicit Oscillator(float sampleRate);
+    Oscillator();
+    void setSamplerate(float rate);
     void setFrequency(float freq);
     void setStartingPhase(float phase);
     void setMagnitude(float mag);
     void reset();
     void processBlock(float* samples, int numSamples);
-private:
     const float twoPi = 2 * 3.141592653589793238;
-    const float fs;
+    float fs;
 
     float frequency;
     float startingPhase;

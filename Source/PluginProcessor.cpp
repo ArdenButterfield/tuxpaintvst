@@ -182,7 +182,7 @@ PluginProcessor::PluginProcessor()
 
 {
     for (int i = 0; i < NUM_SYNTH_VOICES; ++i) {
-        synthesiser.addVoice(new TuxSynthVoice);
+        synthesiser.addVoice(new TuxSynthVoice(&oscillatorCoefficients));
     }
     synthesiser.addSound(new TuxSynthSound);
 
@@ -190,7 +190,7 @@ PluginProcessor::PluginProcessor()
     auto g = juce::Graphics(canvas);
     g.setColour(TuxConstants::backgroundColour);
     g.fillAll();
-
+    wavtablePositionNeedsUpdating = true;
 }
 
 PluginProcessor::~PluginProcessor()
@@ -270,6 +270,7 @@ void PluginProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
     // Use this method as the place to do any pre-playback
     // initialisation that you need.
     synthesiser.setCurrentPlaybackSampleRate(sampleRate);
+    oscillatorCoefficients.setSampleRate((float)sampleRate);
 }
 
 void PluginProcessor::releaseResources()
@@ -300,10 +301,19 @@ bool PluginProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
   #endif
 }
 
+void PluginProcessor::updateWavtablePosition()
+{
+    auto param = dynamic_cast<juce::AudioParameterFloat*>(parameters.getParameter("wavx"));
+    oscillatorCoefficients.setFromCanvas(&canvas,param->get());
+}
+
 void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                                               juce::MidiBuffer& midiMessages)
 {
-    juce::ignoreUnused (midiMessages);
+    if (wavtablePositionNeedsUpdating) {
+        updateWavtablePosition();
+    }
+
 
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
@@ -320,6 +330,9 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
 
 
     synthesiser.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    for (auto i  = 1; i < totalNumOutputChannels; ++i) {
+        buffer.copyFrom(i,0,buffer,0,0,buffer.getNumSamples());
+    }
 }
 
 //==============================================================================
@@ -355,6 +368,9 @@ juce::AudioProcessorValueTreeState& PluginProcessor::getValueTreeState()
 }
 void PluginProcessor::parameterChanged (const juce::String& parameterID, float newValue)
 {
+    if (parameterID == "wavx") {
+        wavtablePositionNeedsUpdating = true;
+    }
 }
 
 juce::Image* PluginProcessor::getCanvas()

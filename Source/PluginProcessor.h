@@ -7,6 +7,7 @@
 
 #include "TuxSynthSound.h"
 #include "TuxSynthVoice.h"
+#include "OscillatorCoefficients.h"
 
 #if (MSVC)
 #include "ipps.h"
@@ -56,7 +57,12 @@ private:
     juce::Synthesiser synthesiser;
     const int NUM_SYNTH_VOICES = 4;
 
+    bool wavtablePositionNeedsUpdating;
+    void updateWavtablePosition();
+
     juce::Image canvas;
+
+    OscillatorCoefficients oscillatorCoefficients;
 
     juce::AudioProcessorValueTreeState parameters;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginProcessor)

@@ -102,6 +102,8 @@ set(SourceFiles
     ./Source/TuxSynthSound.h
     ./Source/Oscillator.cpp
     ./Source/Oscillator.h
+    ./Source/OscillatorCoefficients.cpp
+    ./Source/OscillatorCoefficients.h
 
     ./Source/OptionPanels/ShapesOptionsPanel.cpp
     ./Source/OptionPanels/ShapesOptionsPanel.h
