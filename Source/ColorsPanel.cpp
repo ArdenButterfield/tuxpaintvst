@@ -4,10 +4,10 @@
 
 #include "ColorsPanel.h"
 
-ColorsPanel::ColorsPanel(juce::AudioProcessorValueTreeState& p)
+ColorsPanel::ColorsPanel(TuxConstants::TuxInternalParameters& p)
 : parameters(p) {
-    parameters.addParameterListener("colors", this);
-    cur_color = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("colors"))->getIndex();
+    parameters.colors.addListener(this);
+    cur_color = parameters.colors.getIndex();
     old_color = cur_color;
     for (int i = 0; i < NUM_COLORS; ++i) {
         auto button = new ColorButton(juce::String(TuxConstants::default_color_names[i]), i, TuxConstants::default_color_hexes[i]);
@@ -19,7 +19,7 @@ ColorsPanel::ColorsPanel(juce::AudioProcessorValueTreeState& p)
 }
 
 ColorsPanel::~ColorsPanel() {
-    parameters.removeParameterListener("colors", this);
+    parameters.colors.removeListener(this);
     colorButtons.clear(true);
 
 }
@@ -36,10 +36,11 @@ void ColorsPanel::resized() {
 
 }
 
-void ColorsPanel::parameterChanged (const juce::String& parameterID, float newValue)
+void ColorsPanel::parameterValueChanged (int parameterIndex, float newValue)
 {
     colorButtons[cur_color]->setDown(false);
-    cur_color = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("colors"))->getIndex();
+    old_color = cur_color;
+    cur_color = parameters.colors.getIndex();
     colorButtons[cur_color]->setDown(true);
 }
 
@@ -52,8 +53,7 @@ void ColorsPanel::buttonClicked (juce::Button* b)
     colorButtons[cur_color]->setDown(false);
     old_color = cur_color;
     cur_color = button->optionID;
-    auto param = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("colors"));
-    *param = cur_color;
+    parameters.colors = cur_color;
     button->setDown(true);
 
 }

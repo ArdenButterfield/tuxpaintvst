@@ -4,10 +4,10 @@
 
 #include "ShapesOptionsPanel.h"
 
-ShapesOptionsPanel::ShapesOptionsPanel(juce::AudioProcessorValueTreeState& p)
+ShapesOptionsPanel::ShapesOptionsPanel(TuxConstants::TuxInternalParameters& p)
     : OptionsPanel(p, "Shapes"),
-      shapeSelector(p, juce::String("shapes"), icons),
-      originSelector(p, juce::String("shapeOrigin"), originIcons)
+      shapeSelector(&(p.shapes), icons),
+      originSelector(&(p.shapeOrigin), originIcons)
 {
     addAndMakeVisible(shapeSelector);
     addAndMakeVisible(originSelector);

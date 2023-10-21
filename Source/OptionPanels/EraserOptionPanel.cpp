@@ -46,10 +46,10 @@ std::vector<juce::Image> makeIcons(const int numErasers)
     return images;
 }
 
-EraserOptionPanel::EraserOptionPanel (juce::AudioProcessorValueTreeState& p)
+EraserOptionPanel::EraserOptionPanel (TuxConstants::TuxInternalParameters& p)
     : OptionsPanel(p, "Erasers"),
       icons(makeIcons(TuxConstants::NUM_ERASERS)),
-      eraserSelector(p, "erasers", icons)
+      eraserSelector(&(p.erasers), icons)
 {
     addAndMakeVisible(eraserSelector);
 }

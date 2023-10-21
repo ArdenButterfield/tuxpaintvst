@@ -4,32 +4,30 @@
 
 #include "FillGraphics.h"
 
-FillGraphics::FillGraphics(juce::AudioProcessorValueTreeState& p)
+FillGraphics::FillGraphics(TuxConstants::TuxInternalParameters& p)
      : parameters(p)
 {
-    parameters.addParameterListener("colors", this);
-    parameters.addParameterListener(TuxConstants::tool_names[TuxConstants::TOOL_FILL], this);
+    parameters.colors.addListener(this);
+    parameters.fillOptions.addListener(this);
     getParamValues();
 }
 
 FillGraphics::~FillGraphics()
 {
-    parameters.removeParameterListener("colors", this);
-    parameters.removeParameterListener(TuxConstants::tool_names[TuxConstants::TOOL_FILL], this);
-
+    parameters.colors.removeListener(this);
+    parameters.fillOptions.removeListener(this);
 }
 
-void FillGraphics::parameterChanged(const juce::String &parameterID, float newValue)
+void FillGraphics::parameterValueChanged (int parameterIndex, float newValue)
 {
     getParamValues();
 }
 
 void FillGraphics::getParamValues()
 {
-    auto ind = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("colors"))->getIndex();
+    auto ind = parameters.colors.getIndex();
     fillColor = TuxConstants::default_color_hexes[ind];
-    fillMode = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter(TuxConstants::tool_names[TuxConstants::TOOL_FILL]))->getIndex();
-
+    fillMode = parameters.fillOptions.getIndex();
 }
 
 void FillGraphics::doMouseDown (int x, int y)
@@ -216,14 +214,7 @@ float FillGraphics::colors_close(juce::Colour c1, juce::Colour c2)
 }
 bool FillGraphics::would_flood_fill(juce::Colour cur_colr) const
 {
-    if (colors_close(cur_colr, startingColor) < COLOR_MATCH_NARROW)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return (colors_close(cur_colr, startingColor) < COLOR_MATCH_NARROW);
 }
 void FillGraphics::drawBrushFillSingle(int x, int y)
 {

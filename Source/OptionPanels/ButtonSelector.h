@@ -14,10 +14,10 @@
 #include "../ToolButton.h"
 #include "../TuxConstants.h"
 
-class ButtonSelector : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
+class ButtonSelector : public juce::Component, public juce::AudioProcessorParameter::Listener
 {
 public:
-    ButtonSelector (juce::AudioProcessorValueTreeState& p, juce::String parameterID, const std::vector<juce::Image>& icons);
+    ButtonSelector (juce::AudioParameterChoice* param, const std::vector<juce::Image>& icons);
     ~ButtonSelector();
     void resized() override;
     void paint (juce::Graphics& g) override;
@@ -44,10 +44,10 @@ private:
     const juce::Image scrollDownOn = juce::ImageCache::getFromMemory(BinaryDataUI::scroll_down_png, BinaryDataUI::scroll_down_pngSize);
     const juce::Image scrollDownOff = juce::ImageCache::getFromMemory(BinaryDataUI::scroll_down_off_png, BinaryDataUI::scroll_down_off_pngSize);
 
-    juce::AudioProcessorValueTreeState& parameters;
-    juce::String parameterID;
+    juce::AudioParameterChoice* parameterToAttachTo;
     int numVisibleButtons;
-    void parameterChanged (const juce::String& parameterID, float newValue) override;
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {};
 };
 
 #endif //TUXPAINTVST_BUTTONSELECTOR_H

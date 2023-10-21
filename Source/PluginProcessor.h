@@ -8,12 +8,13 @@
 #include "TuxSynthSound.h"
 #include "TuxSynthVoice.h"
 #include "OscillatorCoefficients.h"
+#include "TuxConstants.h"
 
 #if (MSVC)
 #include "ipps.h"
 #endif
 
-class PluginProcessor : public juce::AudioProcessor, public juce::AudioProcessorValueTreeState::Listener
+class PluginProcessor : public juce::AudioProcessor, public juce::AudioProcessorParameter::Listener
 
 {
 public:
@@ -37,6 +38,10 @@ public:
     bool isMidiEffect() const override;
     double getTailLengthSeconds() const override;
 
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {};
+
+
     int getNumPrograms() override;
     int getCurrentProgram() override;
     void setCurrentProgram (int index) override;
@@ -45,10 +50,7 @@ public:
 
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
-
-    juce::AudioProcessorValueTreeState& getValueTreeState();
-
-    void parameterChanged (const juce::String &parameterID, float newValue) override;
+    TuxConstants::TuxInternalParameters& getInternalParameters();
 
     juce::Image* getCanvas();
 
@@ -62,8 +64,8 @@ private:
 
     juce::Image canvas;
 
+    TuxConstants::TuxInternalParameters internalParams;
     OscillatorCoefficients oscillatorCoefficients;
 
-    juce::AudioProcessorValueTreeState parameters;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginProcessor)
 };

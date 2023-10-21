@@ -3,8 +3,9 @@
 //
 
 #include "MagicGraphics.h"
-MagicGraphics::MagicGraphics (juce::AudioProcessorValueTreeState& p) : parameters(p)
+MagicGraphics::MagicGraphics (TuxConstants::TuxInternalParameters& p) : parameters(p)
 {
+/*
     auto magictype = (dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("magictype")))->getIndex();
     auto effectindex = (dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter(Magic::magic_ids[magictype])))->getIndex();
     parameters.addParameterListener("magictype", this);
@@ -13,14 +14,17 @@ MagicGraphics::MagicGraphics (juce::AudioProcessorValueTreeState& p) : parameter
     }
     currentMagicEffect = Magic::magicEffects[magictype][effectindex];
     currentMagicEffect->setCanvasImage(canvasImage);
+*/
 }
 
 MagicGraphics::~MagicGraphics()
 {
+/*
     parameters.addParameterListener("magictype", this);
     for (const auto& id : Magic::magic_ids) {
         parameters.addParameterListener(id, this);
     }
+*/
 }
 void MagicGraphics::doMouseDown (int x, int y)
 {
@@ -30,20 +34,29 @@ void MagicGraphics::doMouseDown (int x, int y)
 }
 void MagicGraphics::doMouseDragged (int x, int y)
 {
+/*
     currentMagicEffect->drag(prevX, prevY, x, y);
     prevX = x; prevY = y;
+*/
 }
 void MagicGraphics::doMouseUp (int x, int y)
 {
+/*
     currentMagicEffect->release(x, y);
+*/
 }
-void MagicGraphics::parameterChanged (const juce::String& parameterID, float newValue)
-{
+void MagicGraphics::parameterValueChanged (int parameterIndex, float newValue) {
+    // TODO
+    /*
     currentMagicEffect = Magic::getCurrentMagicEffect(parameters);
     currentMagicEffect->setCanvasImage(canvasImage);
+    */
 }
+
 void MagicGraphics::setImage (juce::Image* im)
 {
+/*
     GraphicsBase::setImage (im);
     currentMagicEffect->setCanvasImage(im);
+*/
 }

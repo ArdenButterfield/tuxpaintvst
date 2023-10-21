@@ -16,15 +16,13 @@
 #include "ToolButton.h"
 #include "NamedToolButton.h"
 
-typedef juce::AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
-
 class ToolsPanel
     : public juce::Component,
       public juce::Button::Listener,
-      public juce::AudioProcessorValueTreeState::Listener
+      public juce::AudioProcessorParameter::Listener
 {
 public:
-    ToolsPanel(juce::AudioProcessorValueTreeState& p);
+    ToolsPanel(TuxConstants::TuxInternalParameters& p);
     ~ToolsPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;
@@ -59,19 +57,11 @@ private:
         juce::ImageCache::getFromMemory(BinaryDataTools::save_png, BinaryDataTools::save_pngSize),
     };
 
-
-
-    /* Some text to write when each tool is selected: */
-
-
     const int numColumns = 2;
 
-    juce::AudioProcessorValueTreeState& parameters;
-    void parameterChanged (const juce::String &parameterID, float newValue) override;
-    std::unique_ptr<juce::Slider> toolSlider;
-    std::unique_ptr<SliderAttachment> toolAttachment;
-
-
+    TuxConstants::TuxInternalParameters& parameters;
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {};
 };
 
 #endif //TUXPAINTVST_TOOLS_H

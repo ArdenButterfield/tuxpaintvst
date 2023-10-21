@@ -15,7 +15,7 @@
 class OptionsPanel : public juce::Component
 {
 public:
-    OptionsPanel(juce::AudioProcessorValueTreeState& p, juce::String title);
+    OptionsPanel(TuxConstants::TuxInternalParameters& p, juce::String title);
     ~OptionsPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;

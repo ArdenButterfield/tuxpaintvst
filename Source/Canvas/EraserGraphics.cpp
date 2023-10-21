@@ -4,16 +4,16 @@
 
 #include "EraserGraphics.h"
 
-EraserGraphics::EraserGraphics(juce::AudioProcessorValueTreeState& p, juce::Colour b) : parameters(p), backgroundColour(b)
+EraserGraphics::EraserGraphics(TuxConstants::TuxInternalParameters& p, juce::Colour b) : parameters(p), backgroundColour(b)
 {
-    parameters.addParameterListener("erasers", this);
+    parameters.erasers.addListener(this);
 
-    currentEraser = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("erasers"))->getIndex();
+    currentEraser = parameters.erasers.getIndex();
 }
 
 EraserGraphics::~EraserGraphics()
 {
-    parameters.removeParameterListener("erasers", this);
+    parameters.erasers.removeListener(this);
 }
 
 void EraserGraphics::doMouseDown(int x, int y)
@@ -116,10 +116,11 @@ void EraserGraphics::eraseLine (int x1, int y1, int x2, int y2)
 
 
 }
-void EraserGraphics::parameterChanged (const juce::String& parameterID, float newValue)
+void EraserGraphics::parameterValueChanged (int parameterIndex, float newValue)
 {
-    currentEraser = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("erasers"))->getIndex();
+    currentEraser = parameters.erasers.getIndex();
 }
+
 int EraserGraphics::calcEraserSize()
 {
     auto sizeind = currentEraser % TuxConstants::NUM_ERASER_SIZES;

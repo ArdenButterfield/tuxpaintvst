@@ -6,7 +6,9 @@
 #define TUXPAINTVST_TUXCONSTANTS_H
 
 #include "Canvas/Magic/MagicBase.h"
+#include "Canvas/Magic/MagicConstants.h"
 #include "BinaryDataHeaders/BinaryDataBrushes.h"
+#include "juce_audio_processors/juce_audio_processors.h"
 
 namespace TuxConstants {
 
@@ -394,6 +396,137 @@ namespace TuxConstants {
 
     const juce::Colour backgroundColour = juce::Colour(255,255,255);
 
+    struct TuxInternalParameters {
+        TuxInternalParameters()
+            : tool(juce::ParameterID {"tool", 1},
+            "Tool",
+            juce::StringArray { &TuxConstants::tool_names[0], TuxConstants::NUM_TOOLS},
+            0),
+              shapes(juce::ParameterID{"shapes", 1},
+                  "Shapes",
+                  juce::StringArray {
+                      // Square shape tool (4 equally-lengthed sides at right angles)
+                      "Square",
+                      "Square",
 
+                      // Rectangle shape tool (4 sides at right angles)
+                      "Rectangle",
+                      "Rectangle",
+
+                      // Circle shape tool (X radius and Y radius are the same)
+                      "Circle",
+                      "Circle",
+
+                      // Ellipse shape tool (X radius and Y radius may differ)
+                      "Ellipse",
+                      "Ellipse",
+
+                      // Triangle shape tool (3 sides)
+                      "Triangle",
+                      "Triangle",
+
+                      // Pentagon shape tool (5 sides)
+                      "Pentagon",
+                      "Pentagon",
+
+                      // Hexagon shape tool (6 sides)
+                      "Hexagon",
+                      "Hexagon",
+
+                      // Heptagon (aka septagon) shape tool (7 sides)
+                      "Heptagon",
+                      "Heptagon",
+
+                      // Octagon shape tool (8 sides)
+                      "Octagon",
+                      "Octagon",
+
+                      // Rhombus shape tool (4 sides, not at right angles)
+                      "Rhombus",
+                      "Rhombus",
+
+                      // Triangle star (3 points star)
+                      "Star",
+                      "Star",
+
+                      // Rhombus star (4 points star)
+                      "Star",
+                      "Star",
+
+                      // Pentagon star (5 points star)
+                      "Star",
+                      "Star"
+                  },
+                  0),
+              shapeOrigin(juce::ParameterID{"shapeOrigin", 1},
+                "Shape Origin",
+                juce::StringArray {
+                    "center",
+                    "corner"
+                },
+                0
+                ),
+              erasers(juce::ParameterID{"erasers", 1},
+                  "Erasers",
+                  juce::StringArray {
+                      "Square 0",
+                      "Square 1",
+                      "Square 2",
+                      "Square 3",
+                      "Square 4",
+                      "Square 5",
+                      "Square 6",
+                      "Square 7",
+                      "Circle 0",
+                      "Circle 1",
+                      "Circle 2",
+                      "Circle 3",
+                      "Circle 4",
+                      "Circle 5",
+                      "Circle 6",
+                      "Circle 7"
+                  },
+                  0),
+              colors(juce::ParameterID{"colors", 1},
+                  "Colors",
+                  juce::StringArray { &TuxConstants::default_color_names[0], TuxConstants::NUM_DEFAULT_COLORS},
+                  0),
+              fillOptions(juce::ParameterID{TuxConstants::tool_names[TuxConstants::TOOL_FILL], 1},
+                  "Fills",
+                  juce::StringArray{&TuxConstants::fill_names[0], TuxConstants::NUM_FILLS},
+                  0),
+              brushes(juce::ParameterID{"brushes", 1},
+                  "Brushes",
+                  juce::StringArray{&TuxConstants::brush_names[0], TuxConstants::NUM_BRUSHES},
+                  0),
+              magicType(juce::ParameterID{"magictype", 1},
+                  "Magic Type",
+                  juce::StringArray{&Magic::magic_names[0], Magic::NUM_MAGIC_TYPES},
+                  0),
+              // TODO: magic effect menus
+              magicMode(
+                  juce::ParameterID{"magicmode", 1},
+                  "Magic mode",
+                  juce::StringArray{"paint", "fullscreen"},
+                  0),
+              wavtableX(juce::ParameterID{"wavx", 1},
+                  "Wavetable X",
+                  juce::NormalisableRange<float>(0, 1),
+                  0.5)
+        {
+
+        }
+        juce::AudioParameterChoice tool;
+        juce::AudioParameterChoice shapes;
+        juce::AudioParameterChoice shapeOrigin;
+        juce::AudioParameterChoice erasers;
+        juce::AudioParameterChoice colors;
+        juce::AudioParameterChoice fillOptions;
+        juce::AudioParameterChoice brushes;
+        juce::AudioParameterChoice magicType;
+        juce::OwnedArray<juce::AudioParameterChoice> magicEffectMenus;
+        juce::AudioParameterChoice magicMode;
+        juce::AudioParameterFloat wavtableX;
+    };
 }
 #endif //TUXPAINTVST_TUXCONSTANTS_H

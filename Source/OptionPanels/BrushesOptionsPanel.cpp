@@ -18,10 +18,10 @@ std::vector<juce::Image> makeThumbnails(const std::vector<juce::Image>& icons) {
     return thumbnails;
 }
 
-BrushesOptionsPanel::BrushesOptionsPanel(juce::AudioProcessorValueTreeState& p)
+BrushesOptionsPanel::BrushesOptionsPanel(TuxConstants::TuxInternalParameters& p)
     : OptionsPanel(p, "Brushes"),
       thumbnailIcons(makeThumbnails(brush_icons)),
-      brushSelector(p, "brushes",thumbnailIcons)
+      brushSelector(&(p.brushes), thumbnailIcons)
 {
     addAndMakeVisible(brushSelector);
 

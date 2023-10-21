@@ -4,7 +4,7 @@
 
 #include "CanvasPanel.h"
 
-CanvasPanel::CanvasPanel (juce::AudioProcessorValueTreeState& p, juce::Image* c)
+CanvasPanel::CanvasPanel (TuxConstants::TuxInternalParameters& p, juce::Image* c)
     : parameters(p),
       canvas(c),
       fillGraphics(p),
@@ -14,12 +14,12 @@ CanvasPanel::CanvasPanel (juce::AudioProcessorValueTreeState& p, juce::Image* c)
       musicGuiOverlay(p,*canvas)
 
 {
-    parameters.addParameterListener("tool", this);
+    parameters.tool.addListener(this);
 
     for (int i = 0; i < TuxConstants::NUM_TOOLS; ++i) {
         graphicsTools[i] = nullptr;
     }
-    auto toolIndex = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("tool"))->getIndex();
+    auto toolIndex = parameters.tool.getIndex();
     if (toolIndex == TuxConstants::TOOL_MUSIC) {
         addAndMakeVisible(musicGuiOverlay);
     }
@@ -34,7 +34,7 @@ CanvasPanel::CanvasPanel (juce::AudioProcessorValueTreeState& p, juce::Image* c)
 
 CanvasPanel::~CanvasPanel()
 {
-    parameters.removeParameterListener("tool", this);
+    parameters.tool.removeListener(this);
 }
 
 void CanvasPanel::paint (juce::Graphics& g)
@@ -70,9 +70,9 @@ void CanvasPanel::mouseDrag (const juce::MouseEvent& event)
     }
 }
 
-void CanvasPanel::parameterChanged (const juce::String& parameterID, float newValue)
+void CanvasPanel::parameterValueChanged (int parameterIndex, float newValue)
 {
-    auto toolIndex = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("tool"))->getIndex();
+    auto toolIndex = parameters.tool.getIndex();
     if ((currentToolIndex == TuxConstants::TOOL_MUSIC) && (toolIndex != TuxConstants::TOOL_MUSIC)) {
         removeChildComponent(&musicGuiOverlay);
     }

@@ -16,19 +16,16 @@
 #include "TuxConstants.h"
 #include "ColorButton.h"
 
-typedef juce::AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
-
 
 class ColorsPanel
     : public juce::Component,
       public juce::Button::Listener,
-      public juce::AudioProcessorValueTreeState::Listener
-
+      public juce::AudioProcessorParameter::Listener
 {
 public:
     int NUM_COLORS = 17;
 
-    ColorsPanel(juce::AudioProcessorValueTreeState& p);
+    ColorsPanel(TuxConstants::TuxInternalParameters& p);
     ~ColorsPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;
@@ -39,11 +36,9 @@ public:
     int colors_rows = 1;
     /* Hex codes: */
 private:
-    juce::AudioProcessorValueTreeState& parameters;
-    void parameterChanged (const juce::String &parameterID, float newValue) override;
-    std::unique_ptr<juce::Slider> colorSlider;
-
-    std::unique_ptr<SliderAttachment> colorAttachment;
+    TuxConstants::TuxInternalParameters& parameters;
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {};
 
     juce::OwnedArray<ColorButton> colorButtons;
     int cur_color;

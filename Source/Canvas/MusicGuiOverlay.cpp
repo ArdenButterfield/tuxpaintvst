@@ -4,39 +4,35 @@
 
 #include "MusicGuiOverlay.h"
 
-MusicGuiOverlay::MusicGuiOverlay (juce::AudioProcessorValueTreeState& p, juce::Image& im) : parameters(p), image(im)
+MusicGuiOverlay::MusicGuiOverlay (TuxConstants::TuxInternalParameters& p, juce::Image& im) : parameters(p), image(im)
 {
-    parameters.addParameterListener("wavx", this);
+    parameters.wavtableX.addListener(this);
     getParamValues();
 }
 
 MusicGuiOverlay::~MusicGuiOverlay()
 {
-    parameters.removeParameterListener("wavx", this);
+    parameters.wavtableX.removeListener(this);
 }
 
 void MusicGuiOverlay::getParamValues()
 {
-    auto param = dynamic_cast<juce::AudioParameterFloat*>(parameters.getParameter("wavx"));
-    paramValue = param->get();
+    paramValue = parameters.wavtableX.get();
     repaint();
 }
 
-void MusicGuiOverlay::parameterChanged (const juce::String& parameterID, float newValue)
+void MusicGuiOverlay::parameterValueChanged (int parameterIndex, float newValue)
 {
     getParamValues();
 }
 
 void MusicGuiOverlay::mouseUp (const juce::MouseEvent& event)
 {
-    auto param = dynamic_cast<juce::AudioParameterFloat*>(parameters.getParameter("wavx"));
-    *param = event.position.getY() / (float)getHeight();
+    parameters.wavtableX = event.position.getY() / (float)getHeight();
 }
-
 void MusicGuiOverlay::mouseDrag (const juce::MouseEvent& event)
 {
-    auto param = dynamic_cast<juce::AudioParameterFloat*>(parameters.getParameter("wavx"));
-    *param = event.position.getY() / (float)getHeight();
+    parameters.wavtableX = event.position.getY() / (float)getHeight();
 }
 
 void MusicGuiOverlay::paint (juce::Graphics& g)

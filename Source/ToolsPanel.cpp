@@ -4,11 +4,11 @@
 
 #include "ToolsPanel.h"
 
-ToolsPanel::ToolsPanel(juce::AudioProcessorValueTreeState& p)
+ToolsPanel::ToolsPanel(TuxConstants::TuxInternalParameters& p)
     : parameters(p)
 {
-    cur_tool = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("tool"))->getIndex();
-    parameters.addParameterListener("tool", this);
+    cur_tool = parameters.tool.getIndex();
+    parameters.tool.addListener(this);
     for (int i = 0; i < TuxConstants::NUM_TOOLS; ++i) {
         tool_avail[i] = 1;
         auto button = new NamedToolButton(juce::String(TuxConstants::tool_names[i]), i, buttonIcons[i]);
@@ -19,7 +19,7 @@ ToolsPanel::ToolsPanel(juce::AudioProcessorValueTreeState& p)
 }
 ToolsPanel::~ToolsPanel() {
     toolButtons.clear(true);
-    parameters.removeParameterListener("tool", this);
+    parameters.tool.removeListener(this);
 }
 
 void ToolsPanel::paint (juce::Graphics& g) {
@@ -47,19 +47,13 @@ void ToolsPanel::buttonClicked (juce::Button* b)
     cur_tool = button->toolID;
     button->setDown(true);
 
-    auto param = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("tool"));
-    if (param != nullptr) {
-        *param = cur_tool;
-    }
+    parameters.tool = cur_tool;
 }
 
-void ToolsPanel::parameterChanged (const juce::String& parameterID, float newValue)
+void ToolsPanel::parameterValueChanged (int parameterIndex, float newValue)
 {
-    auto param = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter(parameterID));
-    if (param != nullptr) {
-        toolButtons[cur_tool]->setDown(false);
-        old_tool = cur_tool;
-        cur_tool = param->getIndex();
-        toolButtons[cur_tool]->setDown(true);
-    }
+    toolButtons[cur_tool]->setDown(false);
+    old_tool = cur_tool;
+    cur_tool = parameters.tool.getIndex();
+    toolButtons[cur_tool]->setDown(true);
 }

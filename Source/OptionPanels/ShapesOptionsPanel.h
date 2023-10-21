@@ -16,7 +16,7 @@
 class ShapesOptionsPanel : public OptionsPanel
 {
 public:
-    ShapesOptionsPanel(juce::AudioProcessorValueTreeState& p);
+    explicit ShapesOptionsPanel(TuxConstants::TuxInternalParameters& p);
     ~ShapesOptionsPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;

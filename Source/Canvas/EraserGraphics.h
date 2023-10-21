@@ -8,12 +8,13 @@
 #include "GraphicsBase.h"
 #include "../TuxConstants.h"
 
-class EraserGraphics : public GraphicsBase, public juce::AudioProcessorValueTreeState::Listener
+class EraserGraphics : public GraphicsBase, public juce::AudioProcessorParameter::Listener
 {
 public:
-    EraserGraphics(juce::AudioProcessorValueTreeState& p, juce::Colour b);
+    EraserGraphics(TuxConstants::TuxInternalParameters& p, juce::Colour b);
     ~EraserGraphics();
-    void parameterChanged(const juce::String &parameterID, float newValue) override;
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {}
 
     void doMouseDown(int x, int y) override;
     void doMouseDragged(int x, int y) override;
@@ -21,7 +22,7 @@ public:
 private:
     int prevX, prevY;
     int calcEraserSize();
-    juce::AudioProcessorValueTreeState& parameters;
+    TuxConstants::TuxInternalParameters& parameters;
     void doErase(int x, int y);
     void eraseLine(int x1, int y1, int x2, int y2);
     int currentEraser;

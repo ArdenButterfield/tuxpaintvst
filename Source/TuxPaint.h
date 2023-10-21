@@ -20,10 +20,12 @@
 #ifndef TUXPAINTVST_TUXPAINT_H
 #define TUXPAINTVST_TUXPAINT_H
 
-class TuxPaint : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
+#include "TuxConstants.h"
+
+class TuxPaint : public juce::Component, public juce::AudioProcessorParameter::Listener
 {
 public:
-    TuxPaint(juce::AudioProcessorValueTreeState& p, juce::Image* canvas);
+    TuxPaint(TuxConstants::TuxInternalParameters& p, juce::Image* canvas);
     ~TuxPaint();
     void paint (juce::Graphics& g) override;
     void resized() override;
@@ -53,9 +55,10 @@ private:
     const int button_h = TuxConstants::buttonHeight;
     const int color_button_w = 32;
     const int color_button_h = 48;
-    void parameterChanged (const juce::String &parameterID, float newValue) override;
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {};
 
-    juce::AudioProcessorValueTreeState& parameters;
+    TuxConstants::TuxInternalParameters& parameters;
 
 };
 

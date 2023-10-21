@@ -4,8 +4,8 @@
 
 #include "FillOptionsPanel.h"
 
-FillOptionsPanel::FillOptionsPanel (juce::AudioProcessorValueTreeState& p)
-    : OptionsPanel(p, "Fills"), fillSelector(p, juce::String(TuxConstants::tool_names[TuxConstants::TOOL_FILL]), icons)
+FillOptionsPanel::FillOptionsPanel (TuxConstants::TuxInternalParameters& p)
+    : OptionsPanel(p, "Fills"), fillSelector(&(p.fillOptions), icons)
 {
     addAndMakeVisible(fillSelector);
 }

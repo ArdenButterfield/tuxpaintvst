@@ -16,7 +16,7 @@
 class FillOptionsPanel : public OptionsPanel
 {
 public:
-    FillOptionsPanel(juce::AudioProcessorValueTreeState& p);
+    FillOptionsPanel(TuxConstants::TuxInternalParameters& p);
     ~FillOptionsPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;

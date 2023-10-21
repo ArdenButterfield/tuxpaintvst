@@ -11,27 +11,25 @@ int brush_rotation(int ctr_x, int ctr_y, int ox, int oy)
 }
 
 
-BrushGraphics::BrushGraphics (juce::AudioProcessorValueTreeState& p) : parameters(p)
+BrushGraphics::BrushGraphics (TuxConstants::TuxInternalParameters& p) : parameters(p)
 {
-    parameters.addParameterListener("brushes", this);
-    parameters.addParameterListener("colors", this);
-    currentBrushIndex = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("brushes"))->getIndex();
-    currentColor = TuxConstants::default_color_hexes[dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("colors"))->getIndex()];
+    parameters.brushes.addListener(this);
+    parameters.colors.addListener(this);
+    currentBrushIndex = parameters.brushes.getIndex();
+    currentColor = TuxConstants::default_color_hexes[parameters.colors.getIndex()];
     makeCurrentBrush();
 }
 
 BrushGraphics::~BrushGraphics()
 {
-    parameters.removeParameterListener("colors", this);
-    parameters.removeParameterListener("brushes", this);
-
+    parameters.brushes.removeListener(this);
+    parameters.colors.removeListener(this);
 }
 
-void BrushGraphics::parameterChanged (const juce::String& parameterID, float newValue)
+void BrushGraphics::parameterValueChanged (int parameterIndex, float newValue)
 {
-    currentColor = TuxConstants::default_color_hexes[dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("colors"))->getIndex()];
-
-    currentBrushIndex = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("brushes"))->getIndex();
+    currentColor = TuxConstants::default_color_hexes[parameters.colors.getIndex()];
+    currentBrushIndex = parameters.brushes.getIndex();
     makeCurrentBrush();
 }
 

@@ -11,12 +11,13 @@
 /* What angle (degrees) is the mouse away from a brush drag, line draw, or stamp placement? */
 int brush_rotation(int ctr_x, int ctr_y, int ox, int oy);
 
-class BrushGraphics : public GraphicsBase, public juce::AudioProcessorValueTreeState::Listener
+class BrushGraphics : public GraphicsBase, public juce::AudioProcessorParameter::Listener
 {
 public:
-    BrushGraphics(juce::AudioProcessorValueTreeState& p);
+    BrushGraphics(TuxConstants::TuxInternalParameters& p);
     ~BrushGraphics();
-    void parameterChanged(const juce::String &parameterID, float newValue) override;
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {}
 
     void doMouseDown(int x, int y) override;
     void doMouseDragged(int x, int y) override;
@@ -35,7 +36,7 @@ private:
         BRUSH_DIRECTION_NONE
     };
 
-    juce::AudioProcessorValueTreeState& parameters;
+    TuxConstants::TuxInternalParameters& parameters;
     juce::Point<int> previousMouse;
     juce::Point<int> currentMouse;
 

@@ -17,7 +17,7 @@
 class BrushesOptionsPanel : public OptionsPanel
 {
 public:
-    BrushesOptionsPanel(juce::AudioProcessorValueTreeState& p);
+    BrushesOptionsPanel(TuxConstants::TuxInternalParameters& p);
     ~BrushesOptionsPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;

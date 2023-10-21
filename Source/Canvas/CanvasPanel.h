@@ -19,10 +19,10 @@
 
 #include "MusicGuiOverlay.h"
 
-class CanvasPanel : public juce::Component, public juce::AudioProcessorValueTreeState::Listener
+class CanvasPanel : public juce::Component, public juce::AudioProcessorParameter::Listener
 {
 public:
-    CanvasPanel (juce::AudioProcessorValueTreeState& p, juce::Image* c);
+    CanvasPanel (TuxConstants::TuxInternalParameters& p, juce::Image* c);
     ~CanvasPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;
@@ -31,9 +31,10 @@ private:
     void mouseDown(const juce::MouseEvent &event) override;
     void mouseDrag(const juce::MouseEvent &event) override;
     void mouseUp(const juce::MouseEvent &event) override;
-    void parameterChanged(const juce::String &parameterID, float newValue) override;
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {}
     juce::Image* canvas;
-    juce::AudioProcessorValueTreeState& parameters;
+    TuxConstants::TuxInternalParameters& parameters;
     FillGraphics fillGraphics;
     EraserGraphics eraserGraphics;
     BrushGraphics brushGraphics;

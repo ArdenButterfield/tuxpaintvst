@@ -4,7 +4,7 @@
 
 #include "MagicOptionPanel.h"
 
-MagicOptionPanel::MagicOptionPanel(juce::AudioProcessorValueTreeState& p)
+MagicOptionPanel::MagicOptionPanel(TuxConstants::TuxInternalParameters& p)
     : OptionsPanel(p, "Magic"), parameters(p)
 {
 
@@ -13,16 +13,17 @@ MagicOptionPanel::MagicOptionPanel(juce::AudioProcessorValueTreeState& p)
         for (auto& effect : effects) {
             icons[type].push_back(effect->getIcon());
         }
-        buttonSelectors.add(new ButtonSelector(p, Magic::magic_ids[type], icons[type]));
+        // TODO:
+        //  buttonSelectors.add(new ButtonSelector(p, Magic::magic_ids[type], icons[type]));
     }
     currentButtonSelector = 0;
-    parameters.addParameterListener("magictype", this);
+    parameters.magicType.addListener(this);
     addAndMakeVisible(buttonSelectors[currentButtonSelector]);
 }
 
 MagicOptionPanel::~MagicOptionPanel()
 {
-    parameters.removeParameterListener("magictype", this);
+    parameters.magicType.removeListener(this);
 
     buttonSelectors.clear(true);
 }
@@ -36,6 +37,8 @@ void MagicOptionPanel::paint (juce::Graphics& g)
     g.drawImageAt (prevIcon, prevInnerBounds.getX(), prevInnerBounds.getY());
     g.drawImageAt (nextIcon, nextInnerBounds.getX(), nextInnerBounds.getY());
 
+/*
+ * TODO:
     auto currentMagicEffect = Magic::getCurrentMagicEffect(parameters);
     auto mode = currentMagicEffect->getMode();
     auto availableModes = currentMagicEffect->getAvailableModes();
@@ -69,6 +72,7 @@ void MagicOptionPanel::paint (juce::Graphics& g)
         magicPaintIcon,
         magicPaintButtonBounds.getCentreX() - magicPaintIcon.getWidth() / 2,
         magicPaintButtonBounds.getCentreY() - magicPaintIcon.getHeight() / 2);
+    */
 }
 
 void MagicOptionPanel::resized()
@@ -90,7 +94,8 @@ void MagicOptionPanel::resized()
 
 void MagicOptionPanel::mouseDown (const juce::MouseEvent& event)
 {
-    if (prevButtonBounds.contains(event.position.roundToInt())) {
+/* TODO:
+ * if (prevButtonBounds.contains(event.position.roundToInt())) {
         setMagicPane(currentButtonSelector - 1);
         auto p = (dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("magictype")));
         *p = currentButtonSelector;
@@ -116,12 +121,12 @@ void MagicOptionPanel::mouseDown (const juce::MouseEvent& event)
             currentMagicEffect->setMode(Magic::MODE_FULLSCREEN);
         }
         repaint();
-    }
+    }*/
 }
 
-void MagicOptionPanel::parameterChanged (const juce::String& parameterID, float newValue)
+void MagicOptionPanel::parameterValueChanged (int parameterIndex, float newValue)
 {
-    setMagicPane(dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("magictype"))->getIndex());
+    // setMagicPane(dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("magictype"))->getIndex());
 }
 
 void MagicOptionPanel::setMagicPane (int index)

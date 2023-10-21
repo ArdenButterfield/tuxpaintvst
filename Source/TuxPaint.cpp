@@ -6,7 +6,7 @@
 
 
 
-TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p, juce::Image* canvas)
+TuxPaint::TuxPaint(TuxConstants::TuxInternalParameters& p, juce::Image* canvas)
     : parameters(p),
       toolsPanel(p),
       colorsPanel(p),
@@ -19,12 +19,9 @@ TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p, juce::Image* canvas)
       brushesOptionsPanel(p),
       magicOptionPanel(p)
 {
-    auto param = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter("tool"));
-    if (param != nullptr) {
-        updateRightPanel(param->getIndex());
-    }
+    updateRightPanel(parameters.tool.getIndex());
 
-    parameters.addParameterListener("tool", this);
+    parameters.tool.addListener(this);
 
     addAndMakeVisible(toolsPanel);
     addAndMakeVisible(canvasPanel);
@@ -37,7 +34,7 @@ TuxPaint::TuxPaint(juce::AudioProcessorValueTreeState& p, juce::Image* canvas)
 
 }
 TuxPaint::~TuxPaint() {
-    parameters.removeParameterListener("tool", this);
+    parameters.tool.removeListener( this);
 }
 
 void TuxPaint::paint (juce::Graphics& g) {
@@ -90,12 +87,7 @@ void TuxPaint::updateRightPanel(int toolIndex)
     addAndMakeVisible(newPanel);
 }
 
-void TuxPaint::parameterChanged (const juce::String& parameterID, float newValue)
+void TuxPaint::parameterValueChanged (int parameterIndex, float newValue)
 {
-    if (parameterID == "tool") {
-        auto param = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter(parameterID));
-        if (param != nullptr) {
-            updateRightPanel(param->getIndex());
-        }
-    }
+    updateRightPanel(parameters.tool.getIndex());
 }

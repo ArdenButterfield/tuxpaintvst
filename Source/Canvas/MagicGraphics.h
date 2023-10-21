@@ -9,10 +9,10 @@
 #include "../TuxConstants.h"
 #include "Magic/MagicConstants.h"
 
-class MagicGraphics : public GraphicsBase, public juce::AudioProcessorValueTreeState::Listener
+class MagicGraphics : public GraphicsBase, public juce::AudioProcessorParameter::Listener
 {
 public:
-    explicit MagicGraphics(juce::AudioProcessorValueTreeState& p);
+    explicit MagicGraphics(TuxConstants::TuxInternalParameters& p);
     ~MagicGraphics() override;
 private:
     void doMouseDown(int x, int y) override;
@@ -21,13 +21,14 @@ private:
 
     void setImage(juce::Image* im) override;
 
-    void parameterChanged(const juce::String &parameterID, float newValue) override;
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {}
 
     Magic::MagicBase* currentMagicEffect;
     int mode;
     int prevX, prevY;
 
-    juce::AudioProcessorValueTreeState& parameters;
+    TuxConstants::TuxInternalParameters& parameters;
 };
 
 #endif //TUXPAINTVST_MAGICGRAPHICS_H

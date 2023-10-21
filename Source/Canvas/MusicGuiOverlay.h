@@ -8,21 +8,24 @@
 #include "juce_gui_basics/juce_gui_basics.h"
 #include "juce_audio_processors/juce_audio_processors.h"
 
-class MusicGuiOverlay : public juce::Component, public juce::AudioProcessorValueTreeState::Listener {
+#include "../TuxConstants.h"
+
+class MusicGuiOverlay : public juce::Component, public juce::AudioProcessorParameter::Listener {
 public:
-    MusicGuiOverlay(juce::AudioProcessorValueTreeState& p, juce::Image& im);
+    MusicGuiOverlay(TuxConstants::TuxInternalParameters& p, juce::Image& im);
     ~MusicGuiOverlay();
     void mouseDrag(const juce::MouseEvent &event) override;
     void mouseUp(const juce::MouseEvent &event) override;
     void paint(juce::Graphics &g) override;
-    void parameterChanged(const juce::String &parameterID, float newValue) override;
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {}
     void setImage(juce::Image& im);
 private:
     void getParamValues();
 
     float paramValue;
 
-    juce::AudioProcessorValueTreeState& parameters;
+    TuxConstants::TuxInternalParameters& parameters;
     juce::Image& image;
 };
 

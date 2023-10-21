@@ -177,9 +177,7 @@ PluginProcessor::PluginProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       ),
-      parameters(*this, nullptr, juce::Identifier("TuxPaintVST"), makeParameters())
-
+                       )
 {
     for (int i = 0; i < NUM_SYNTH_VOICES; ++i) {
         synthesiser.addVoice(new TuxSynthVoice(&oscillatorCoefficients));
@@ -191,10 +189,14 @@ PluginProcessor::PluginProcessor()
     g.setColour(TuxConstants::backgroundColour);
     g.fillAll();
     wavtablePositionNeedsUpdating = true;
+
+    internalParams.wavtableX.addListener(this);
 }
 
 PluginProcessor::~PluginProcessor()
 {
+    internalParams.wavtableX.removeListener(this);
+
     synthesiser.clearSounds();
     synthesiser.clearVoices();
 }
@@ -303,8 +305,7 @@ bool PluginProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 
 void PluginProcessor::updateWavtablePosition()
 {
-    auto param = dynamic_cast<juce::AudioParameterFloat*>(parameters.getParameter("wavx"));
-    oscillatorCoefficients.setFromCanvas(&canvas,param->get());
+    oscillatorCoefficients.setFromCanvas(&canvas,internalParams.wavtableX.get());
 }
 
 void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
@@ -362,20 +363,18 @@ void PluginProcessor::setStateInformation (const void* data, int sizeInBytes)
     juce::ignoreUnused (data, sizeInBytes);
 }
 
-juce::AudioProcessorValueTreeState& PluginProcessor::getValueTreeState()
-{
-    return parameters;
-}
-void PluginProcessor::parameterChanged (const juce::String& parameterID, float newValue)
-{
-    if (parameterID == "wavx") {
-        wavtablePositionNeedsUpdating = true;
-    }
-}
 
 juce::Image* PluginProcessor::getCanvas()
 {
     return &canvas;
+}
+TuxConstants::TuxInternalParameters& PluginProcessor::getInternalParameters()
+{
+    return internalParams;
+}
+void PluginProcessor::parameterValueChanged (int parameterIndex, float newValue)
+{
+    wavtablePositionNeedsUpdating = true;
 }
 
 //==============================================================================

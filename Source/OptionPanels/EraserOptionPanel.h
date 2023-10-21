@@ -17,7 +17,7 @@ std::vector<juce::Image> makeIcons(const int numErasers);
 class EraserOptionPanel : public OptionsPanel
 {
 public:
-    EraserOptionPanel(juce::AudioProcessorValueTreeState& p);
+    EraserOptionPanel(TuxConstants::TuxInternalParameters& p);
     ~EraserOptionPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;

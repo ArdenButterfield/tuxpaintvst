@@ -14,16 +14,17 @@
 #include "../TuxConstants.h"
 #include "../Canvas/Magic/MagicConstants.h"
 
-class MagicOptionPanel : public OptionsPanel, public juce::AudioProcessorValueTreeState::Listener
+class MagicOptionPanel : public OptionsPanel, public juce::AudioProcessorParameter::Listener
 {
 public:
-    MagicOptionPanel(juce::AudioProcessorValueTreeState& p);
+    MagicOptionPanel(TuxConstants::TuxInternalParameters& p);
     ~MagicOptionPanel();
     void paint (juce::Graphics& g) override;
     void resized() override;
 private:
     void mouseDown (const juce::MouseEvent& event) override;
-    void parameterChanged (const juce::String& parameterID, float newValue) override;
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {}
     void setMagicPane(int index);
 
     std::array<std::vector<juce::Image>, Magic::NUM_MAGIC_TYPES> icons;
@@ -46,7 +47,7 @@ private:
     const juce::Image magicPaintIcon = juce::ImageCache::getFromMemory(BinaryDataUI::magic_paint_png, BinaryDataUI::magic_paint_pngSize);
     const juce::Image magicFullscreenIcon = juce::ImageCache::getFromMemory(BinaryDataUI::magic_fullscreen_png, BinaryDataUI::magic_fullscreen_pngSize);
 
-    juce::AudioProcessorValueTreeState& parameters;
+    TuxConstants::TuxInternalParameters& parameters;
 };
 
 #endif //TUXPAINTVST_MAGICOPTIONPANEL_H

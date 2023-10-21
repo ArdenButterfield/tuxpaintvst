@@ -4,7 +4,7 @@
 
 #include "OptionsPanel.h"
 
-OptionsPanel::OptionsPanel(juce::AudioProcessorValueTreeState& p, juce::String title) : titlePanel(title) {
+OptionsPanel::OptionsPanel(TuxConstants::TuxInternalParameters& p, juce::String title) : titlePanel(title) {
     addAndMakeVisible(titlePanel);
 }
 OptionsPanel::~OptionsPanel() {

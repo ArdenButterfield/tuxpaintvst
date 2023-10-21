@@ -4,18 +4,18 @@
 
 #include "ButtonSelector.h"
 
-ButtonSelector::ButtonSelector(juce::AudioProcessorValueTreeState& p, juce::String id, const std::vector<juce::Image>& icons)
+ButtonSelector::ButtonSelector(juce::AudioParameterChoice* param, const std::vector<juce::Image>& icons)
       : buttonIcons(icons),
-      parameters(p),
-      parameterID(id)
+      parameterToAttachTo(param)
 {
-    parameters.addParameterListener(parameterID, this);
-    selectionIndex = static_cast<juce::AudioParameterChoice*>(parameters.getParameter(parameterID))->getIndex();
+
+    parameterToAttachTo->addListener(this);
+    selectionIndex = parameterToAttachTo->getIndex();
 }
 
 ButtonSelector::~ButtonSelector()
 {
-    parameters.removeParameterListener(parameterID, this);
+    parameterToAttachTo->removeListener(this);
 }
 
 void ButtonSelector::resized() {
@@ -90,9 +90,9 @@ void ButtonSelector::paint (juce::Graphics& g)
 
     }
 }
-void ButtonSelector::parameterChanged (const juce::String& parameterID, float newValue)
+void ButtonSelector::parameterValueChanged (int parameterIndex, float newValue)
 {
-    selectionIndex = static_cast<juce::AudioParameterChoice*>(parameters.getParameter(parameterID))->getIndex();
+    selectionIndex = parameterToAttachTo->getIndex();
 }
 
 void ButtonSelector::mouseDown (const juce::MouseEvent& event)
@@ -122,8 +122,7 @@ void ButtonSelector::mouseDown (const juce::MouseEvent& event)
             selectionIndex = ind;
         }
     }
-    auto param = dynamic_cast<juce::AudioParameterChoice*>(parameters.getParameter(parameterID));
-    *param = selectionIndex;
+    *parameterToAttachTo = selectionIndex;
 
     repaint();
 }

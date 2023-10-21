@@ -8,12 +8,13 @@
 #include "GraphicsBase.h"
 #include "../TuxConstants.h"
 
-class FillGraphics : public GraphicsBase, public juce::AudioProcessorValueTreeState::Listener
+class FillGraphics : public GraphicsBase, public juce::AudioProcessorParameter::Listener
 {
 public:
-    FillGraphics(juce::AudioProcessorValueTreeState& p);
+    FillGraphics(TuxConstants::TuxInternalParameters& p);
     ~FillGraphics();
-    void parameterChanged(const juce::String &parameterID, float newValue) override;
+    void parameterValueChanged (int parameterIndex, float newValue) override;
+    void parameterGestureChanged (int parameterIndex, bool gestureIsStarting) override {}
 
     void doMouseDown(int x, int y) override;
     void doMouseDragged(int x, int y) override;
@@ -56,10 +57,10 @@ private:
     void simulate_flood_fill(int x, int y);
     void simulate_flood_fill_outside_check(int x, int y, int y_outside);
 
-    juce::AudioProcessorValueTreeState& parameters;
+    TuxConstants::TuxInternalParameters& parameters;
     bool removeFromQueue(int *x, int *y, int *y_outside);
     void doFill(int x, int y);
-    bool would_flood_fill(juce::Colour pixelColor) const;
+    [[nodiscard]] bool would_flood_fill(juce::Colour pixelColor) const;
     static float colors_close(juce::Colour c1, juce::Colour c2);
     // juce::Colour blend(juce::Colour draw_colr, juce::Colour old_colr, double pct);
 
