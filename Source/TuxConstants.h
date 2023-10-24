@@ -15,6 +15,9 @@ namespace TuxConstants {
     const int buttonHeight = 48;
     const int buttonWidth = 48;
 
+    const int canvasHeight = 376;
+    const int canvasWidth = 448;
+
     /* =========== Tools =========== */
     enum
     {

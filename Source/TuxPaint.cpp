@@ -43,7 +43,7 @@ void TuxPaint::paint (juce::Graphics& g) {
 
 void TuxPaint::resized() {
     toolsPanel.setBounds(0, 40, 96, 336);
-    canvasPanel.setBounds(96,0,448,376);
+    canvasPanel.setBounds(96,0,TuxConstants::canvasWidth,TuxConstants::canvasHeight);
 
     fillOptionsPanel.setBounds(544,0,96,376);
     shapesOptionsPanel.setBounds(544,0,96,376);

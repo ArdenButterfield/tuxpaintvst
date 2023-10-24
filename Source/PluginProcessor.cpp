@@ -184,7 +184,7 @@ PluginProcessor::PluginProcessor()
     }
     synthesiser.addSound(new TuxSynthSound);
 
-    canvas = juce::Image(juce::Image::RGB, 600, 400, false);
+    canvas = juce::Image(juce::Image::RGB, TuxConstants::canvasWidth, TuxConstants::canvasHeight, false);
     auto g = juce::Graphics(canvas);
     g.setColour(TuxConstants::backgroundColour);
     g.fillAll();
