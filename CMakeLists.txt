@@ -104,6 +104,10 @@ set(SourceFiles
     ./Source/Oscillator.h
     ./Source/OscillatorCoefficients.cpp
     ./Source/OscillatorCoefficients.h
+    ./Source/OscilloscopeData.cpp
+    ./Source/OscilloscopeData.h
+    ./Source/OscilloscopePanel.cpp
+    ./Source/OscilloscopePanel.h
 
     ./Source/OptionPanels/ShapesOptionsPanel.cpp
     ./Source/OptionPanels/ShapesOptionsPanel.h

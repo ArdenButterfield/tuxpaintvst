@@ -8,6 +8,7 @@
 #include "TuxSynthSound.h"
 #include "TuxSynthVoice.h"
 #include "OscillatorCoefficients.h"
+#include "OscilloscopeData.h"
 #include "TuxConstants.h"
 
 #if (MSVC)
@@ -53,11 +54,14 @@ public:
     TuxConstants::TuxInternalParameters& getInternalParameters();
 
     juce::Image* getCanvas();
+    OscilloscopeData& getOsciloscopeData();
 
 private:
+    std::vector<float> oscilloscopeSamples;
+    OscilloscopeData oscilloscopeData;
 
     juce::Synthesiser synthesiser;
-    const int NUM_SYNTH_VOICES = 4;
+    const int NUM_SYNTH_VOICES = 16;
 
     bool wavtablePositionNeedsUpdating;
     void updateWavtablePosition();

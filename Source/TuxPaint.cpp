@@ -6,7 +6,7 @@
 
 
 
-TuxPaint::TuxPaint(TuxConstants::TuxInternalParameters& p, juce::Image* canvas)
+TuxPaint::TuxPaint(TuxConstants::TuxInternalParameters& p, juce::Image* canvas,  OscilloscopeData& oscData)
     : parameters(p),
       toolsPanel(p),
       colorsPanel(p),
@@ -17,7 +17,8 @@ TuxPaint::TuxPaint(TuxConstants::TuxInternalParameters& p, juce::Image* canvas)
       eraserOptionPanel(p),
       canvasPanel(p, canvas),
       brushesOptionsPanel(p),
-      magicOptionPanel(p)
+      magicOptionPanel(p),
+      oscilloscopePanel(oscData)
 {
     updateRightPanel(parameters.tool.getIndex());
 
@@ -31,7 +32,7 @@ TuxPaint::TuxPaint(TuxConstants::TuxInternalParameters& p, juce::Image* canvas)
     addAndMakeVisible(colorsTitlePanel);
     addAndMakeVisible(toolsTitlePanel);
 
-
+    addAndMakeVisible(oscilloscopePanel);
 }
 TuxPaint::~TuxPaint() {
     parameters.tool.removeListener( this);
@@ -54,6 +55,8 @@ void TuxPaint::resized() {
     colorsPanel.setBounds(96,376,544,48);
     toolsTitlePanel.setBounds(0,0,96,40);
     colorsTitlePanel.setBounds(0,376,96,48);
+
+    oscilloscopePanel.setBounds(getLocalBounds().withTrimmedTop(colorsPanel.getBottom()));
 }
 
 void TuxPaint::updateRightPanel(int toolIndex)

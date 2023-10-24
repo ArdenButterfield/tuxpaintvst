@@ -21,16 +21,19 @@
 #define TUXPAINTVST_TUXPAINT_H
 
 #include "TuxConstants.h"
+#include "OscilloscopeData.h"
+#include "OscilloscopePanel.h"
 
 class TuxPaint : public juce::Component, public juce::AudioProcessorParameter::Listener
 {
 public:
-    TuxPaint(TuxConstants::TuxInternalParameters& p, juce::Image* canvas);
+    TuxPaint(TuxConstants::TuxInternalParameters& p, juce::Image* canvas, OscilloscopeData& oscData);
     ~TuxPaint();
     void paint (juce::Graphics& g) override;
     void resized() override;
 
 private:
+
     void updateRightPanel(int toolIndex);
 
     ToolsPanel toolsPanel;
@@ -50,6 +53,8 @@ private:
     TitlePanel colorsTitlePanel;
     juce::ImageComponent toolTitleBackground;
     juce::ImageComponent colorTitleBackground;
+
+    OscilloscopePanel oscilloscopePanel;
 
     const int button_w = TuxConstants::buttonWidth;
     const int button_h = TuxConstants::buttonHeight;

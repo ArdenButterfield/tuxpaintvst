@@ -311,6 +311,19 @@ void PluginProcessor::updateWavtablePosition()
 void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                                               juce::MidiBuffer& midiMessages)
 {
+    int currentLowestNote = 999;
+    for (int i = 0; i < NUM_SYNTH_VOICES; ++i) {
+        auto voice = synthesiser.getVoice(i);
+        auto note = voice->getCurrentlyPlayingNote();
+        if (voice->isVoiceActive() && (note < currentLowestNote)) {
+            currentLowestNote = note;
+        }
+    }
+
+    if (currentLowestNote != 999) {
+        oscilloscopeData.resize((int)(synthesiser.getSampleRate() / juce::MidiMessage::getMidiNoteInHertz(currentLowestNote)));
+    }
+
     if (wavtablePositionNeedsUpdating) {
         updateWavtablePosition();
     }
@@ -331,6 +344,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
 
 
     synthesiser.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    oscilloscopeData.insertSamples(buffer.getReadPointer(0), buffer.getNumSamples());
     for (auto i  = 1; i < totalNumOutputChannels; ++i) {
         buffer.copyFrom(i,0,buffer,0,0,buffer.getNumSamples());
     }
@@ -375,6 +389,11 @@ TuxConstants::TuxInternalParameters& PluginProcessor::getInternalParameters()
 void PluginProcessor::parameterValueChanged (int parameterIndex, float newValue)
 {
     wavtablePositionNeedsUpdating = true;
+}
+
+OscilloscopeData& PluginProcessor::getOsciloscopeData()
+{
+    return oscilloscopeData;
 }
 
 //==============================================================================

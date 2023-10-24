@@ -44,6 +44,7 @@ void OscillatorCoefficients::setFromCanvas (juce::Image* canvas, float proportio
     for (int i = 0; i < numCoefficients; ++i) {
         auto v = std::complex<float>(samples[i * 2], samples[i * 2 + 1]);
         magnitudes[i] = abs(v);
+        magnitudes[i] /= samples.size();
         if ((0 < i) && (i < numCoefficients - 1)) {
             magnitudes[i] *= 2;
         }

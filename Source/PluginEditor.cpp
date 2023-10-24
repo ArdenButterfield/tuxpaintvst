@@ -4,7 +4,7 @@
 
 //==============================================================================
 PluginEditor::PluginEditor (PluginProcessor& p)
-    : AudioProcessorEditor (&p), processorRef (p), tuxPaint(p.getInternalParameters(), p.getCanvas())
+    : AudioProcessorEditor (&p), processorRef (p), tuxPaint(p.getInternalParameters(), p.getCanvas(),p.getOsciloscopeData())
 {
     juce::ignoreUnused (processorRef);
 
