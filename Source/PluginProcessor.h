@@ -63,7 +63,6 @@ private:
     juce::Synthesiser synthesiser;
     const int NUM_SYNTH_VOICES = 16;
 
-    bool wavtablePositionNeedsUpdating;
     void updateWavtablePosition();
 
     juce::Image canvas;

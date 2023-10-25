@@ -88,6 +88,7 @@ void CanvasPanel::mouseUp (const juce::MouseEvent& event)
 {
     if (currentGraphics != nullptr) {
         currentGraphics->doMouseUp(event.position.getX(), event.position.getY());
+        parameters.wavetableNeedsUpdating = true;
         repaint();
     }
 }

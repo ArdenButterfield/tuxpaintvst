@@ -188,7 +188,7 @@ PluginProcessor::PluginProcessor()
     auto g = juce::Graphics(canvas);
     g.setColour(TuxConstants::backgroundColour);
     g.fillAll();
-    wavtablePositionNeedsUpdating = true;
+    internalParams.wavetableNeedsUpdating = true;
 
     internalParams.wavtableX.addListener(this);
 }
@@ -305,9 +305,8 @@ bool PluginProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 
 void PluginProcessor::updateWavtablePosition()
 {
-    std::cout << "wavetable update\n";
     oscillatorCoefficients.setFromCanvas(&canvas,internalParams.wavtableX.get());
-    wavtablePositionNeedsUpdating = false;
+    internalParams.wavetableNeedsUpdating = false;
 }
 
 void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
@@ -326,7 +325,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         oscilloscopeData.resize(synthesiser.getSampleRate() / juce::MidiMessage::getMidiNoteInHertz(currentLowestNote));
     }
 
-    if (wavtablePositionNeedsUpdating) {
+    if (internalParams.wavetableNeedsUpdating) {
         updateWavtablePosition();
     }
 
@@ -390,7 +389,7 @@ TuxConstants::TuxInternalParameters& PluginProcessor::getInternalParameters()
 }
 void PluginProcessor::parameterValueChanged (int parameterIndex, float newValue)
 {
-    wavtablePositionNeedsUpdating = true;
+    internalParams.wavetableNeedsUpdating = true;
 }
 
 OscilloscopeData& PluginProcessor::getOsciloscopeData()

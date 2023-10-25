@@ -530,6 +530,8 @@ namespace TuxConstants {
         juce::OwnedArray<juce::AudioParameterChoice> magicEffectMenus;
         juce::AudioParameterChoice magicMode;
         juce::AudioParameterFloat wavtableX;
+
+        bool wavetableNeedsUpdating;
     };
 }
 #endif //TUXPAINTVST_TUXCONSTANTS_H

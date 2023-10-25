@@ -33,14 +33,11 @@ void OscillatorCoefficients::setFromCanvas (juce::Image* canvas, float proportio
     for (int i = 0; i < numSamples; ++i) {
         auto x = (float)i * canvas->getWidth() / (float)numSamples;
         auto brightness = getBlurredPixel(canvas,x, y).getPerceivedBrightness();
-        samples[x] = brightness * 2 - 1; // rescale from [0, 1] to [-1, 1]
-        std::cout << samples[x] << " ";
+        samples[i] = brightness * 2 - 1; // rescale from [0, 1] to [-1, 1]
     }
-    std::cout << "\n";
     fft.performRealOnlyForwardTransform(&samples[0], true);
     // see juce docs: this interleaves the real and complex components.
-
-    auto numCoefficients = canvas->getHeight() / 2 + 1;
+    auto numCoefficients = numSamples / 2 + 1;
     magnitudes.resize(numCoefficients);
     phases.resize(numCoefficients);
     for (int i = 0; i < numCoefficients; ++i) {
