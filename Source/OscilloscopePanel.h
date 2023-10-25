@@ -18,7 +18,7 @@ public:
 private:
     void timerCallback() override;
     void paint(juce::Graphics &g) override;
-    const OscilloscopeData& data;
+    OscilloscopeData& data;
 };
 
 #endif //TUXPAINTVST_OSCILLOSCOPEPANEL_H

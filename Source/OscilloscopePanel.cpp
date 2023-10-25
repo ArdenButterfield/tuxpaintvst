@@ -23,7 +23,7 @@ void OscilloscopePanel::paint (juce::Graphics& g)
     auto p = juce::Path();
     p.startNewSubPath(0,getHeight());
     auto samples = data.getSamples();
-    auto incr = (float) getWidth() / (float)samples->size();
+    auto incr = (float) getWidth() / (float)(samples->size() - 1);
     float x = 0;
     for (auto s : *(samples)) {
         float y = (getHeight() * 0.5) - (s * getHeight() * 0.5);

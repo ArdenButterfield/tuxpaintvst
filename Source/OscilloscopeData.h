@@ -12,12 +12,14 @@ class OscilloscopeData
 public:
     OscilloscopeData();
     ~OscilloscopeData();
-    void resize(int period);
+    void resize(float _period);
     void insertSamples(const float* samples, int numSamples);
-    const std::vector<float>* const getSamples() const;
+    std::vector<float>* getSamples();
 private:
     std::vector<float> samples;
-    int position;
+    float period;
+    float position;
+    int freshSamplesNeeded;
 };
 
 #endif //TUXPAINTVST_OSCILLOSCOPEDATA_H

@@ -305,7 +305,9 @@ bool PluginProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 
 void PluginProcessor::updateWavtablePosition()
 {
+    std::cout << "wavetable update\n";
     oscillatorCoefficients.setFromCanvas(&canvas,internalParams.wavtableX.get());
+    wavtablePositionNeedsUpdating = false;
 }
 
 void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
@@ -321,7 +323,7 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     }
 
     if (currentLowestNote != 999) {
-        oscilloscopeData.resize((int)(synthesiser.getSampleRate() / juce::MidiMessage::getMidiNoteInHertz(currentLowestNote)));
+        oscilloscopeData.resize(synthesiser.getSampleRate() / juce::MidiMessage::getMidiNoteInHertz(currentLowestNote));
     }
 
     if (wavtablePositionNeedsUpdating) {

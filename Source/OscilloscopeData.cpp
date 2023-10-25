@@ -3,11 +3,15 @@
 //
 
 #include "OscilloscopeData.h"
+#include "juce_core/juce_core.h"
+#include <iostream>
 
 OscilloscopeData::OscilloscopeData()
 {
-    samples.resize(100, 0);
+    period = 100;
+    samples.resize(period, 0);
     position = 0;
+    freshSamplesNeeded = samples.size();
 }
 
 OscilloscopeData::~OscilloscopeData()
@@ -15,23 +19,46 @@ OscilloscopeData::~OscilloscopeData()
 
 }
 
-void OscilloscopeData::resize (int period)
+void OscilloscopeData::resize (float _period)
 {
-    samples.resize(period, 0);
-    position = 0;
+    if (!juce::approximatelyEqual(period, _period)) {
+        period = _period;
+        samples.resize((int)period, 0);
+        position = 0;
+        freshSamplesNeeded = samples.size();
+    }
 }
 
 void OscilloscopeData::insertSamples (const float* newSamples, int numSamples)
 {
-    for (int i = 0; i < numSamples; ++i) {
-        samples[position] = newSamples[i];
-        position++;
-        position %= samples.size();
+    if (freshSamplesNeeded) {
+        int i = 0;
+        for (; (i < numSamples) && freshSamplesNeeded; ++i) {
+            samples[(int)position] = newSamples[i];
+            --freshSamplesNeeded;
+            position += 1;
+            while (position >= period) {
+                position -= period;
+            }
+        }
+        for (; i < numSamples; ++i) {
+            position += 1;
+            while (position >= period) {
+                position -= period;
+            }
+        }
+    } else {
+        position += (float)numSamples;
+        while (position >= period) {
+            position -= period;
+        }
     }
+
 }
 
-const std::vector<float>* const OscilloscopeData::getSamples() const
+std::vector<float>* OscilloscopeData::getSamples()
 {
+    freshSamplesNeeded = samples.size();
     return &samples;
 }
 
