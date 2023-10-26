@@ -512,10 +512,10 @@ namespace TuxConstants {
                   "Magic mode",
                   juce::StringArray{"paint", "fullscreen"},
                   0),
-              wavtableX(juce::ParameterID{"wavx", 1},
+              wavtableX(new juce::AudioParameterFloat( juce::ParameterID{"wavx", 1},
                   "Wavetable X",
                   juce::NormalisableRange<float>(0, 1),
-                  0.5)
+                  0.5))
         {
 
         }
@@ -529,7 +529,7 @@ namespace TuxConstants {
         juce::AudioParameterChoice magicType;
         juce::OwnedArray<juce::AudioParameterChoice> magicEffectMenus;
         juce::AudioParameterChoice magicMode;
-        juce::AudioParameterFloat wavtableX;
+        juce::AudioParameterFloat* wavtableX;
 
         bool wavetableNeedsUpdating;
     };

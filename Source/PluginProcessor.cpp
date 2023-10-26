@@ -190,14 +190,14 @@ PluginProcessor::PluginProcessor()
     g.fillAll();
     internalParams.wavetableNeedsUpdating = true;
 
-    internalParams.wavtableX.addListener(this);
+    internalParams.wavtableX->addListener(this);
 
-    addParameter(&internalParams.wavtableX);
+    addParameter(internalParams.wavtableX);
 }
 
 PluginProcessor::~PluginProcessor()
 {
-    internalParams.wavtableX.removeListener(this);
+    internalParams.wavtableX->removeListener(this);
 
     synthesiser.clearSounds();
     synthesiser.clearVoices();
@@ -307,7 +307,7 @@ bool PluginProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 
 void PluginProcessor::updateWavtablePosition()
 {
-    oscillatorCoefficients.setFromCanvas(&canvas,internalParams.wavtableX.get());
+    oscillatorCoefficients.setFromCanvas(&canvas,internalParams.wavtableX->get());
     internalParams.wavetableNeedsUpdating = false;
     for (int i = 0; i < synthesiser.getNumVoices(); ++i) {
         auto voice = dynamic_cast<TuxSynthVoice*>(synthesiser.getVoice(i));
@@ -336,7 +336,6 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     if (internalParams.wavetableNeedsUpdating) {
         updateWavtablePosition();
     }
-
 
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();

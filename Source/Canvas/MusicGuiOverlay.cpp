@@ -6,18 +6,18 @@
 
 MusicGuiOverlay::MusicGuiOverlay (TuxConstants::TuxInternalParameters& p, juce::Image& im) : parameters(p), image(im)
 {
-    parameters.wavtableX.addListener(this);
+    parameters.wavtableX->addListener(this);
     getParamValues();
 }
 
 MusicGuiOverlay::~MusicGuiOverlay()
 {
-    parameters.wavtableX.removeListener(this);
+    parameters.wavtableX->removeListener(this);
 }
 
 void MusicGuiOverlay::getParamValues()
 {
-    paramValue = parameters.wavtableX.get();
+    paramValue = parameters.wavtableX->get();
     repaint();
 }
 
@@ -28,11 +28,11 @@ void MusicGuiOverlay::parameterValueChanged (int parameterIndex, float newValue)
 
 void MusicGuiOverlay::mouseUp (const juce::MouseEvent& event)
 {
-    parameters.wavtableX = event.position.getY() / (float)getHeight();
+    *(parameters.wavtableX) = event.position.getY() / (float)getHeight();
 }
 void MusicGuiOverlay::mouseDrag (const juce::MouseEvent& event)
 {
-    parameters.wavtableX = event.position.getY() / (float)getHeight();
+    *(parameters.wavtableX) = event.position.getY() / (float)getHeight();
 }
 
 void MusicGuiOverlay::paint (juce::Graphics& g)
