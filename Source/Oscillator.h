@@ -17,6 +17,7 @@ public:
     void setMagnitude(float mag);
     void reset();
     void processBlock(float* samples, int numSamples);
+    void changeMidStream(float mag, float phase);
     const float twoPi = 2 * 3.141592653589793238;
     float fs;
 

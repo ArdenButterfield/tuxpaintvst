@@ -15,20 +15,32 @@ bool TuxSynthVoice::canPlaySound (juce::SynthesiserSound* sound)
     return dynamic_cast<TuxSynthSound*> (sound) != nullptr;
 }
 
+void TuxSynthVoice::updateWavetable()
+{
+    auto midiNoteNumber = getCurrentlyPlayingNote();
+    if (midiNoteNumber >= 0) {
+        auto cyclesPerSecond = (float)juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber);
+        maxHarmonic = coefficients->getMaxHarmonic(cyclesPerSecond);
+        for (int i = 0; i < maxHarmonic; ++i) {
+            auto mag = coefficients->getMagnitude(cyclesPerSecond, i);
+            auto phase = coefficients->getPhase(cyclesPerSecond,i);
+            oscillators[i].changeMidStream(mag, phase);
+        }
+    }
+}
+
 void TuxSynthVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound*, int)
 {
     oscillators.resize(coefficients->getNumCoefficients());
     noteOn = true;
     tailOff = 0.0;
-    auto cyclesPerSecond = juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber);
-    coefficients->setBaseFreq(cyclesPerSecond);
-    coefficients->setSampleRate(getSampleRate());
-    maxHarmonic = coefficients->getMaxHarmonic();
+    auto cyclesPerSecond = (float)juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber);
+    maxHarmonic = coefficients->getMaxHarmonic(cyclesPerSecond);
     for (int i = 0; i < maxHarmonic; ++i) {
-        oscillators[i].setSamplerate(getSampleRate());
-        oscillators[i].setFrequency(cyclesPerSecond * i);
-        oscillators[i].setMagnitude(coefficients->getMagnitude(i));
-        oscillators[i].setStartingPhase(coefficients->getPhase(i));
+        oscillators[i].setSamplerate((float)getSampleRate());
+        oscillators[i].setFrequency(cyclesPerSecond * (float)i);
+        oscillators[i].setMagnitude(coefficients->getMagnitude(cyclesPerSecond, i));
+        oscillators[i].setStartingPhase(coefficients->getPhase(cyclesPerSecond, i));
         oscillators[i].reset();
     }
 }

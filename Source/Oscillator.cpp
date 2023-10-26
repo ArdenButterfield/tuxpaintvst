@@ -42,8 +42,8 @@ void Oscillator::setStartingPhase (float phase)
 
 void Oscillator::reset()
 {
-    x = magnitude * cos(startingPhase);
-    y = magnitude * sin(startingPhase);
+    x = magnitude * cosf(startingPhase);
+    y = magnitude * sinf(startingPhase);
 }
 
 void Oscillator::processBlock (float* samples, int numSamples)
@@ -61,8 +61,33 @@ void Oscillator::processBlock (float* samples, int numSamples)
 void Oscillator::updateMatrix()
 {
     auto angleIncrement = frequency * twoPi / fs;
-    m00 = cos(angleIncrement);
-    m01 = -sin(angleIncrement);
-    m10 = sin(angleIncrement);
-    m11 = cos(angleIncrement);
+    m00 = cosf(angleIncrement);
+    m01 = -sinf(angleIncrement);
+    m10 = sinf(angleIncrement);
+    m11 = cosf(angleIncrement);
+}
+
+void Oscillator::changeMidStream (float mag, float phase)
+{
+    if ((mag == magnitude) && (phase == startingPhase)) {
+        return;
+    }
+    float newx, newy;
+    if ((magnitude == 0) && (mag != 0)) {
+        newx = mag * cosf(phase);
+        newy = mag * sinf(phase);
+    } else {
+        auto rotation = phase - startingPhase;
+        auto scale = mag / magnitude;
+
+        auto xscale = x * scale;
+        auto yscale = y * scale;
+
+        newx = xscale * cosf(rotation) - yscale * sinf(rotation);
+        newy = xscale * sinf(rotation) + yscale * cosf(rotation);
+    }
+    
+    // TODO: change gradually
+    x = newx;
+    y = newy;
 }

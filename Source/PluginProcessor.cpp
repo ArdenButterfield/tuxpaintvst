@@ -191,6 +191,8 @@ PluginProcessor::PluginProcessor()
     internalParams.wavetableNeedsUpdating = true;
 
     internalParams.wavtableX.addListener(this);
+
+    addParameter(&internalParams.wavtableX);
 }
 
 PluginProcessor::~PluginProcessor()
@@ -307,13 +309,19 @@ void PluginProcessor::updateWavtablePosition()
 {
     oscillatorCoefficients.setFromCanvas(&canvas,internalParams.wavtableX.get());
     internalParams.wavetableNeedsUpdating = false;
+    for (int i = 0; i < synthesiser.getNumVoices(); ++i) {
+        auto voice = dynamic_cast<TuxSynthVoice*>(synthesiser.getVoice(i));
+        if (voice != nullptr) {
+            voice->updateWavetable();
+        }
+    }
 }
 
 void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
                                               juce::MidiBuffer& midiMessages)
 {
     int currentLowestNote = 999;
-    for (int i = 0; i < NUM_SYNTH_VOICES; ++i) {
+    for (int i = 0; i < synthesiser.getNumVoices(); ++i) {
         auto voice = synthesiser.getVoice(i);
         auto note = voice->getCurrentlyPlayingNote();
         if (voice->isVoiceActive() && (note < currentLowestNote)) {

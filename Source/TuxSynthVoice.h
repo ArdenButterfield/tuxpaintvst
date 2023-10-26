@@ -21,6 +21,7 @@ public:
     void controllerMoved (int, int) override;
     void renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override;
     void setCurrentPlaybackSampleRate(double newRate) override;
+    void updateWavetable();
 private:
     std::vector<Oscillator> oscillators;
     double currentAngle = 0.0, angleDelta = 0.0, level = 0.0, tailOff = 0.0;

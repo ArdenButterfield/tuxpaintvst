@@ -4,7 +4,7 @@
 
 #include "OscillatorCoefficients.h"
 
-OscillatorCoefficients::OscillatorCoefficients() : samplerate(44100), basefreq(100)
+OscillatorCoefficients::OscillatorCoefficients() : samplerate(44100)
 {
 
 }
@@ -54,19 +54,12 @@ void OscillatorCoefficients::setFromCanvas (juce::Image* canvas, float proportio
 void OscillatorCoefficients::setSampleRate (float fs)
 {
     samplerate = fs;
-    auto maxFreq = samplerate * 0.5 * 0.95;
-    maxHarmonic = std::min((int)magnitudes.size() - 1, (int)(maxFreq / basefreq));
 }
 
-void OscillatorCoefficients::setBaseFreq (float f)
-{
-    basefreq = f;
-    auto maxFreq = samplerate * 0.5 * 0.95;
-    maxHarmonic = std::min((int)magnitudes.size() - 1, (int)(maxFreq / basefreq));
-}
 
-float OscillatorCoefficients::getMagnitude (int harmonic)
+float OscillatorCoefficients::getMagnitude (float basefreq, int harmonic)
 {
+    auto maxHarmonic = getMaxHarmonic(basefreq);
     if (harmonic < maxHarmonic) {
         return magnitudes[harmonic];
     } else {
@@ -74,8 +67,9 @@ float OscillatorCoefficients::getMagnitude (int harmonic)
     }
 }
 
-float OscillatorCoefficients::getPhase (int harmonic)
+float OscillatorCoefficients::getPhase (float basefreq, int harmonic)
 {
+    auto maxHarmonic = getMaxHarmonic(basefreq);
     if (harmonic < maxHarmonic) {
         return phases[harmonic];
     } else {
@@ -83,9 +77,10 @@ float OscillatorCoefficients::getPhase (int harmonic)
     }
 }
 
-int OscillatorCoefficients::getMaxHarmonic()
+int OscillatorCoefficients::getMaxHarmonic(float basefreq)
 {
-    return maxHarmonic;
+    auto maxFreq = samplerate * 0.5 * 0.95;
+    return std::min((int)magnitudes.size() - 1, (int)(maxFreq / basefreq));
 }
 
 int OscillatorCoefficients::getNumCoefficients()

@@ -17,17 +17,14 @@ public:
     ~OscillatorCoefficients();
     void setFromCanvas(juce::Image* canvas, float proportion);
     void setSampleRate(float fs);
-    void setBaseFreq(float f);
-    float getMagnitude(int harmonic);
-    float getPhase(int harmonic);
-    int getMaxHarmonic();
+    float getMagnitude(float baseFreq, int harmonic);
+    float getPhase(float baseFreq, int harmonic);
+    int getMaxHarmonic(float baseFreq);
     int getNumCoefficients();
 private:
     std::vector<float> magnitudes;
     std::vector<float> phases;
     float samplerate;
-    float basefreq;
-    int maxHarmonic;
 };
 
 #endif //TUXPAINTVST_OSCILLATORCOEFFICIENTS_H
