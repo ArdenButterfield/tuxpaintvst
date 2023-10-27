@@ -58,6 +58,7 @@ void Oscillator::processBlock (float* samples, int numSamples)
         y = newy;
     }
 }
+
 void Oscillator::updateMatrix()
 {
     auto angleIncrement = frequency * twoPi / fs;
@@ -86,7 +87,10 @@ void Oscillator::changeMidStream (float mag, float phase)
         newx = xscale * cosf(rotation) - yscale * sinf(rotation);
         newy = xscale * sinf(rotation) + yscale * cosf(rotation);
     }
-    
+
+    magnitude = mag;
+    startingPhase = phase;
+
     // TODO: change gradually
     x = newx;
     y = newy;

@@ -39,7 +39,7 @@ void TuxSynthVoice::startNote (int midiNoteNumber, float velocity, juce::Synthes
     for (int i = 0; i < maxHarmonic; ++i) {
         oscillators[i].setSamplerate((float)getSampleRate());
         oscillators[i].setFrequency(cyclesPerSecond * (float)i);
-        oscillators[i].setMagnitude(coefficients->getMagnitude(cyclesPerSecond, i));
+        oscillators[i].setMagnitude(coefficients->getMagnitude(cyclesPerSecond, i) * velocity);
         oscillators[i].setStartingPhase(coefficients->getPhase(cyclesPerSecond, i));
         oscillators[i].reset();
     }
