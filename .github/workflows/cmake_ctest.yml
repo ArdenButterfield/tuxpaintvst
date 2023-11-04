@@ -175,7 +175,7 @@ jobs:
     - name: Create and sign package (macOS)
       if: ${{ matrix.name == 'macOS' }}
       run: |
-        python -v
+        python --version
         mkdir packaging/plugins
         mv "${{ env.ARTIFACTS_PATH }}/VST3/${{ env.PROJECT_NAME }}.vst3" packaging/plugins
         mv "${{ env.ARTIFACTS_PATH }}/AU/${{ env.PROJECT_NAME }}.component" packaging/plugins
