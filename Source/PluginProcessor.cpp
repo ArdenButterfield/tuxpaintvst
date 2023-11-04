@@ -377,7 +377,7 @@ void PluginProcessor::getStateInformation (juce::MemoryBlock& destData)
     // as intermediaries to make it easy to save and load complex data.
     auto xml = juce::XmlElement("data");
     for (const auto param : getParameters()) {
-        xml.setAttribute(param->getName(100), param->getValue());
+        xml.setAttribute(param->getName(100).replace(" ", "-"), param->getValue());
     }
     auto imageData = juce::Image::BitmapData(canvas, 0, 0, canvas.getWidth(), canvas.getHeight(), juce::Image::BitmapData::readOnly);
     xml.setAttribute("canvas", juce::Base64::toBase64(imageData.data, imageData.size));
