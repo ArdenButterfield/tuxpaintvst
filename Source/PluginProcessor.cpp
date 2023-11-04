@@ -396,7 +396,11 @@ void PluginProcessor::setStateInformation (const void* data, int sizeInBytes)
         param->setValue((float)v);
     }
     juce::MemoryOutputStream outputStream;
-    auto imageData = juce::Base64::convertFromBase64(outputStream, xml->getStringAttribute("canvas"));
+    juce::Base64::convertFromBase64(outputStream, xml->getStringAttribute("canvas"));
+    auto memoryBlock = outputStream.getMemoryBlock();
+    auto imageData = juce::Image::BitmapData(canvas, 0, 0, canvas.getWidth(), canvas.getHeight(), juce::Image::BitmapData::writeOnly);
+
+    memoryBlock.copyTo(imageData.data, 0, imageData.size);
 
 }
 
