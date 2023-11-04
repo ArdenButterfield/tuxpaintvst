@@ -397,6 +397,79 @@ namespace TuxConstants {
 
     const int ERASER_MAX = 128;
 
+    const juce::StringArray eraserNames = {
+        "Square 0",
+        "Square 1",
+        "Square 2",
+        "Square 3",
+        "Square 4",
+        "Square 5",
+        "Square 6",
+        "Square 7",
+        "Circle 0",
+        "Circle 1",
+        "Circle 2",
+        "Circle 3",
+        "Circle 4",
+        "Circle 5",
+        "Circle 6",
+        "Circle 7"
+    };
+
+    const juce::StringArray shapeNames = {
+        // Square shape tool (4 equally-lengthed sides at right angles)
+        "Square",
+        "Square",
+
+        // Rectangle shape tool (4 sides at right angles)
+        "Rectangle",
+        "Rectangle",
+
+        // Circle shape tool (X radius and Y radius are the same)
+        "Circle",
+        "Circle",
+
+        // Ellipse shape tool (X radius and Y radius may differ)
+        "Ellipse",
+        "Ellipse",
+
+        // Triangle shape tool (3 sides)
+        "Triangle",
+        "Triangle",
+
+        // Pentagon shape tool (5 sides)
+        "Pentagon",
+        "Pentagon",
+
+        // Hexagon shape tool (6 sides)
+        "Hexagon",
+        "Hexagon",
+
+        // Heptagon (aka septagon) shape tool (7 sides)
+        "Heptagon",
+        "Heptagon",
+
+        // Octagon shape tool (8 sides)
+        "Octagon",
+        "Octagon",
+
+        // Rhombus shape tool (4 sides, not at right angles)
+        "Rhombus",
+        "Rhombus",
+
+        // Triangle star (3 points star)
+        "Star",
+        "Star",
+
+        // Rhombus star (4 points star)
+        "Star",
+        "Star",
+
+        // Pentagon star (5 points star)
+        "Star",
+        "Star"
+    };
+
     const juce::Colour backgroundColour = juce::Colour(255,255,255);
 
     struct TuxInternalParameters {
@@ -407,59 +480,7 @@ namespace TuxConstants {
             0),
               shapes(juce::ParameterID{"shapes", 1},
                   "Shapes",
-                  juce::StringArray {
-                      // Square shape tool (4 equally-lengthed sides at right angles)
-                      "Square",
-                      "Square",
-
-                      // Rectangle shape tool (4 sides at right angles)
-                      "Rectangle",
-                      "Rectangle",
-
-                      // Circle shape tool (X radius and Y radius are the same)
-                      "Circle",
-                      "Circle",
-
-                      // Ellipse shape tool (X radius and Y radius may differ)
-                      "Ellipse",
-                      "Ellipse",
-
-                      // Triangle shape tool (3 sides)
-                      "Triangle",
-                      "Triangle",
-
-                      // Pentagon shape tool (5 sides)
-                      "Pentagon",
-                      "Pentagon",
-
-                      // Hexagon shape tool (6 sides)
-                      "Hexagon",
-                      "Hexagon",
-
-                      // Heptagon (aka septagon) shape tool (7 sides)
-                      "Heptagon",
-                      "Heptagon",
-
-                      // Octagon shape tool (8 sides)
-                      "Octagon",
-                      "Octagon",
-
-                      // Rhombus shape tool (4 sides, not at right angles)
-                      "Rhombus",
-                      "Rhombus",
-
-                      // Triangle star (3 points star)
-                      "Star",
-                      "Star",
-
-                      // Rhombus star (4 points star)
-                      "Star",
-                      "Star",
-
-                      // Pentagon star (5 points star)
-                      "Star",
-                      "Star"
-                  },
+                  shapeNames,
                   0),
               shapeOrigin(juce::ParameterID{"shapeOrigin", 1},
                 "Shape Origin",
@@ -471,24 +492,7 @@ namespace TuxConstants {
                 ),
               erasers(juce::ParameterID{"erasers", 1},
                   "Erasers",
-                  juce::StringArray {
-                      "Square 0",
-                      "Square 1",
-                      "Square 2",
-                      "Square 3",
-                      "Square 4",
-                      "Square 5",
-                      "Square 6",
-                      "Square 7",
-                      "Circle 0",
-                      "Circle 1",
-                      "Circle 2",
-                      "Circle 3",
-                      "Circle 4",
-                      "Circle 5",
-                      "Circle 6",
-                      "Circle 7"
-                  },
+                  eraserNames,
                   0),
               colors(juce::ParameterID{"colors", 1},
                   "Colors",

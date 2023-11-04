@@ -166,9 +166,14 @@ jobs:
         sudo hdiutil attach Packages.dmg
         sudo installer -package /Volumes/Packages\ 1.2.10/Install\ Packages.pkg -target /
         # sudo hdiutil detach /Volumes/Packages\ 1.2.10/Install\ Packages.pkg
+    - uses: actions/checkout@v3
     - name: Create and sign package (macOS)
       if: ${{ matrix.name == 'macOS' }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
       run: |
+        python -v
         mkdir packaging/plugins
         mv "${{ env.ARTIFACTS_PATH }}/VST3/${{ env.PROJECT_NAME }}.vst3" packaging/plugins
         mv "${{ env.ARTIFACTS_PATH }}/AU/${{ env.PROJECT_NAME }}.component" packaging/plugins
