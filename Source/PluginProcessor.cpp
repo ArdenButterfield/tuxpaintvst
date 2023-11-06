@@ -330,7 +330,12 @@ void PluginProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     }
 
     if (currentLowestNote != 999) {
-        oscilloscopeData.resize(synthesiser.getSampleRate() / juce::MidiMessage::getMidiNoteInHertz(currentLowestNote));
+        auto oscPeriod = synthesiser.getSampleRate() / juce::MidiMessage::getMidiNoteInHertz(currentLowestNote);
+        const auto minOscPeriod = 100;
+        if (oscPeriod < minOscPeriod) {
+            oscPeriod *= (int)(minOscPeriod / oscPeriod) + 1;
+        }
+        oscilloscopeData.resize(oscPeriod);
     }
 
     if (internalParams.wavetableNeedsUpdating) {
