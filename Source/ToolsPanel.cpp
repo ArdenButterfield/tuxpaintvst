@@ -15,8 +15,12 @@ ToolsPanel::ToolsPanel(TuxConstants::TuxInternalParameters& p)
         toolButtons.add(button);
         addAndMakeVisible(button);
         button->addListener(this);
+        button->setDown(false);
     }
+    cur_tool = parameters.tool.getIndex();
+    toolButtons[cur_tool]->setDown(true);
 }
+
 ToolsPanel::~ToolsPanel() {
     toolButtons.clear(true);
     parameters.tool.removeListener(this);

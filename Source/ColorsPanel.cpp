@@ -14,7 +14,10 @@ ColorsPanel::ColorsPanel(TuxConstants::TuxInternalParameters& p)
         colorButtons.add(button);
         addAndMakeVisible(button);
         button->addListener(this);
+        button->setDown(false);
     }
+    cur_color = parameters.colors.getIndex();
+    colorButtons[cur_color]->setDown(true);
 
 }
 

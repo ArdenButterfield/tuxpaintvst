@@ -20,19 +20,19 @@ TuxPaint::TuxPaint(TuxConstants::TuxInternalParameters& p, juce::Image* canvas, 
       magicOptionPanel(p),
       oscilloscopePanel(oscData)
 {
-    updateRightPanel(parameters.tool.getIndex());
-
+    currentOptionsPanel = nullptr;
     parameters.tool.addListener(this);
 
     addAndMakeVisible(toolsPanel);
     addAndMakeVisible(canvasPanel);
-    addAndMakeVisible(fillOptionsPanel);
     addAndMakeVisible(colorsPanel);
     addAndMakeVisible(infoPanel);
     addAndMakeVisible(colorsTitlePanel);
     addAndMakeVisible(toolsTitlePanel);
 
     addAndMakeVisible(oscilloscopePanel);
+
+    updateRightPanel(parameters.tool.getIndex());
 }
 TuxPaint::~TuxPaint() {
     parameters.tool.removeListener( this);
@@ -85,7 +85,9 @@ void TuxPaint::updateRightPanel(int toolIndex)
         default:
             return;
     }
-    removeChildComponent(currentOptionsPanel);
+    if (currentOptionsPanel) {
+        removeChildComponent(currentOptionsPanel);
+    }
     currentOptionsPanel = newPanel;
     addAndMakeVisible(newPanel);
 }
