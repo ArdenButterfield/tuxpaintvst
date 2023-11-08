@@ -7,7 +7,10 @@
 
 TuxSynthVoice::TuxSynthVoice(OscillatorCoefficients* c) : coefficients(c)
 {
-
+    maxHarmonic = 0;
+    noteOn = false;
+    adsr.setSampleRate(getSampleRate());
+    adsr.setParameters({0.0,1.0,0.0,1.0});
 }
 
 bool TuxSynthVoice::canPlaySound (juce::SynthesiserSound* sound)
@@ -31,6 +34,8 @@ void TuxSynthVoice::updateWavetable()
 
 void TuxSynthVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound*, int)
 {
+    adsr.reset();
+    adsr.noteOn();
     oscillators.resize(coefficients->getNumCoefficients());
     noteOn = true;
     tailOff = 0.0;
@@ -48,6 +53,7 @@ void TuxSynthVoice::startNote (int midiNoteNumber, float velocity, juce::Synthes
 void TuxSynthVoice::stopNote (float, bool allowTailOff)
 {
     noteOn = false;
+    adsr.noteOff();
     if (allowTailOff)
     {
         clearCurrentNote();
@@ -74,11 +80,14 @@ void TuxSynthVoice::renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int 
     {
         if (noteOn) // [7]
         {
+            auto samples = juce::AudioSampleBuffer(1, numSamples);
+            samples.clear();
             for (int i = 0; i < maxHarmonic; ++i) {
-
-                oscillators[i].processBlock(outputBuffer.getWritePointer(0,startSample), numSamples);
+                // oscillators[i].processBlock(outputBuffer.getWritePointer(0,startSample), numSamples);
+                oscillators[i].processBlock(samples.getWritePointer(0,0), numSamples);
             }
-
+            adsr.applyEnvelopeToBuffer(samples,0,numSamples);
+            outputBuffer.addFrom(0,startSample,samples,0,0,numSamples,1);
         }
         else
         {

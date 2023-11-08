@@ -28,6 +28,8 @@ private:
     bool noteOn;
     OscillatorCoefficients* coefficients;
     int maxHarmonic;
+
+    juce::ADSR adsr;
 };
 
 #endif //TUXPAINTVST_TUXSYNTHVOICE_H
