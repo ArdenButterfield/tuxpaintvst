@@ -10,7 +10,7 @@ TuxSynthVoice::TuxSynthVoice(OscillatorCoefficients* c) : coefficients(c)
     maxHarmonic = 0;
     noteOn = false;
     adsr.setSampleRate(getSampleRate());
-    adsr.setParameters({0.0,1.0,0.0,1.0});
+    adsr.setParameters({0.0,1.0,0.8,1.0});
 }
 
 bool TuxSynthVoice::canPlaySound (juce::SynthesiserSound* sound)
@@ -52,15 +52,10 @@ void TuxSynthVoice::startNote (int midiNoteNumber, float velocity, juce::Synthes
 
 void TuxSynthVoice::stopNote (float, bool allowTailOff)
 {
-    noteOn = false;
     adsr.noteOff();
-    if (allowTailOff)
-    {
+    if (!allowTailOff) {
         clearCurrentNote();
-    }
-    else
-    {
-        clearCurrentNote();
+        noteOn = false;
     }
 
 }
@@ -77,32 +72,18 @@ void TuxSynthVoice::controllerMoved (int, int)
 
 void TuxSynthVoice::renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int startSample, int numSamples)
 {
-    {
-        if (noteOn) // [7]
-        {
-            auto samples = juce::AudioSampleBuffer(1, numSamples);
-            samples.clear();
-            for (int i = 0; i < maxHarmonic; ++i) {
-                // oscillators[i].processBlock(outputBuffer.getWritePointer(0,startSample), numSamples);
-                oscillators[i].processBlock(samples.getWritePointer(0,0), numSamples);
-            }
-            adsr.applyEnvelopeToBuffer(samples,0,numSamples);
-            outputBuffer.addFrom(0,startSample,samples,0,0,numSamples,1);
+    if (noteOn) {
+        auto samples = juce::AudioSampleBuffer(1, numSamples);
+        samples.clear();
+        for (int i = 0; i < maxHarmonic; ++i) {
+            // oscillators[i].processBlock(outputBuffer.getWritePointer(0,startSample), numSamples);
+            oscillators[i].processBlock(samples.getWritePointer(0,0), numSamples);
         }
-        else
-        {
-/*
-            while (--numSamples >= 0) // [6]
-            {
-                auto currentSample = (float) (std::sin (currentAngle) * level);
-
-                for (auto i = outputBuffer.getNumChannels(); --i >= 0;)
-                    outputBuffer.addSample (i, startSample, currentSample);
-
-                currentAngle += angleDelta;
-                ++startSample;
-            }
-*/
+        adsr.applyEnvelopeToBuffer(samples,0,numSamples);
+        outputBuffer.addFrom(0,startSample,samples,0,0,numSamples,1);
+        if (!adsr.isActive()) {
+            noteOn = false;
+            clearCurrentNote();
         }
     }
 }
