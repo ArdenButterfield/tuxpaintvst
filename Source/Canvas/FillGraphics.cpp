@@ -10,6 +10,8 @@ FillGraphics::FillGraphics(TuxConstants::TuxInternalParameters& p)
     parameters.colors.addListener(this);
     parameters.fillOptions.addListener(this);
     getParamValues();
+    startTimerHz(30);
+    needsRepainting = false;
 }
 
 FillGraphics::~FillGraphics()
@@ -43,7 +45,9 @@ void FillGraphics::doMouseDragged (int x, int y)
 {
     currentMouse = {x, y};
     if (fillMode == TuxConstants::FILL_GRADIENT_LINEAR || fillMode == TuxConstants::FILL_BRUSH) {
-        applyFillMask();
+        // applyFillMask();
+        needsRepainting = true;
+        // Don't repaint right away, to limit the number of calls per second
     }
     previousMouse = {x, y};
     // doFill(x,y,juce::Colours::magenta);
@@ -57,6 +61,15 @@ void FillGraphics::doFill (int x, int y)
     simulate_flood_fill(x, y);
     applyFillMask();
 }
+
+void FillGraphics::timerCallback()
+{
+    if (needsRepainting) {
+        applyFillMask();
+        needsRepainting = false;
+    }
+}
+
 void FillGraphics::applyFillMask()
 {
     if (fillMode == TuxConstants::FILL_FLOOD) {
@@ -65,7 +78,6 @@ void FillGraphics::applyFillMask()
                 if (shouldBeFilled[r * canvasImage->getWidth() + c]) {
                     canvasImage->setPixelAt(c, r, fillColor);
                 }
-
             }
         }
     } else if (fillMode == TuxConstants::FILL_GRADIENT_RADIAL) {

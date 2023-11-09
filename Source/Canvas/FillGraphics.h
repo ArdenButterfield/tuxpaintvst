@@ -8,7 +8,7 @@
 #include "GraphicsBase.h"
 #include "../TuxConstants.h"
 
-class FillGraphics : public GraphicsBase, public juce::AudioProcessorParameter::Listener
+class FillGraphics : public GraphicsBase, public juce::AudioProcessorParameter::Listener, public juce::Timer
 {
 public:
     FillGraphics(TuxConstants::TuxInternalParameters& p);
@@ -21,6 +21,7 @@ public:
     void doMouseUp(int x, int y) override {}
 
 private:
+    void timerCallback() override;
     juce::Image imageBeforeFill;
     juce::Point<int> startMouse, currentMouse, previousMouse;
     /* How close colors need to be to match all the time */
@@ -64,6 +65,7 @@ private:
     static float colors_close(juce::Colour c1, juce::Colour c2);
     // juce::Colour blend(juce::Colour draw_colr, juce::Colour old_colr, double pct);
 
+    bool needsRepainting;
 };
 
 #endif //TUXPAINTVST_FILLGRAPHICS_H
