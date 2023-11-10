@@ -96,7 +96,6 @@ void FillGraphics::applyFillMask()
                 }
             }
         }
-
     } else if (fillMode == TuxConstants::FILL_GRADIENT_LINEAR) {
         float A, B, C, C1, C2, ratio;
         A = (currentMouse.getX() - startMouse.getX());

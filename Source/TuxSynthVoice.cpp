@@ -5,12 +5,15 @@
 #include "TuxSynthVoice.h"
 #include "TuxSynthSound.h"
 
-TuxSynthVoice::TuxSynthVoice(OscillatorCoefficients* c) : coefficients(c)
+TuxSynthVoice::TuxSynthVoice(OscillatorCoefficients* c) : coefficients(c), filterBaseHarmonic(2), filterEnvelopeStrength(10)
 {
     maxHarmonic = 0;
     noteOn = false;
-    adsr.setSampleRate(getSampleRate());
-    adsr.setParameters({0.0,1.0,0.8,1.0});
+    envelope.setSampleRate(getSampleRate());
+    filterEnvelope.setSampleRate(getSampleRate());
+    envelope.setParameters({0.0,1.0,0.8,1.0});
+    filterEnvelope.setParameters({0.0,1.0,0.8,1.0});
+    filter.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), getSampleRate() / 2));
 }
 
 bool TuxSynthVoice::canPlaySound (juce::SynthesiserSound* sound)
@@ -34,30 +37,35 @@ void TuxSynthVoice::updateWavetable()
 
 void TuxSynthVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound*, int)
 {
-    adsr.reset();
-    adsr.noteOn();
+    envelope.reset();
+    filterEnvelope.reset();
+    envelope.noteOn();
+    filterEnvelope.noteOn();
+
+    filter.reset();
+
     oscillators.resize(coefficients->getNumCoefficients());
     noteOn = true;
     tailOff = 0.0;
-    auto cyclesPerSecond = (float)juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber);
-    maxHarmonic = coefficients->getMaxHarmonic(cyclesPerSecond);
+    currentNoteFrequency = (float)juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber);
+    maxHarmonic = coefficients->getMaxHarmonic(currentNoteFrequency);
     for (int i = 0; i < maxHarmonic; ++i) {
         oscillators[i].setSamplerate((float)getSampleRate());
-        oscillators[i].setFrequency(cyclesPerSecond * (float)i);
-        oscillators[i].setMagnitude(coefficients->getMagnitude(cyclesPerSecond, i) * velocity);
-        oscillators[i].setStartingPhase(coefficients->getPhase(cyclesPerSecond, i));
+        oscillators[i].setFrequency(currentNoteFrequency * (float)i);
+        oscillators[i].setMagnitude(coefficients->getMagnitude(currentNoteFrequency, i) * velocity);
+        oscillators[i].setStartingPhase(coefficients->getPhase(currentNoteFrequency, i));
         oscillators[i].reset();
     }
 }
 
 void TuxSynthVoice::stopNote (float, bool allowTailOff)
 {
-    adsr.noteOff();
+    envelope.noteOff();
+    filterEnvelope.noteOff();
     if (!allowTailOff) {
         clearCurrentNote();
         noteOn = false;
     }
-
 }
 
 void TuxSynthVoice::pitchWheelMoved (int)
@@ -73,15 +81,26 @@ void TuxSynthVoice::controllerMoved (int, int)
 void TuxSynthVoice::renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int startSample, int numSamples)
 {
     if (noteOn) {
+        float filterEnvPosition;
+        for (int i = 0; i < numSamples; ++i) {
+            filterEnvPosition = filterEnvelope.getNextSample();
+        }
+
+        auto filterFreq = (filterEnvPosition * filterEnvelopeStrength * filterBaseHarmonic * currentNoteFrequency) + currentNoteFrequency;
+        filterFreq = juce::jmin(filterFreq, (float)getSampleRate() * 0.5f);
+        filterFreq = juce::jmax(filterFreq, 10.f);
+        filter.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), filterFreq));
+
+
         auto samples = juce::AudioSampleBuffer(1, numSamples);
         samples.clear();
         for (int i = 0; i < maxHarmonic; ++i) {
-            // oscillators[i].processBlock(outputBuffer.getWritePointer(0,startSample), numSamples);
             oscillators[i].processBlock(samples.getWritePointer(0,0), numSamples);
         }
-        adsr.applyEnvelopeToBuffer(samples,0,numSamples);
+        envelope.applyEnvelopeToBuffer(samples,0,numSamples);
+        filter.processSamples(samples.getWritePointer(0,0), numSamples);
         outputBuffer.addFrom(0,startSample,samples,0,0,numSamples,1);
-        if (!adsr.isActive()) {
+        if (!envelope.isActive()) {
             noteOn = false;
             clearCurrentNote();
         }

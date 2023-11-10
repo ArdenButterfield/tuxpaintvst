@@ -29,7 +29,13 @@ private:
     OscillatorCoefficients* coefficients;
     int maxHarmonic;
 
-    juce::ADSR adsr;
+    float currentNoteFrequency;
+
+    juce::ADSR envelope;
+    juce::ADSR filterEnvelope;
+    juce::IIRFilter filter;
+    float filterBaseHarmonic;
+    float filterEnvelopeStrength;
 };
 
 #endif //TUXPAINTVST_TUXSYNTHVOICE_H
