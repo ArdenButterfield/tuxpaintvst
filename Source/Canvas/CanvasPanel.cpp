@@ -23,13 +23,14 @@ CanvasPanel::CanvasPanel (TuxConstants::TuxInternalParameters& p, juce::Image* c
     if (toolIndex == TuxConstants::TOOL_MUSIC) {
         addAndMakeVisible(musicGuiOverlay);
     }
-    currentGraphics = graphicsTools[toolIndex];
-    currentToolIndex = toolIndex;
-
     graphicsTools[TuxConstants::TOOL_BRUSH] = &brushGraphics;
     graphicsTools[TuxConstants::TOOL_ERASER] = &eraserGraphics;
     graphicsTools[TuxConstants::TOOL_FILL] = &fillGraphics;
     graphicsTools[TuxConstants::TOOL_MAGIC] = &magicGraphics;
+
+    currentGraphics = graphicsTools[toolIndex];
+    currentToolIndex = toolIndex;
+
 }
 
 CanvasPanel::~CanvasPanel()
